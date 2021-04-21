@@ -14,6 +14,7 @@ export class CardRepository extends Repository<Card> {
   }
 
   async returnCard(card: Card): Promise<void> {
+    if (!card.getStatus()) throw new BadRequestException();
     card.returnCard();
     await this.save(card);
   }
