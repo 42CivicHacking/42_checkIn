@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /deploy/42_checkIn/server
+cd /home/ryukim/deploy/42_checkIn/server
 
 npm install
 npm run start
