@@ -9,6 +9,8 @@ import configuration from 'config/configuration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { LogModule } from './log/log.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { resolve } from 'path';
 
 @Module({
   imports: [
@@ -29,6 +31,9 @@ import { LogModule } from './log/log.module';
         entities: [join(__dirname, '/**/*.entity.js')],
         synchronize: true,
       }),
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: resolve(__dirname, '../../client/build'),
     }),
     UserModule,
     AuthModule,
