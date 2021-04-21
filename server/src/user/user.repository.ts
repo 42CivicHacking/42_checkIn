@@ -8,11 +8,13 @@ export class UserRepository extends Repository<User> {
   async getCard(id: number): Promise<Card> {
     const user = await this.findOne(id, { relations: ['card'] });
     if (!user) throw new NotFoundException();
-    return user.getCard();
+    const card = user.getCard();
+    if (!card) throw new BadRequestException();
+    return card;
   }
 
   async setCard(id: number, card: Card): Promise<User> {
-    const user = await this.findOne(id);
+    const user = await this.findOne(id, { relations: ['card'] });
     if (!user) throw new NotFoundException();
     if (user.getCard()) throw new BadRequestException();
     user.cardSet(card);
