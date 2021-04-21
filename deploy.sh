@@ -2,18 +2,18 @@
 
 DOCKER_APP_NAME=enter
 
-EXIST_BLUE=$(docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml ps | grep Up)
+EXIST_BLUE=$(docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yaml ps | grep Up)
 
 if [ -z "$EXIST_BLUE" ]; then
     echo "blue up"
-    docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml up -d
+    docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yaml up -d
     sleep 10
-    docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml down
+    docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yaml down
 
 else
     echo "green up"
-    docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yml up -d
+    docker-compose -p ${DOCKER_APP_NAME}-green -f docker-compose.green.yaml up -d
     sleep 10
-    docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yml down
+    docker-compose -p ${DOCKER_APP_NAME}-blue -f docker-compose.blue.yaml down
 
 fi
