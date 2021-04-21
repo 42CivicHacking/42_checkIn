@@ -3,8 +3,8 @@ version: "2"
 services:
     enter:
         image: enter:latest
-        network_mode: host
         volumes:
             - /home/ryukim/deploy/42_checkIn:/deploy/42_checkIn
         ports:
             - "3002:3000"
+            - "3306:3306"
