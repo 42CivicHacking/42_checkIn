@@ -1,7 +1,7 @@
 version: "2"
 
 services:
-    jiduckche:
+    enter:
         image: enter:latest
         volumes:
             - /home/ryukim/deploy/42_checkIn:/deploy/42_checkIn
