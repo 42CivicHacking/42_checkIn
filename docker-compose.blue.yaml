@@ -2,7 +2,7 @@ version: "2"
 
 services:
     jiduckche:
-        image: 42checkIn:latest
+        image: enter:latest
         volumes:
             - /home/ryukim/deploy/42_checkIn:/deploy/42_checkIn
         ports:
