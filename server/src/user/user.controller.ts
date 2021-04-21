@@ -22,6 +22,7 @@ export class UserController {
     const token = await this.userService.login(req.user);
     res.cookie('w_auth', token);
   }
+
   @UseGuards(JwtAuthGuard)
   @Get('checkIn/:cardId')
   async checkIn(@Req() req: any, @Param('cardId') cardId: number) {
