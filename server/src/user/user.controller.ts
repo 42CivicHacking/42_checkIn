@@ -18,7 +18,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(FtAuthGuard)
-  @Get('login')
+  @Post('login')
   async login(@Req() req: any, @Res({ passthrough: true }) res: Response) {
     const token = await this.userService.login(req.user);
     res.cookie('w_auth', token);
