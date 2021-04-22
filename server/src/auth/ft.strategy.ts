@@ -14,5 +14,6 @@ export class FtStrategy extends PassportStrategy(Strategy) {
   }
   async validate(payload: any) {
     console.log(payload);
+    return payload;
   }
 }
