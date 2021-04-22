@@ -1,0 +1,10 @@
+#checkin {
+	font-family: "Futura PT", "Futura", "Helvetica", "Sans serif";
+	/* width: 80%; */
+}
+
+.input-wrapper {
+	width: 80%;
+	margin: 0 auto;
+	border: 1px solid black;
+}

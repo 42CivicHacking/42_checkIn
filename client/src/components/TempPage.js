@@ -8,7 +8,7 @@ function TempPage () {
 	}
 	const getToken = async () => {
 		try {
-			const response = await axios.post('', {
+			const response = await axios.post('/api/user/login', {
 				code: code
 			});
 			localStorage.setItem('w_auth', response.data.w_auth);
