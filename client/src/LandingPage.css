@@ -1,0 +1,17 @@
+.btn-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn {
+	font-family: "Futura PT", "Futura", "Helvetica", "Sans serif";
+	border: 1px solid rgb(42,45,56);
+	border-radius: 7px;
+	/* width: 30%; */
+	text-align: center;
+	/* height: 3rem; */
+	line-height: 7rem;
+	margin: auto;
+	font-size: 2rem;
+}
