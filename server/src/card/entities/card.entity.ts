@@ -4,8 +4,12 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class Card {
   @PrimaryGeneratedColumn()
   private cardId: number;
+
   @Column({ default: false })
   private using: boolean;
+
+  @Column()
+  private type: string;
 
   public getStatus() {
     return this.using;
