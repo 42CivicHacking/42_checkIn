@@ -23,14 +23,8 @@ export class UserController {
     console.log(req.user);
     const token = await this.userService.login(req.user);
     res.cookie('w_auth', token);
+    res.status(302).redirect('/checkin');
     return req.user.getName();
-  }
-
-  @UseGuards(FtAuthGuard)
-  @Get('login/callback')
-  async callback(@Req() req: any, @Res() res: Response) {
-    console.log(req.user);
-    res.status(302).redirect('/');
   }
 
   @UseGuards(JwtAuthGuard)
