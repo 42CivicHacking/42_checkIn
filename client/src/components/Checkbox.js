@@ -1,12 +1,13 @@
 import {useState} from 'react';
 function Checkbox (props) {
+	// const { checkStatus,
 	// const [checked, setChecked] = useState(true);
 	const handleClick = () => {
-		// props.setCheckedStatus({
-		// 	...props.checkStatus,
-		// 	props.
-		// })
-		// setChecked(checked => !checked);
+	// 	// props.setCheckedStatus({
+	// 	// 	...props.checkStatus,
+	// 	// 	props.
+	// 	// })
+	// 	setChecked(checked => !checked);
 	}
 	return (
 		<div>
