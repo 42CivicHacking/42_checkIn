@@ -17,20 +17,20 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @UseGuards(LocalAuthGuard)
-  @Get('login')
+  @Post('login')
   async login(@Req() req: any, @Res({ passthrough: true }) res: Response) {
     const token = await this.userService.login(req.user);
     res.cookie('w_auth', token);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('checkIn/:cardId')
+  @Post('checkIn/:cardId')
   async checkIn(@Req() req: any, @Param('cardId') cardId: number) {
     return this.userService.checkIn(req.user.userId, cardId);
   }
 
   @UseGuards(JwtAuthGuard)
-  @Get('checkOut')
+  @Post('checkOut')
   async checkOut(@Req() req: any) {
     console.log(req.user.userId);
     return this.userService.checkOut(req.user.userId);
