@@ -28,9 +28,9 @@ export class UserController {
 
   @UseGuards(FtAuthGuard)
   @Get('login/callback')
-  async callback(@Req() req: any) {
+  async callback(@Req() req: any, @Res() res: Response) {
     console.log(req.user);
-    return 0;
+    res.status(302).redirect('/');
   }
 
   @UseGuards(JwtAuthGuard)
