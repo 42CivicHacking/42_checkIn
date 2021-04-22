@@ -11,17 +11,24 @@ import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 import { UserService } from './user.service';
+import { FtAuthGuard } from 'src/auth/ft-auth.guard';
 
 @Controller('api/user/')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  @UseGuards(LocalAuthGuard)
-  @Post('login')
+  @UseGuards(FtAuthGuard)
+  @Get('login')
   async login(@Req() req: any, @Res({ passthrough: true }) res: Response) {
     const token = await this.userService.login(req.user);
     res.cookie('w_auth', token);
     return req.user.getName();
+  }
+
+  @UseGuards(FtAuthGuard)
+  @Get('login/callback')
+  async callback() {
+    return 0;
   }
 
   @UseGuards(JwtAuthGuard)
