@@ -28,7 +28,7 @@ export class UserController {
 
   @UseGuards(FtAuthGuard)
   @Get('login/callback')
-  async callback() {
+  async callback(@Req() req: any) {
     return 0;
   }
 
