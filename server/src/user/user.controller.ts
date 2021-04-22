@@ -23,6 +23,7 @@ export class UserController {
     console.log(req.user);
     const token = await this.userService.login(req.user);
     res.cookie('w_auth', token);
+    res.header('Access-Control-Allow-Origin', '*');
     return req.user.getName();
   }
 
