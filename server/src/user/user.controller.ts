@@ -20,6 +20,7 @@ export class UserController {
   @UseGuards(FtAuthGuard)
   @Post('login')
   async login(@Req() req: any, @Res({ passthrough: true }) res: Response) {
+    console.log(req);
     const token = await this.userService.login(req.user);
     res.cookie('w_auth', token);
     return req.user.getName();
