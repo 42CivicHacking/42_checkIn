@@ -7,7 +7,7 @@ import { Strategy } from 'passport-42';
 export class FtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly configService: ConfigService) {
     super({
-      clientId: configService.get('client.id'),
+      clientID: configService.get('client.id'),
       clientSecret: configService.get('client.secret'),
       callbackURL: 'http://localhost:3000/user/login/callback',
     });
