@@ -29,6 +29,7 @@ export class UserController {
   @UseGuards(FtAuthGuard)
   @Get('login/callback')
   async callback(@Req() req: any) {
+    console.log(req.user);
     return 0;
   }
 
