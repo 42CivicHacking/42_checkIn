@@ -36,7 +36,7 @@ import { HealthModule } from './health/health.module';
       }),
     }),
     ServeStaticModule.forRoot({
-      rootPath: resolve(__dirname, '../../client/build'),
+      rootPath: resolve(__dirname, '../../../client/build'),
     }),
     TerminusModule,
     UserModule,
