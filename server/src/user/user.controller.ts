@@ -21,6 +21,7 @@ export class UserController {
   async login(@Req() req: any, @Res({ passthrough: true }) res: Response) {
     const token = await this.userService.login(req.user);
     res.cookie('w_auth', token);
+    return req.user.getName();
   }
 
   @UseGuards(JwtAuthGuard)
