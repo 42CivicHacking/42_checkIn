@@ -19,12 +19,9 @@ function CheckInPage () {
 	const [cardNum, setCardNum] = useState('');
 	const [readySubmit, setReadySubmit] = useState(false);
 
-	// api/card/valid/{cardid} -> valid check // using: false (사용할 수 있으면), true
-	// card invalid -> 메세지 추가, input 초기화
 	const handleCheckIn = async () => {
 		if (readySubmit)
 		{
-			console.log("checkin");
 			try {
 				const res_valid = await axios.get(`${SERVER_URL}/api/card/valid/${cardNum}`);
 				if (res_valid.data['using'] === false)
@@ -46,15 +43,11 @@ function CheckInPage () {
 	};
 
 	const handleCheckOut = async() => {
-		if (readySubmit)
-		{
-			console.log("checkout");
-			try {
-				await axios.post(`${SERVER_URL}/api/user/checkOut`);
-				window.location.href = '/end';
-			} catch (err) {
-				console.log(err);
-			}
+		try {
+			await axios.post(`${SERVER_URL}/api/user/checkOut`);
+			window.location.href = '/end';
+		} catch (err) {
+			console.log(err);
 		}
 	};
 
@@ -71,9 +64,7 @@ function CheckInPage () {
 	const getCookieValue = (key) => {
 		let cookieKey = key + "=";
 		let result = "";
-		// const temp = "_ga=GA1.2.325595084.1553693343; tz=Asia%2FSeoul; w_auth=123; _octo=GH1.1.1561395261.1616810774";
 		const cookieArr = document.cookie.split(";");
-		// const cookieArr = temp.split(';');
 
 		for(let i = 0; i < cookieArr.length; i++) {
 		  if(cookieArr[i][0] === " ")
@@ -90,7 +81,6 @@ function CheckInPage () {
 		try {
 			const response = await axios.get('/api/user/status');
 			const {login, card} = response.data;
-			console.log('login, card', login, card);
 			setUserId(login);
 			if (card !== null)
 				setIsEnter(true);
@@ -105,7 +95,6 @@ function CheckInPage () {
 
 	useEffect (() => {
 		const token = getCookieValue('w_auth');
-		console.log('token: ',token);
 		if (token !== '')
 			getUserData();
 		else
@@ -126,7 +115,6 @@ function CheckInPage () {
 				:
 				<div>
 					<div className="input-wrapper">
-						{/* <h3>Check List</h3> */}
 						<input type="checkbox" checked={checkAll} onChange={handleCheckAll} />모두 동의
 						<div className="checkbox-wrapper">
 							{checkLists.map((checkList, id) =>
