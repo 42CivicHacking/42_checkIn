@@ -14,11 +14,12 @@ export class AuthService {
 
   async validateUser(code: string): Promise<User> {
     const form = new FormData();
+    console.log(code);
     form.append('grant_type', 'authorization_code');
     form.append('client_id', this.configService.get('client.id'));
     form.append('client_secret', this.configService.get('client.secret'));
     form.append('code', code);
-    form.append('redirect_uri', 'http://localhost:3000/api/user/login');
+    form.append('redirect_uri', 'http://13.209.202.141/temp');
     const token: string = (
       await this.httpService
         .post('https://api.intra.42.fr/oauth/token', form, {
