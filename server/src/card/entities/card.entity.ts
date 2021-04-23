@@ -2,6 +2,9 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Card {
+  constructor(type: number) {
+    this.type = type;
+  }
   @PrimaryGeneratedColumn()
   private cardId: number;
 
@@ -9,7 +12,7 @@ export class Card {
   private using: boolean;
 
   @Column()
-  private type: string;
+  private type: number;
 
   public getStatus() {
     return this.using;

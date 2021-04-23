@@ -25,7 +25,13 @@ export class UserController {
   async callback(@Req() req: any, @Res({ passthrough: true }) res: Response) {
     const token = await this.userService.login(req.user);
     res.cookie('w_auth', token);
-    res.status(302).redirect(`/checkin/${req.user.getName()}`);
+    res.status(302).redirect('/submit');
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('status')
+  async status(@Req() req: any) {
+    return this.userService.status(req.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)

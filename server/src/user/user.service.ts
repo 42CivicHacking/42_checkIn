@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { CardRepository } from 'src/card/card.repository';
 import { LogService } from 'src/log/log.service';
@@ -21,6 +21,15 @@ export class UserService {
     }
     // UseGuards에서 넘어온 user로 JWT token 생성
     return await this.authService.generateToken(user);
+  }
+
+  async status(id: number): Promise<Object> {
+    let returnVal = { login: '', card: 0 };
+    const user = await this.userRepository.findOne(id, { relations: ['card'] });
+    if (!user) throw new NotFoundException();
+    returnVal.login = user.getName();
+    returnVal.card = user.getCard() ? user.getCard().getId() : null;
+    return returnVal;
   }
 
   async checkIn(id: number, cardId: number) {
