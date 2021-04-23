@@ -5,9 +5,7 @@ import '../styles/SubmitPage.css'
 
 const SERVER_URL = 'http://13.209.202.141';
 
-// card valid check -> server에
-
-function CheckInPage (props) {
+function CheckInPage () {
 	const checkLists = [
 		'발열 체크시 37.5도 이하인 것을 확인했습니다.',
 		'이 임시 출입카드를 분실 시 분실 비용이 발생하는 것을 확인했습니다.',
@@ -15,56 +13,32 @@ function CheckInPage (props) {
 	];
 
 	const [userId, setUserId] = useState('');
-	// const [cardList, setCardList] = useState([]);
 	const [isEnter, setIsEnter] = useState(false);
 	const [checkAll, setCheckAll] = useState(false);
 	const [checkStatus, setCheckStatus] = useState([false, false, false]);
 	const [cardNum, setCardNum] = useState('');
 	const [readySubmit, setReadySubmit] = useState(false);
 
-	// const fetchCardData = async () => {
-	// 	try {
-	// 		const response = await axios.get(`${SERVER_URL}/api/card/all`);
-	// 		setCardList(response.data);
-	// 	} catch (err){
-	// 		console.log(err);
-	// 	}
-	// }
-
-	const fetchUserData = async () => {
-		console.log('fetch user data');
-		setIsEnter(false);
-		// try {
-		// 	const response = await axios.get();
-		// 	if (response.isEnter === false)
-		// 	{
-		// 		setIsEnter(true);
-		// 		fetchCardData();
-		// 	}
-		// 	else
-		// 		setIsEnter(false);
-		// } catch(err) {
-		// 	console.log(err);
-		// }
-	}
-
 	// api/card/valid/{cardid} -> valid check // using: false (사용할 수 있으면), true
 	// card invalid -> 메세지 추가, input 초기화
-
 	const handleCheckIn = async () => {
 		if (readySubmit)
 		{
 			console.log("checkin");
 			try {
-				const response = await axios.post(`${SERVER_URL}/api/user/checkIn/${cardNum}`);
-				// {
-					// userId: userId,
-					// isEnter: isEnter,
-					// checkStatus: checkStatus,
-				// 	cardNum: cardNum
-				// });
-				//완료 메세지 추가
-				console.log(response);
+				const res_valid = await axios.get(`${SERVER_URL}/api/card/valid/${cardNum}`);
+				if (res_valid.data['using'] === false)
+				{
+					try {
+						await axios.post(`${SERVER_URL}/api/user/checkIn/${cardNum}`);
+						window.location.href = '/end';
+					} catch (err) {
+						console.log(err);
+					}
+				} else {
+					setCardNum('');
+					alert('유효한 카드 번호가 아닙니다');
+				}
 			} catch (err) {
 				console.log(err);
 			}
@@ -76,10 +50,8 @@ function CheckInPage (props) {
 		{
 			console.log("checkout");
 			try {
-				const response = await axios.post(`${SERVER_URL}/api/user/checkOut`);
-				//완료 메세지 추가
-
-				console.log(response);
+				await axios.post(`${SERVER_URL}/api/user/checkOut`);
+				window.location.href = '/end';
 			} catch (err) {
 				console.log(err);
 			}
@@ -92,15 +64,52 @@ function CheckInPage (props) {
 		setCheckStatus([isChecked, isChecked, isChecked]);
 	};
 
-	const handlePickCard = (e) => {
+	const handleCardNum = (e) => {
 		setCardNum(e.target.value);
 	}
 
+	const getCookieValue = (key) => {
+		let cookieKey = key + "=";
+		let result = "";
+		// const temp = "_ga=GA1.2.325595084.1553693343; tz=Asia%2FSeoul; w_auth=123; _octo=GH1.1.1561395261.1616810774";
+		const cookieArr = document.cookie.split(";");
+		// const cookieArr = temp.split(';');
+
+		for(let i = 0; i < cookieArr.length; i++) {
+		  if(cookieArr[i][0] === " ")
+			cookieArr[i] = cookieArr[i].substring(1);
+		  if(cookieArr[i].indexOf(cookieKey) === 0) {
+			result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
+			return result;
+		  }
+		}
+		return result;
+	}
+
+	const getUserData = async() => {
+		try {
+			const response = await axios.get('/api/user/status');
+			const {login, card} = response.data;
+			console.log('login, card', login, card);
+			setUserId(login);
+			if (card !== null)
+				setIsEnter(true);
+			else
+				setIsEnter(false);
+		} catch (err) {
+			console.log(err);
+			document.cookie = 'w_auth=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+			window.location.href = '/';
+		}
+	}
+
 	useEffect (() => {
-		console.log('effect');
-		if (userId === '')
-			setUserId(window.location.href.split('/').reverse()[0]);
-		// 	fetchUserData();
+		const token = getCookieValue('w_auth');
+		console.log('token: ',token);
+		if (token !== '')
+			getUserData();
+		else
+			window.location.href = '/';
 		if (isEnter === false && cardNum !== '' && JSON.stringify(checkStatus) === JSON.stringify([true, true, true]))
 			setReadySubmit(true);
 		if (cardNum === '' || cardNum === '---' || JSON.stringify(checkStatus) !== JSON.stringify([true, true, true]))
@@ -126,11 +135,9 @@ function CheckInPage (props) {
 					</div>
 					<div className="input-wrapper">
 						<h3>Card Number</h3>
-						<input id="card" type="text" name="text" value={cardNum} onChange={handlePickCard}></input>
-						{/* <select onChange={handlePickCard}>
-							<option>---</option>
-							{cardList.map((num) => <option key={num} value={num}>{num}</option>)}
-						</select> */}
+						<div id="card">
+							<input type="text" name="text" value={cardNum} onChange={handleCardNum}></input>
+						</div>
 					</div>
 					<div className={`submitBtn ${readySubmit ? ' ready': ''}`} onClick={handleCheckIn}>Check In</div>
 				</div>
