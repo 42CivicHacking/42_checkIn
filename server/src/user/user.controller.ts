@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 import { UserService } from './user.service';
 import { FtAuthGuard } from 'src/auth/ft-auth.guard';
 
@@ -19,11 +18,14 @@ export class UserController {
 
   @UseGuards(FtAuthGuard)
   @Get('login')
-  async login(@Req() req: any, @Res({ passthrough: true }) res: Response) {
-    console.log(req.user);
+  async login() {}
+
+  @UseGuards(FtAuthGuard)
+  @Get('login/callback')
+  async callback(@Req() req: any, @Res({ passthrough: true }) res: Response) {
     const token = await this.userService.login(req.user);
     res.cookie('w_auth', token);
-    return req.user.getName();
+    res.status(302).redirect(`/checkin/${req.user.getName()}`);
   }
 
   @UseGuards(JwtAuthGuard)
