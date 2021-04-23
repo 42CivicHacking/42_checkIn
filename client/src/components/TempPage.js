@@ -10,13 +10,9 @@ function TempPage() {
 	};
 	const getToken = async () => {
 		try {
-			const response = await axios.post(
-				"api/user/login",
-				{
-					code: code,
-				},
-				{ withCredentials: true }
-			);
+			const response = await axios.post("api/user/login", {
+				code: code,
+			});
 			localStorage.setItem("w_auth", response.data.w_auth);
 			window.location.href = "";
 		} catch (err) {

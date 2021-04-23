@@ -1,17 +1,19 @@
-import {useState} from 'react';
+import '../styles/Checkbox.css';
+
 function Checkbox (props) {
-	// const { checkStatus,
-	// const [checked, setChecked] = useState(true);
-	const handleClick = () => {
-	// 	// props.setCheckedStatus({
-	// 	// 	...props.checkStatus,
-	// 	// 	props.
-	// 	// })
-	// 	setChecked(checked => !checked);
+	const {name, text, checkStatus, setCheckStatus} = props;
+
+	const handleChange = () => {
+		const checked = checkStatus[name];
+		setCheckStatus([
+			...checkStatus.slice(0,name),
+			!checked,
+			...checkStatus.slice(name+1)
+		])
 	}
 	return (
 		<div>
-			<input type="checkbox" checked={props.checkStatus} onChange={handleClick}/>{props.text}
+		<input className="checkbox" type="checkbox" checked={checkStatus[name]} onChange={handleChange} />{text}
 		</div>
 	)
 };
