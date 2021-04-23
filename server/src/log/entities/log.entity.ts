@@ -1,6 +1,7 @@
 import { User } from 'src/user/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -29,4 +30,7 @@ export class Log {
 
   @Column()
   private type: string;
+
+  @CreateDateColumn()
+  private createdAt: Date;
 }
