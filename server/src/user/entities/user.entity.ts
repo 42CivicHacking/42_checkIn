@@ -15,9 +15,6 @@ export class User {
   @OneToOne(() => Card)
   private card: Card;
 
-  @Column()
-  private code: string;
-
   public getId() {
     return this.userId;
   }
