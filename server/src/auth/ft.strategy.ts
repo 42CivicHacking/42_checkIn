@@ -11,6 +11,12 @@ export class FtStrategy extends PassportStrategy(Strategy) {
       clientID: configService.get('client.id'),
       clientSecret: configService.get('client.secret'),
       callbackURL: 'http://13.209.202.141/temp',
+      customHeaders: {
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      },
     });
   }
   async validate(token: string, rt: string, profile: any) {
