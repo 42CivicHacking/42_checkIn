@@ -33,4 +33,12 @@ export class LogService {
     const log = new Log(user, card, type);
     await this.logRepository.save(log);
   }
+
+  async getCluster(type: number, page: number): Promise<Log[]> {
+    return await this.logRepository.find({
+      where: { card: { type: type } },
+      skip: 50 * page,
+      take: 50,
+    });
+  }
 }
