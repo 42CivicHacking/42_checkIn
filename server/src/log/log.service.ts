@@ -13,12 +13,15 @@ export class LogService {
   ) {}
 
   async getUserLog(login: string): Promise<Log[]> {
-    const userId = (
-      await this.userRepository.findOne({
-        where: { userName: login },
-      })
-    ).getId();
-    return await this.logRepository.find({ where: { userId: userId } });
+    // const userId = (
+    //   await this.userRepository.findOne({
+    //     where: { userName: login },
+    //   })
+    // ).getId();
+    return await this.logRepository.find({
+      where: { user: { userName: login } },
+      relation: ['user'],
+    });
   }
 
   async getCardLog(id: number): Promise<Log[]> {
