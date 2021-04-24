@@ -19,8 +19,10 @@ export class LogService {
     //   })
     // ).getId();
     const logs = await this.logRepository.find({
-      where: { user: { userName: login } },
       relation: ['user'],
+      where: (qb) => {
+        qb.where('Log__user.userName = :name', { name: login });
+      },
     });
     console.log('login', login);
     console.log(logs);
@@ -48,7 +50,7 @@ export class LogService {
       where: { card: { type: type } },
       skip: 50 * page,
       take: 50,
-      relation: ['user', 'card'],
+      relation: ['user'],
     });
     console.log('type', type, 'page', page);
     console.log(logs);
