@@ -15,7 +15,7 @@ export class LogService {
   async getUserLog(login: string): Promise<Log[]> {
     const userId = (
       await this.userRepository.findOne({
-        where: { name: login },
+        where: { userName: login },
       })
     ).getId();
     return await this.logRepository.find({ where: { userId: userId } });
