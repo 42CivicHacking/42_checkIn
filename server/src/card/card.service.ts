@@ -24,11 +24,16 @@ export class CardService {
   }
 
   async getUsingInfo(): Promise<Object> {
-    const gaepo = (await this.cardRepository.find({
-      where: { using: true, type: 0 }
-    })).length
-    const seocho = (await this.cardRepository.find({
-      where: { using: true, type: 1 }
-    })).length
-    return { gaepo: gaepo, seocho: seocho }
+    const gaepo = (
+      await this.cardRepository.find({
+        where: { using: true, type: 0 },
+      })
+    ).length;
+    const seocho = (
+      await this.cardRepository.find({
+        where: { using: true, type: 1 },
+      })
+    ).length;
+    return { gaepo: gaepo, seocho: seocho };
+  }
 }
