@@ -11,7 +11,7 @@ export class LogService {
 
   async getUserLog(login: string): Promise<Log[]> {
     return await this.logRepository.find({
-      relations: ['user'],
+      relations: ['user', 'card'],
       where: (qb) => {
         qb.where('Log__user.userName = :name', { name: login });
       },
@@ -21,7 +21,7 @@ export class LogService {
   async getCardLog(id: number): Promise<Log[]> {
     return await this.logRepository.find({
       where: { card: { cardId: id } },
-      relations: ['user'],
+      relations: ['user', 'card'],
     });
   }
 
