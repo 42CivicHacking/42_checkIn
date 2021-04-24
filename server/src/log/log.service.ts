@@ -22,6 +22,7 @@ export class LogService {
       where: { user: { userName: login } },
       relation: ['user'],
     });
+    console.log('login', login);
     console.log(logs);
     return logs;
   }
@@ -49,6 +50,7 @@ export class LogService {
       take: 50,
       relation: ['user'],
     });
+    console.log('type', type, 'page', page);
     console.log(logs);
     return logs;
   }
