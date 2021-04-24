@@ -48,7 +48,7 @@ export class LogService {
       where: { card: { type: type } },
       skip: 50 * page,
       take: 50,
-      relation: ['user'],
+      relation: ['user', 'card'],
     });
     console.log('type', type, 'page', page);
     console.log(logs);
