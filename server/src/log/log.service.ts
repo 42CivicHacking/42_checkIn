@@ -13,21 +13,12 @@ export class LogService {
   ) {}
 
   async getUserLog(login: string): Promise<Log[]> {
-    // const userId = (
-    //   await this.userRepository.findOne({
-    //     where: { userName: login },
-    //   })
-    // ).getId();
-    const logs = await this.logRepository.find({
+    return await this.logRepository.find({
       relations: ['user'],
-      // where: { user: { userName: login } },
       where: (qb) => {
         qb.where('Log__user.userName = :name', { name: login });
       },
     });
-    console.log('login', login);
-    console.log(logs);
-    return logs;
   }
 
   async getCardLog(id: number): Promise<Log[]> {
@@ -48,10 +39,12 @@ export class LogService {
 
   async getCluster(type: number, page: number): Promise<Log[]> {
     const logs = await this.logRepository.find({
-      where: { card: { type: type } },
+      relations: ['user', 'card'],
+      where: (qb) => {
+        qb.where('Log__card.type = :type', { type: type });
+      },
       skip: 50 * page,
       take: 50,
-      relations: ['user'],
     });
     console.log('type', type, 'page', page);
     console.log(logs);
