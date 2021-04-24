@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useState } from "react";
-import Checkbox from "./Checkbox";
 
 function SearchBar(props) {
 	const SERVER_URL = "http://13.209.202.141";
@@ -23,7 +22,7 @@ function SearchBar(props) {
 				case 0:
 					response = await axios.get(
 						`${SERVER_URL}/api/log/${
-							ClusterType == 0 ? "gaepo" : "seocho"
+							ClusterType === 0 ? "gaepo" : "seocho"
 						}/${Page}`
 					);
 					break;
@@ -49,41 +48,46 @@ function SearchBar(props) {
 	const Cluster = () => (
 		<div>
 			<form onSubmit={onSubmit}>
-				<label>
-					<input
-						type="radio"
-						name="cluster"
-						value={0}
-						checked={ClusterType == 0}
-						onChange={handleClick}
-					/>
-					개포
-				</label>
-				<label>
-					<input
-						type="radio"
-						name="cluster"
-						value={1}
-						checked={ClusterType == 1}
-						onChange={handleClick}
-					/>
-					서초
-				</label>
-				<label>{Page}</label>
-				<button
-					onClick={() => {
-						setPage(Page == 0 ? 0 : Page - 1);
-					}}
-				>
-					이전 페이지
-				</button>
-				<button
-					onClick={() => {
-						setPage(Page + 1);
-					}}
-				>
-					다음 페이지
-				</button>
+				<div>
+					<label>
+						<input
+							type="radio"
+							name="cluster"
+							value={0}
+							checked={ClusterType === 0}
+							onChange={handleClick}
+						/>
+						개포
+					</label>
+					<label>
+						<input
+							type="radio"
+							name="cluster"
+							value={1}
+							checked={ClusterType === 1}
+							onChange={handleClick}
+						/>
+						서초
+					</label>
+				</div>
+				<div>
+					<label>{Page}</label>
+					<button
+						onClick={() => {
+							setPage(Page === 0 ? 0 : Page - 1);
+						}}
+					>
+						이전 페이지
+					</button>
+					<button
+						onClick={() => {
+							setPage(Page + 1);
+						}}
+					>
+						다음 페이지
+					</button>
+				</div>
+
 				<button onClick={onSubmit}>불러오기</button>
 			</form>
 		</div>
@@ -124,16 +128,12 @@ function SearchBar(props) {
 	switch (props.type) {
 		case 0:
 			return Cluster();
-			break;
 		case 1:
 			return Student();
-			break;
 		case 2:
 			return Card();
-			break;
 		default:
 			return Cluster();
-			break;
 	}
 }
 
