@@ -43,7 +43,6 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Post('checkOut')
   async checkOut(@Req() req: any) {
-    console.log(req.user.userId);
     return this.userService.checkOut(req.user.userId);
   }
 }

@@ -25,7 +25,7 @@ export class LogService {
   }
 
   async getCardLog(id: number): Promise<Log[]> {
-    return await this.logRepository.find({ where: { cardId: id } });
+    return await this.logRepository.find({ where: { card: { cardId: id } } });
   }
 
   async getAll(): Promise<Log[]> {
