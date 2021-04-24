@@ -23,4 +23,9 @@ export class CardController {
   async validCheck(@Param('id') cardId: number) {
     return await this.cardServcie.validCheck(cardId);
   }
+
+  @Get('using')
+  async getUsingInfo() {
+    return await this.cardServcie.getUsingInfo();
+  }
 }

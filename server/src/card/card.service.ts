@@ -22,4 +22,13 @@ export class CardService {
     if (card) return { using: card.getStatus() };
     return { using: true };
   }
+
+  async getUsingInfo(): Promise<Object> {
+    const gaepo = (await this.cardRepository.find({
+      where: { using: true, type: 0 }
+    })).length
+    const seocho = (await this.cardRepository.find({
+      where: { using: true, type: 1 }
+    })).length
+    return { gaepo: gaepo, seocho: seocho }
 }
