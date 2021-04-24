@@ -20,9 +20,9 @@ export class LogService {
     // ).getId();
     const logs = await this.logRepository.find({
       relation: ['userId'],
-      where: (qb) => {
-        qb.where('userId.userName = :name', { name: login });
-      },
+      // where: (qb) => {
+      //   qb.where('userId.userName = :name', { name: login });
+      // },
     });
     console.log('login', login);
     console.log(logs);
