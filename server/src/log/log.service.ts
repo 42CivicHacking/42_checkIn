@@ -21,7 +21,7 @@ export class LogService {
     const logs = await this.logRepository.find({
       relation: ['user'],
       where: (qb) => {
-        qb.where({ user: { userName: login } });
+        qb.where('Log__userId.userName = :name', { name: login });
       },
     });
     console.log('login', login);
