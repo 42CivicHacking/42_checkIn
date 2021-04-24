@@ -18,14 +18,19 @@ export class LogService {
     //     where: { userName: login },
     //   })
     // ).getId();
-    return await this.logRepository.find({
+    const logs = await this.logRepository.find({
       where: { user: { userName: login } },
       relation: ['user'],
     });
+    console.log(logs);
+    return logs;
   }
 
   async getCardLog(id: number): Promise<Log[]> {
-    return await this.logRepository.find({ where: { card: { cardId: id } } });
+    return await this.logRepository.find({
+      where: { card: { cardId: id } },
+      relation: ['user'],
+    });
   }
 
   async getAll(): Promise<Log[]> {
@@ -38,10 +43,13 @@ export class LogService {
   }
 
   async getCluster(type: number, page: number): Promise<Log[]> {
-    return await this.logRepository.find({
+    const logs = await this.logRepository.find({
       where: { card: { type: type } },
       skip: 50 * page,
       take: 50,
+      relation: ['user'],
     });
+    console.log(logs);
+    return logs;
   }
 }
