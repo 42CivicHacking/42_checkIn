@@ -21,11 +21,11 @@ export class Log {
   private logId: number;
 
   @ManyToOne(() => User)
-  @JoinColumn({ name: 'userId' })
+  @JoinColumn()
   private user: User;
 
   @ManyToOne(() => Card)
-  @JoinColumn({ name: 'cardId' })
+  @JoinColumn()
   private card: Card;
 
   @Column()
