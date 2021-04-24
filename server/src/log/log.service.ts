@@ -19,7 +19,8 @@ export class LogService {
     //   })
     // ).getId();
     const logs = await this.logRepository.find({
-      relation: ['userId'],
+      relations: ['user'],
+      where: { user: { userName: login } },
       // where: (qb) => {
       //   qb.where('userId.userName = :name', { name: login });
       // },
@@ -32,7 +33,7 @@ export class LogService {
   async getCardLog(id: number): Promise<Log[]> {
     return await this.logRepository.find({
       where: { card: { cardId: id } },
-      relation: ['userId'],
+      relations: ['user'],
     });
   }
 
@@ -50,7 +51,7 @@ export class LogService {
       where: { card: { type: type } },
       skip: 50 * page,
       take: 50,
-      relation: ['userId'],
+      relations: ['user'],
     });
     console.log('type', type, 'page', page);
     console.log(logs);
