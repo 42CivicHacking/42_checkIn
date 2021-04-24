@@ -1,0 +1,49 @@
+#checkinout {
+	font-family: "Futura PT", "Futura", "Helvetica", "Sans serif";
+	width: 80%;
+	margin: 0 auto;
+	padding-top: 15%;
+}
+
+#title {
+	text-align: center;
+}
+
+#userId {
+	text-align: center;
+}
+
+.input-wrapper {
+	margin: 30px auto;
+	border-radius: 3px;
+}
+
+h3 {
+	text-align: center;
+	margin: 5px auto;
+}
+
+.submitBtn {
+	width: 50%;
+	border-radius: 3px;
+	text-align: center;
+	margin: 0 auto;
+	padding: 10px;
+	border: 1px solid white;
+}
+
+.checkbox-wrapper {
+	width: 79%;
+	margin: 0 auto;
+}
+
+.ready {
+	color: black;
+	background-color: white;
+}
+
+#card {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

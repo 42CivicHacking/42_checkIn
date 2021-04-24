@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+    enter:
+        image: enter:latest
+        volumes:
+            - /home/ryukim/deploy/42_checkIn:/deploy/42_checkIn
+        ports:
+            - "3002:3000"
+        extra_hosts:
+            - "host.docker.internal:host-gateway"

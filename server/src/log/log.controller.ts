@@ -9,12 +9,24 @@ export class LogController {
   async getUserLog(@Param('login') login: string) {
     return this.logService.getUserLog(login);
   }
+
   @Get('card/:id')
   async getCardLog(@Param('id') id: number) {
     return this.logService.getCardLog(id);
   }
+
   @Get('all')
   async getAll() {
     return this.logService.getAll();
+  }
+
+  @Get('gaepo/:page')
+  async getGaepoLog(@Param('page') page: number) {
+    return this.logService.getCluster(0, page);
+  }
+
+  @Get('seocho/:page')
+  async getSeochoLog(@Param('page') page: number) {
+    return this.logService.getCluster(1, page);
   }
 }

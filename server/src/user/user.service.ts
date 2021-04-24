@@ -1,4 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { CardRepository } from 'src/card/card.repository';
 import { LogService } from 'src/log/log.service';
@@ -23,7 +27,22 @@ export class UserService {
     return await this.authService.generateToken(user);
   }
 
+  async status(id: number): Promise<Object> {
+    let returnVal = { login: '', card: 0 };
+    const user = await this.userRepository.findOne(id, { relations: ['card'] });
+    if (!user) throw new NotFoundException();
+    returnVal.login = user.getName();
+    returnVal.card = user.getCard() ? user.getCard().getId() : null;
+    return returnVal;
+  }
+
   async checkIn(id: number, cardId: number) {
+    const usingCard = (
+      await this.cardRepository.find({
+        where: { using: true },
+      })
+    ).length;
+    if (usingCard >= 150) throw new BadRequestException();
     const card = await this.cardRepository.useCard(cardId);
     const user = await this.userRepository.setCard(id, card);
     await this.logService.createLog(user, card, 'checkIn');
