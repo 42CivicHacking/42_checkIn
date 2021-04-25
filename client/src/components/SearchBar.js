@@ -22,7 +22,7 @@ function SearchBar(props) {
 				case 0:
 					response = await axios.get(
 						`${SERVER_URL}/api/log/${
-							ClusterType === 0 ? "gaepo" : "seocho"
+							ClusterType == 0 ? "gaepo" : "seocho"
 						}/${Page}`
 					);
 					break;
