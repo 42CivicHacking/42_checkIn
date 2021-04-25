@@ -2,7 +2,7 @@
 	font-family: "Futura", "Sans serif";
 	width: 80%;
 	margin: 0 auto;
-	padding-top: 5vh;
+	padding-top: 15%;
 	max-width: 512px;
 	user-select: none;
 }
@@ -50,11 +50,21 @@ h3 {
 	align-items: center;
 }
 
-input::-webkit-input-placeholder { text-align: center; }
-input::-moz-placeholder { text-align: center; }
-input:-ms-input-placeholder { text-align: center; }
-input:-moz-placeholder { text-align: center; }
-input::placeholder { text-align: center; }
+input::-webkit-input-placeholder {
+	text-align: center;
+}
+input::-moz-placeholder {
+	text-align: center;
+}
+input:-ms-input-placeholder {
+	text-align: center;
+}
+input:-moz-placeholder {
+	text-align: center;
+}
+input::placeholder {
+	text-align: center;
+}
 
 label {
 	cursor: pointer;
