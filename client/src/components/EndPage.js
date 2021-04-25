@@ -7,7 +7,7 @@ function EndPage() {
 	})
 	return (
 		<>
-			<h1 style={{textAlign: "center", marginTop: '40vh'}}>Complete!</h1>
+			<h1>Complete!</h1>
 		</>
 	)
 }
