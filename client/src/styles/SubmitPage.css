@@ -2,7 +2,9 @@
 	font-family: "Futura PT", "Futura", "Helvetica", "Sans serif";
 	width: 80%;
 	margin: 0 auto;
-	padding-top: 15%;
+	padding-top: 5vh;
+	max-width: 512px;
+	user-select: none;
 }
 
 #title {
@@ -53,3 +55,7 @@ input::-moz-placeholder { text-align: center; }
 input:-ms-input-placeholder { text-align: center; }
 input:-moz-placeholder { text-align: center; }
 input::placeholder { text-align: center; }
+
+label {
+	cursor: pointer;
+}
