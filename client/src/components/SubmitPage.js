@@ -7,9 +7,9 @@ const SERVER_URL = "http://13.209.202.141";
 
 function CheckInPage() {
 	const checkLists = [
-		"발열 체크시 37.5도 이하인 것을 확인했습니다.",
-		"이 임시 출입카드를 분실 시 분실 비용이 발생하는 것을 확인했습니다.",
-		"마스크를 반드시 상시 착용하고 방역수칙을 준수할 것을 약속하며, 모든 설문을 이상없이 작성했음을 확인합니다.",
+		' 발열 체크 시 37.5도 이하인 것을 확인했습니다.',
+		' 이 임시 출입카드를 분실 시 분실 비용이 발생하는 것을 확인했습니다.',
+		' 마스크를 반드시 상시 착용하고 방역수칙을 준수할 것을 약속하며, 모든 설문을 이상 없이 작성했음을 확인합니다.'
 	];
 
 	const [userId, setUserId] = useState("");
@@ -120,54 +120,28 @@ function CheckInPage() {
 
 	return (
 		<>
-			<div id="checkinout">
-				<h1 id="title">{isEnter ? "42 CheckOut" : "42 CheckIn"}</h1>
-				<h4> 개포 인원 : {Gaepo} / 150 </h4>
-				<h4> 서초 인원 : {Seocho} / 150 </h4>
-				<h3 id="userId">Intra ID: {userId}</h3>
-				{isEnter ? (
-					<div className="submitBtn ready" onClick={handleCheckOut}>
-						Check Out
+		<div id="checkinout">
+			<h1 id="title">{isEnter ? '42 CheckOut' : '42 CheckIn'}</h1>
+    	<h4> 개포 인원 : {Gaepo} / 150 </h4>
+			<h4> 서초 인원 : {Seocho} / 150 </h4>
+			<h3 id="userId">Intra ID: {userId}</h3>
+			{isEnter ?
+				<div className="submitBtn ready" onClick={handleCheckOut}>Check Out</div>
+				:
+				<div>
+					<div className="input-wrapper" >
+						<label htmlFor="allCheck">
+						<input id="allCheck" type="checkbox" checked={checkAll} onChange={handleCheckAll} /> 모두 동의
+						</label>
+						<div className="checkbox-wrapper">
+							{checkLists.map((checkList, id) =>
+							<Checkbox key={id} name={id} text={checkList} checkStatus={checkStatus} setCheckStatus={setCheckStatus}/>)}
+						</div>
 					</div>
-				) : (
-					<div>
-						<div className="input-wrapper">
-							<input
-								type="checkbox"
-								checked={checkAll}
-								onChange={handleCheckAll}
-							/>
-							모두 동의
-							<div className="checkbox-wrapper">
-								{checkLists.map((checkList, id) => (
-									<Checkbox
-										key={id}
-										name={id}
-										text={checkList}
-										checkStatus={checkStatus}
-										setCheckStatus={setCheckStatus}
-									/>
-								))}
-							</div>
-						</div>
-						<div className="input-wrapper">
-							<h3>Card Number</h3>
-							<div id="card">
-								<input
-									type="text"
-									name="text"
-									value={cardNum}
-									onChange={handleCardNum}
-								></input>
-							</div>
-						</div>
-						<div
-							className={`submitBtn ${
-								readySubmit ? " ready" : ""
-							}`}
-							onClick={handleCheckIn}
-						>
-							Check In
+					<div className="input-wrapper">
+						<h3>Card Number</h3>
+						<div id="card">
+							<input type="text" name="text" value={cardNum} placeholder="카드 번호를 입력해주세요" onChange={handleCardNum}></input>
 						</div>
 					</div>
 				)}

@@ -1,6 +1,7 @@
 .btn {
-	font-family: "Futura PT", "Futura", "Helvetica", "Sans serif";
+	font-family: "Futura", "Sans serif";
 	width: 50%;
+	max-width: 512px;
 	border-radius: 3px;
 	text-align: center;
 	margin: 0 auto;
