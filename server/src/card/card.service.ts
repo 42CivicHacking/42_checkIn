@@ -23,7 +23,7 @@ export class CardService {
     return { using: true };
   }
 
-  async getUsingInfo(): Promise<Object> {
+  async getUsingInfo(): Promise<any> {
     const gaepo = (
       await this.cardRepository.find({
         where: { using: true, type: 0 },
