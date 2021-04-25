@@ -124,7 +124,7 @@ function CheckInPage () {
 					<div className="input-wrapper">
 						<h3>Card Number</h3>
 						<div id="card">
-							<input type="text" name="text" value={cardNum} onChange={handleCardNum}></input>
+							<input type="text" name="text" value={cardNum} placeholder="카드 번호를 입력해주세요" onChange={handleCardNum}></input>
 						</div>
 					</div>
 					<div className={`submitBtn ${readySubmit ? ' ready': ''}`} onClick={handleCheckIn}>Check In</div>
