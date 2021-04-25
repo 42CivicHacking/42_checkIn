@@ -7,22 +7,22 @@ import { LogRepository } from './log.repository';
 
 @Injectable()
 export class LogService {
-  constructor(
-    private readonly logRepository: LogRepository,
-    private readonly userRepository: UserRepository,
-  ) {}
+  constructor(private readonly logRepository: LogRepository) {}
 
   async getUserLog(login: string): Promise<Log[]> {
-    const userId = (
-      await this.userRepository.findOne({
-        where: { name: login },
-      })
-    ).getId();
-    return await this.logRepository.find({ where: { userId: userId } });
+    return await this.logRepository.find({
+      relations: ['user', 'card'],
+      where: (qb) => {
+        qb.where('Log__user.userName = :name', { name: login });
+      },
+    });
   }
 
   async getCardLog(id: number): Promise<Log[]> {
-    return await this.logRepository.find({ where: { cardId: id } });
+    return await this.logRepository.find({
+      where: { card: { cardId: id } },
+      relations: ['user', 'card'],
+    });
   }
 
   async getAll(): Promise<Log[]> {
@@ -36,7 +36,10 @@ export class LogService {
 
   async getCluster(type: number, page: number): Promise<Log[]> {
     return await this.logRepository.find({
-      where: { card: { type: type } },
+      relations: ['user', 'card'],
+      where: (qb) => {
+        qb.where('Log__card.type = :type', { type: type });
+      },
       skip: 50 * page,
       take: 50,
     });

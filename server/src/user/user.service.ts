@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
 import { CardRepository } from 'src/card/card.repository';
+import { CardService } from 'src/card/card.service';
 import { LogService } from 'src/log/log.service';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
@@ -15,6 +16,7 @@ export class UserService {
     private readonly authService: AuthService,
     private readonly userRepository: UserRepository,
     private readonly cardRepository: CardRepository,
+    private readonly cardServcie: CardService,
     private readonly logService: LogService,
   ) {}
 
@@ -28,11 +30,14 @@ export class UserService {
   }
 
   async status(id: number): Promise<Object> {
-    let returnVal = { login: '', card: 0 };
+    let returnVal = { login: '', card: 0, gaepo: 0, seocho: 0 };
     const user = await this.userRepository.findOne(id, { relations: ['card'] });
     if (!user) throw new NotFoundException();
     returnVal.login = user.getName();
     returnVal.card = user.getCard() ? user.getCard().getId() : null;
+    const using = await this.cardServcie.getUsingInfo();
+    returnVal.gaepo = using.gaepo;
+    returnVal.seocho = using.seocho;
     return returnVal;
   }
 

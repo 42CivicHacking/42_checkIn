@@ -1,5 +1,13 @@
 import { Card } from 'src/card/entities/card.entity';
-import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from 'typeorm';
+import { Log } from 'src/log/entities/log.entity';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryColumn,
+} from 'typeorm';
 
 @Entity()
 export class User {
@@ -9,14 +17,13 @@ export class User {
   }
   @PrimaryColumn()
   private userId: number;
-  @Column()
-  private userName: string;
-  @JoinColumn()
-  @OneToOne(() => Card)
-  private card: Card;
 
   @Column()
-  private code: string;
+  private userName: string;
+
+  @JoinColumn({ name: 'cardId' })
+  @OneToOne(() => Card)
+  private card: Card;
 
   public getId() {
     return this.userId;
