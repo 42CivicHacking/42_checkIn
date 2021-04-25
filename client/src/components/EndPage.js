@@ -1,13 +1,14 @@
 import { useEffect } from "react";
+import '../styles/EndPage.css';
 
 function EndPage() {
 	useEffect(()=> {
 		setTimeout(()=>window.location.href='/submit', 3000);
 	})
 	return (
-		<div>
+		<>
 			<h1 style={{textAlign: "center", marginTop: '40vh'}}>Complete!</h1>
-		</div>
+		</>
 	)
 }
 
