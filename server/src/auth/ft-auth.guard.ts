@@ -3,10 +3,11 @@ import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
 export class FtAuthGuard extends AuthGuard('42') {
-  //   handleRequest(err, user, info, context: ExecutionContext) {
-  //     if (err || !user) {
-  //       const res = context.switchToHttp().getResponse();
-  //     }
-  //     return user;
-  //   }
+  handleRequest(err, user, info, context: ExecutionContext) {
+    if (err || !user) {
+      const res = context.switchToHttp().getResponse();
+      return res.redirect('/');
+    }
+    return user;
+  }
 }
