@@ -69,3 +69,7 @@ input::placeholder {
 label {
 	cursor: pointer;
 }
+
+h4 {
+	text-align: center;
+}
