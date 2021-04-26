@@ -103,7 +103,7 @@ function CheckInPage() {
 	useEffect(() => {
 		const token = getCookieValue("w_auth");
 		if (token !== "") getUserData();
-		else window.location.href = "/";
+		// else window.location.href = "/";
 		if (
 			isEnter === false &&
 			cardNum !== "" &&
