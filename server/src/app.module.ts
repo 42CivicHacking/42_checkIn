@@ -9,12 +9,9 @@ import configuration from 'config/configuration';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { LogModule } from './log/log.module';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { resolve } from 'path';
 import { TerminusModule } from '@nestjs/terminus';
 import { HealthController } from './health/health.controller';
 import { HealthModule } from './health/health.module';
-import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
