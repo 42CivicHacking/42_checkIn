@@ -17,4 +17,7 @@ export class FtStrategy extends PassportStrategy(Strategy) {
     const user = new User(profile.id, profile.username);
     return user;
   }
+  authenticate(req: Request, options: any): any {
+    super.authenticate(req, Object.assign(options, { failureRedirect: '/' }));
+  }
 }
