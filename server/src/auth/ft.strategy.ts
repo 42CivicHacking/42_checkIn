@@ -11,14 +11,10 @@ export class FtStrategy extends PassportStrategy(Strategy) {
       clientID: configService.get('client.id'),
       clientSecret: configService.get('client.secret'),
       callbackURL: 'http://13.209.202.141/api/user/login/callback',
-      failureRedirect: '/',
     });
   }
   async validate(token: string, rt: string, profile: any) {
     const user = new User(profile.id, profile.username);
     return user;
-  }
-  authenticate(req: Request, options: any): any {
-    super.authenticate(req, Object.assign(options, { failureRedirect: '/' }));
   }
 }

@@ -10,9 +10,7 @@ import { LocalStrategy } from './local.strategy';
 @Module({
   imports: [
     HttpModule,
-    PassportModule.register({
-      failureRedirect: '/',
-    }),
+    PassportModule,
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
