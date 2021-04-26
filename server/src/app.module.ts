@@ -14,6 +14,7 @@ import { resolve } from 'path';
 import { TerminusModule } from '@nestjs/terminus';
 import { HealthController } from './health/health.controller';
 import { HealthModule } from './health/health.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
