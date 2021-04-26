@@ -23,9 +23,11 @@ export class UserController {
   @UseGuards(FtAuthGuard)
   @Get('login/callback')
   async callback(@Req() req: any, @Res({ passthrough: true }) res: Response) {
-    const token = await this.userService.login(req.user);
-    res.cookie('w_auth', token);
-    res.status(302).redirect('/submit');
+    if (req.user) {
+      const token = await this.userService.login(req.user);
+      res.cookie('w_auth', token);
+      res.status(302).redirect('/submit');
+    }
   }
 
   @UseGuards(JwtAuthGuard)
