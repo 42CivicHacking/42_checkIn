@@ -22,7 +22,7 @@ const SearchBar = forwardRef((props, ref) => {
 			switch (props.type) {
 				case 0:
 					response = await axios.get(
-						`/api/log/${
+						`http://cluster.42seoul.io/api/log/${
 							ClusterType == 0 ? "gaepo" : "seocho"
 						}/${Page}`
 					);
