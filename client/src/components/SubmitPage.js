@@ -3,8 +3,6 @@ import axios from "axios";
 import Checkbox from "./Checkbox";
 import "../styles/SubmitPage.css";
 
-const SERVER_URL = "http://13.209.202.141";
-
 function CheckInPage() {
 	const checkLists = [
 		" 발열 체크시 37.5도 이하인 것을 확인했습니다.",
@@ -24,14 +22,10 @@ function CheckInPage() {
 	const handleCheckIn = async () => {
 		if (readySubmit) {
 			try {
-				const res_valid = await axios.get(
-					`${SERVER_URL}/api/card/valid/${cardNum}`
-				);
+				const res_valid = await axios.get(`/api/card/valid/${cardNum}`);
 				if (res_valid.data["using"] === false) {
 					try {
-						await axios.post(
-							`${SERVER_URL}/api/user/checkIn/${cardNum}`
-						);
+						await axios.post(`/api/user/checkIn/${cardNum}`);
 						window.location.href = "/end";
 					} catch (err) {
 						console.log(err);
@@ -48,7 +42,7 @@ function CheckInPage() {
 
 	const handleCheckOut = async () => {
 		try {
-			await axios.post(`${SERVER_URL}/api/user/checkOut`);
+			await axios.post(`/api/user/checkOut`);
 			window.location.href = "/end";
 		} catch (err) {
 			console.log(err);

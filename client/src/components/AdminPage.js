@@ -3,8 +3,6 @@ import SearchBar from "./SearchBar";
 import * as moment from "moment";
 import axios from "axios";
 
-const SERVER_URL = "http://13.209.202.141";
-
 function AdminPage() {
 	const [LogType, setLogType] = useState(0);
 	const [Logs, setLogs] = useState([]);
@@ -13,7 +11,6 @@ function AdminPage() {
 	useEffect(async () => {
 		try {
 			const response = await axios.get(`/api/user/status`);
-			console.log(response.data);
 			if (!(response.data && response.data.isAdmin))
 				window.location.href = "/submit";
 		} catch (err) {
@@ -41,7 +38,7 @@ function AdminPage() {
 		try {
 			const userId = e.target.getAttribute("data");
 			const response = await axios.post(
-				`${SERVER_URL}/api/user/forceCheckOut/${userId}`
+				`/api/user/forceCheckOut/${userId}`
 			);
 			setLogs([]);
 			ref.current.onSubmit(e);

@@ -2,15 +2,9 @@ import axios from "axios";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
 
 const SearchBar = forwardRef((props, ref) => {
-	useImperativeHandle(
-		ref,
-		() => ({
-			onSubmit,
-		}),
-		[]
-	);
-	const SERVER_URL = "http://13.209.202.141";
-
+	useImperativeHandle(ref, () => ({
+		onSubmit,
+	}));
 	const [ClusterType, setClusterType] = useState(0);
 	const [Page, setPage] = useState(0);
 	const [Login, setLogin] = useState("");
@@ -28,20 +22,16 @@ const SearchBar = forwardRef((props, ref) => {
 			switch (props.type) {
 				case 0:
 					response = await axios.get(
-						`${SERVER_URL}/api/log/${
+						`/api/log/${
 							ClusterType == 0 ? "gaepo" : "seocho"
 						}/${Page}`
 					);
 					break;
 				case 1:
-					response = await axios.get(
-						`${SERVER_URL}/api/log/user/${Login}`
-					);
+					response = await axios.get(`/api/log/user/${Login}`);
 					break;
 				case 2:
-					response = await axios.get(
-						`${SERVER_URL}/api/log/card/${CardId}}`
-					);
+					response = await axios.get(`/api/log/card/${CardId}}`);
 					break;
 				default:
 					break;
