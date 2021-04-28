@@ -31,11 +31,12 @@ export class UserService {
   }
 
   async status(id: number): Promise<Object> {
-    let returnVal = { login: '', card: 0, gaepo: 0, seocho: 0 };
+    let returnVal = { login: '', card: 0, gaepo: 0, seocho: 0, isAdmin: false };
     const user = await this.userRepository.findOne(id, { relations: ['card'] });
     if (!user) throw new NotFoundException();
     returnVal.login = user.getName();
     returnVal.card = user.getCard() ? user.getCard().getId() : null;
+    returnVal.isAdmin = user.getIsAdmin();
     const using = await this.cardServcie.getUsingInfo();
     returnVal.gaepo = using.gaepo;
     returnVal.seocho = using.seocho;
