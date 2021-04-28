@@ -15,7 +15,7 @@ export class FtStrategy extends PassportStrategy(Strategy) {
   }
   async validate(token: string, rt: string, profile: any) {
     const user = new User(profile.id, profile.username);
-    console.log(profile.cursus_users);
+    console.log(profile['cursus_users']);
     return user;
   }
 }
