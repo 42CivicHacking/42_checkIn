@@ -13,7 +13,7 @@ function AdminPage() {
 	useEffect(async () => {
 		try {
 			const response = await axios.get(`${SERVER_URL}/api/user/status`);
-			if (!response.data.isAdmin) window.location.href = "/submit";
+			if (!response.data.user.isAdmin) window.location.href = "/submit";
 		} catch (err) {
 			console.log(err);
 			window.location.href = "/";
