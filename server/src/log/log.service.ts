@@ -14,18 +14,21 @@ export class LogService {
       where: (qb) => {
         qb.where('Log__user.userName = :name', { name: login });
       },
+      order: { createdAt: 'DESC' },
     });
   }
 
   async getCardLog(id: number): Promise<Log[]> {
     return await this.logRepository.find({
       where: { card: { cardId: id } },
+      order: { createdAt: 'DESC' },
       relations: ['user', 'card'],
     });
   }
 
   async getAll(): Promise<Log[]> {
     return await this.logRepository.find({
+      order: { createdAt: 'DESC' },
       relations: ['user', 'card'],
     });
   }
@@ -41,6 +44,7 @@ export class LogService {
       where: (qb) => {
         qb.where('Log__card.type = :type', { type: type });
       },
+      order: { createdAt: 'DESC' },
       skip: 50 * page,
       take: 50,
     });
