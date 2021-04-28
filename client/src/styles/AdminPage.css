@@ -1,0 +1,28 @@
+.logBox1 .logBox2 .logBox3 .logBox4 {
+	margin: 10px;
+}
+
+.logBox1 {
+	width: 6rem;
+}
+.logBox2 {
+	width: 8rem;
+}
+.logBox3 {
+	width: 12rem;
+}
+
+.logRapper {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+.selectorRapper {
+	display: flex;
+	width: 100%;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 1rem;
+}
