@@ -10,15 +10,15 @@ function AdminPage() {
 	const [Logs, setLogs] = useState([]);
 	const ref = useRef();
 
-	// useEffect(async () => {
-	// 	try {
-	// 		const response = await axios.get(`${SERVER_URL}/api/user/status`);
-	// 		if (!response.data.isAdmin) window.location.href = "/submit";
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 		window.location.href = "/";
-	// 	}
-	// }, []);
+	useEffect(async () => {
+		try {
+			const response = await axios.get(`${SERVER_URL}/api/user/status`);
+			if (!response.data.isAdmin) window.location.href = "/submit";
+		} catch (err) {
+			console.log(err);
+			window.location.href = "/";
+		}
+	}, []);
 
 	const handleClusterButton = () => {
 		setLogs([]);
@@ -41,6 +41,7 @@ function AdminPage() {
 			const response = await axios.post(
 				`${SERVER_URL}/api/user/forceCheckOut/${userId}`
 			);
+			setLogs([]);
 			ref.current.onSubmit(e);
 		} catch (err) {
 			console.log(err);
