@@ -7,6 +7,7 @@ import {
   OneToMany,
   OneToOne,
   PrimaryColumn,
+  RelationId,
 } from 'typeorm';
 
 @Entity()
@@ -24,6 +25,12 @@ export class User {
   @JoinColumn({ name: 'cardId' })
   @OneToOne(() => Card)
   private card: Card;
+
+  @RelationId((user: User) => user.card)
+  private cardId: number;
+
+  @Column({ default: false })
+  private isAdmin: boolean;
 
   public getId() {
     return this.userId;

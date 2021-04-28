@@ -12,33 +12,34 @@ export class AuthService {
     private readonly httpService: HttpService,
   ) {}
 
-  async validateUser(code: string): Promise<User> {
-    const form = new FormData();
-    form.append('grant_type', 'authorization_code');
-    form.append('client_id', this.configService.get('client.id'));
-    form.append('client_secret', this.configService.get('client.secret'));
-    form.append('code', code);
-    form.append('redirect_uri', 'http://13.209.202.141/temp');
-    const token: string = (
-      await this.httpService
-        .post('https://api.intra.42.fr/oauth/token', form, {
-          headers: { ...form.getHeaders() },
-        })
-        .toPromise()
-    ).data.access_token;
-    const header_req = {
-      Authorization: 'Bearer ' + token,
-    };
-    const returnVal = (
-      await this.httpService
-        .get('https://api.intra.42.fr/v2/me', {
-          headers: header_req,
-        })
-        .toPromise()
-    ).data;
-    const user = new User(returnVal.id, returnVal.login);
-    return user;
-  }
+  /* passport 로 대체됨 */
+  // async validateUser(code: string): Promise<User> {
+  //   const form = new FormData();
+  //   form.append('grant_type', 'authorization_code');
+  //   form.append('client_id', this.configService.get('client.id'));
+  //   form.append('client_secret', this.configService.get('client.secret'));
+  //   form.append('code', code);
+  //   form.append('redirect_uri', 'http://13.209.202.141/temp');
+  //   const token: string = (
+  //     await this.httpService
+  //       .post('https://api.intra.42.fr/oauth/token', form, {
+  //         headers: { ...form.getHeaders() },
+  //       })
+  //       .toPromise()
+  //   ).data.access_token;
+  //   const header_req = {
+  //     Authorization: 'Bearer ' + token,
+  //   };
+  //   const returnVal = (
+  //     await this.httpService
+  //       .get('https://api.intra.42.fr/v2/me', {
+  //         headers: header_req,
+  //       })
+  //       .toPromise()
+  //   ).data;
+  //   const user = new User(returnVal.id, returnVal.login);
+  //   return user;
+  // }
 
   async generateToken(user: User): Promise<string> {
     const payload = { username: user.getName(), sub: user.getId() };

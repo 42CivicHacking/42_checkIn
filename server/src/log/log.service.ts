@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Card } from 'src/card/entities/card.entity';
 import { User } from 'src/user/entities/user.entity';
-import { UserRepository } from 'src/user/user.repository';
 import { Log } from './entities/log.entity';
 import { LogRepository } from './log.repository';
 
@@ -26,7 +25,9 @@ export class LogService {
   }
 
   async getAll(): Promise<Log[]> {
-    return await this.logRepository.find();
+    return await this.logRepository.find({
+      relations: ['user', 'card'],
+    });
   }
 
   async createLog(user: User, card: Card, type: string): Promise<void> {
