@@ -17,7 +17,6 @@ export class FtStrategy extends PassportStrategy(Strategy) {
     const user = new User(profile.id, profile.username);
     if (profile._json.cursus_users.length < 2)
       throw new NotAcceptableException();
-    console.log(profile._json.cursus_users.length);
     return user;
   }
 }
