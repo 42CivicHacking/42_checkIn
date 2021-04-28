@@ -1,5 +1,6 @@
 .logBox1 .logBox2 .logBox3 .logBox4 {
-	margin: 10px;
+	margin: 1rem;
+	height: 1rem;
 }
 
 .logBox1 {
