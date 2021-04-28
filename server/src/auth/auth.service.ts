@@ -2,7 +2,6 @@ import { HttpService, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { User } from 'src/user/entities/user.entity';
-import * as FormData from 'form-data';
 
 @Injectable()
 export class AuthService {
