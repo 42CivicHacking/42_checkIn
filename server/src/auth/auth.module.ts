@@ -19,7 +19,7 @@ import { JwtStrategy } from './jwt.strategy';
       }),
     }),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, FtStrategy],
+  providers: [AuthService, JwtStrategy, FtStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}
