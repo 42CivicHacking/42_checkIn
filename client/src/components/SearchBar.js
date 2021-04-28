@@ -1,7 +1,14 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 
-function SearchBar(props) {
+const SearchBar = forwardRef((props, ref) => {
+	useImperativeHandle(
+		ref,
+		() => ({
+			onSubmit,
+		}),
+		[]
+	);
 	const SERVER_URL = "http://13.209.202.141";
 
 	const [ClusterType, setClusterType] = useState(0);
@@ -135,6 +142,6 @@ function SearchBar(props) {
 		default:
 			return Cluster();
 	}
-}
+});
 
 export default SearchBar;

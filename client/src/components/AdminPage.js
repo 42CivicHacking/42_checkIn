@@ -1,10 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SearchBar from "./SearchBar";
 import * as moment from "moment";
+import axios from "axios";
+
+const SERVER_URL = "http://13.209.202.141";
 
 function AdminPage() {
 	const [LogType, setLogType] = useState(0);
 	const [Logs, setLogs] = useState([]);
+	const ref = useRef();
+
+	// useEffect(async () => {
+	// 	try {
+	// 		const response = await axios.get(`${SERVER_URL}/api/user/status`);
+	// 		if (!response.data.isAdmin) window.location.href = "/submit";
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 		window.location.href = "/";
+	// 	}
+	// }, []);
 
 	const handleClusterButton = () => {
 		setLogs([]);
@@ -21,6 +35,18 @@ function AdminPage() {
 		setLogType(2);
 	};
 
+	const checkOutOnClick = async (e) => {
+		try {
+			const userId = e.target.getAttribute("data");
+			const response = await axios.post(
+				`${SERVER_URL}/api/user/forceCheckOut/${userId}`
+			);
+			ref.current.onSubmit(e);
+		} catch (err) {
+			console.log(err);
+		}
+	};
+
 	return (
 		<div>
 			<div>
@@ -28,7 +54,7 @@ function AdminPage() {
 				<button onClick={handleStudentButton}>학생 로그</button>
 				<button onClick={handleCardButton}>카드 로그</button>
 				<div>
-					<SearchBar type={LogType} setLogs={setLogs} />
+					<SearchBar type={LogType} setLogs={setLogs} ref={ref} />
 				</div>
 			</div>
 			<div>
@@ -69,6 +95,18 @@ function AdminPage() {
 								</div>
 								<div style={{ margin: "10px", width: "5rem" }}>
 									{log.card.type === 0 ? "개포" : "서초"}
+								</div>
+								<div
+									style={{
+										margin: "10px",
+										width: "10rem",
+									}}
+									data={log.user.userId}
+									onClick={checkOutOnClick}
+								>
+									{log.card.cardId === log.user.cardId
+										? "퇴실처리하기"
+										: null}
 								</div>
 							</div>
 						);
