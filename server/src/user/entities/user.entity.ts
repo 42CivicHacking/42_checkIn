@@ -44,4 +44,7 @@ export class User {
   public cardSet(card: Card) {
     this.card = card;
   }
+  public getIsAdmin() {
+    return this.isAdmin;
+  }
 }

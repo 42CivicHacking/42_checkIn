@@ -1,5 +1,6 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -58,5 +59,14 @@ export class UserService {
     await this.cardRepository.returnCard(card);
     const user = await this.userRepository.clearCard(id);
     await this.logService.createLog(user, card, 'checkOut');
+  }
+
+  async forceCheckOut(adminId: number, userId: number) {
+    const admin = await this.userRepository.findOne(adminId);
+    if (!admin.getIsAdmin()) throw new ForbiddenException();
+    const card = await this.userRepository.getCard(userId);
+    await this.cardRepository.returnCard(card);
+    const user = await this.userRepository.clearCard(userId);
+    await this.logService.createLog(user, card, 'forceCheckOut');
   }
 }

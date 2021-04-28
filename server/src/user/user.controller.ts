@@ -47,4 +47,10 @@ export class UserController {
   async checkOut(@Req() req: any) {
     return this.userService.checkOut(req.user.userId);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('forceCheckOut/:userId')
+  async forceCheckOut(@Req() req: any, @Param('userId') userId: number) {
+    return this.userService.forceCheckOut(req.user.userId, userId);
+  }
 }
