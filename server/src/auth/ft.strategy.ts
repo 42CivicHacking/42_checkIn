@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy } from 'passport-42';
@@ -15,7 +15,9 @@ export class FtStrategy extends PassportStrategy(Strategy) {
   }
   async validate(token: string, rt: string, profile: any) {
     const user = new User(profile.id, profile.username);
-    console.log(profile._json.cursus_users);
+    if (profile._json.cursus_users.length < 2)
+      throw new NotAcceptableException();
+    console.log(profile._json.cursus_users.length);
     return user;
   }
 }
