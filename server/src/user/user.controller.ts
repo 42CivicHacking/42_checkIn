@@ -11,7 +11,9 @@ import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UserService } from './user.service';
 import { FtAuthGuard } from 'src/auth/ft-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('User')
 @Controller('api/user/')
 export class UserController {
   constructor(private readonly userService: UserService) {}
