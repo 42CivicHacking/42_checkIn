@@ -10,7 +10,7 @@ export class FtStrategy extends PassportStrategy(Strategy) {
     super({
       clientID: configService.get('client.id'),
       clientSecret: configService.get('client.secret'),
-      callbackURL: 'http://cluster.42seoul.io/api/user/login/callback',
+      callbackURL: 'https://cluster.42seoul.io/api/user/login/callback',
     });
   }
   async validate(token: string, rt: string, profile: any) {
