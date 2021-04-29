@@ -14,7 +14,7 @@ import { FtAuthGuard } from 'src/auth/ft-auth.guard';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('User')
-@Controller('api/user/')
+@Controller('api/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
