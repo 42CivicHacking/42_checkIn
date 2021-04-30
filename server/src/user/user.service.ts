@@ -1,6 +1,8 @@
 import {
   BadRequestException,
   ForbiddenException,
+  forwardRef,
+  Inject,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
@@ -17,6 +19,7 @@ export class UserService {
     private readonly authService: AuthService,
     private readonly userRepository: UserRepository,
     private readonly cardRepository: CardRepository,
+    @Inject(forwardRef(() => CardService))
     private readonly cardServcie: CardService,
     private readonly logService: LogService,
   ) {}
