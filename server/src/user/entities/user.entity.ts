@@ -50,6 +50,9 @@ export class User {
   private deletedAt: Date;
 
   public getId() {
+    return this._id;
+  }
+  public getUserId() {
     return this.userId;
   }
   public getName() {

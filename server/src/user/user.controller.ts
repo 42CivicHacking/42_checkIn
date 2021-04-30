@@ -35,24 +35,24 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('status')
   async status(@Req() req: any) {
-    return this.userService.status(req.user.userId);
+    return this.userService.status(req.user._id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('checkIn/:cardId')
   async checkIn(@Req() req: any, @Param('cardId') cardId: number) {
-    return this.userService.checkIn(req.user.userId, cardId);
+    return this.userService.checkIn(req.user._id, cardId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('checkOut')
   async checkOut(@Req() req: any) {
-    return this.userService.checkOut(req.user.userId);
+    return this.userService.checkOut(req.user._id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('forceCheckOut/:userId')
   async forceCheckOut(@Req() req: any, @Param('userId') userId: number) {
-    return this.userService.forceCheckOut(req.user.userId, userId);
+    return this.userService.forceCheckOut(req.user._id, userId);
   }
 }
