@@ -12,6 +12,7 @@ import { LogModule } from './log/log.module';
 import { TerminusModule } from '@nestjs/terminus';
 import { HealthController } from './health/health.controller';
 import { HealthModule } from './health/health.module';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { HealthModule } from './health/health.module';
     CardModule,
     LogModule,
     HealthModule,
+    LoggerModule,
   ],
   controllers: [AppController, HealthController],
   providers: [AppService],

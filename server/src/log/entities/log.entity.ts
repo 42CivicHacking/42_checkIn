@@ -6,6 +6,7 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Card } from '../../card/entities/card.entity';
 
@@ -33,4 +34,7 @@ export class Log {
 
   @CreateDateColumn()
   private createdAt: Date;
+
+  @UpdateDateColumn()
+  private updatedAt: Date;
 }

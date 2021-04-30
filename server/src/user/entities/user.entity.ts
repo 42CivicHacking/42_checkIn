@@ -2,12 +2,16 @@ import { Card } from 'src/card/entities/card.entity';
 import { Log } from 'src/log/entities/log.entity';
 import {
   Column,
+  CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryColumn,
+  PrimaryGeneratedColumn,
   RelationId,
+  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
@@ -16,7 +20,11 @@ export class User {
     this.userId = id;
     this.userName = name;
   }
-  @PrimaryColumn()
+
+  @PrimaryGeneratedColumn()
+  private _id: number;
+
+  @Column()
   private userId: number;
 
   @Column()
@@ -31,6 +39,15 @@ export class User {
 
   @Column({ default: false })
   private isAdmin: boolean;
+
+  @CreateDateColumn()
+  private createdAt: Date;
+
+  @UpdateDateColumn()
+  private updatedAt: Date;
+
+  @DeleteDateColumn()
+  private deletedAt: Date;
 
   public getId() {
     return this.userId;

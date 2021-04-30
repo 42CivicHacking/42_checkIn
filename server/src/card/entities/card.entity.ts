@@ -1,4 +1,11 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Card {
@@ -13,6 +20,15 @@ export class Card {
 
   @Column()
   private type: number;
+
+  @CreateDateColumn()
+  private createdAt: Date;
+
+  @UpdateDateColumn()
+  private updatedAt: Date;
+
+  @DeleteDateColumn()
+  private deletedAt: Date;
 
   public getStatus() {
     return this.using;
