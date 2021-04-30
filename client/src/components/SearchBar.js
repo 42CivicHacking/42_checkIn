@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
+import '../styles/SearchBar.css';
 
 const SearchBar = forwardRef((props, ref) => {
 	useImperativeHandle(ref, () => ({
@@ -23,7 +24,7 @@ const SearchBar = forwardRef((props, ref) => {
 				case 0:
 					response = await axios.get(
 						`http://cluster.42seoul.io/api/log/${
-							ClusterType == 0 ? "gaepo" : "seocho"
+							ClusterType === 0 ? "gaepo" : "seocho"
 						}/${Page}`
 					);
 					break;
@@ -43,7 +44,7 @@ const SearchBar = forwardRef((props, ref) => {
 	};
 
 	const Cluster = () => (
-		<div>
+		<div className="control-section">
 			<form onSubmit={onSubmit}>
 				<div>
 					<label>
@@ -51,7 +52,7 @@ const SearchBar = forwardRef((props, ref) => {
 							type="radio"
 							name="cluster"
 							value={0}
-							checked={ClusterType == 0}
+							checked={ClusterType === 0}
 							onChange={handleClick}
 						/>
 						개포
@@ -61,13 +62,14 @@ const SearchBar = forwardRef((props, ref) => {
 							type="radio"
 							name="cluster"
 							value={1}
-							checked={ClusterType == 1}
+							checked={ClusterType === 1}
 							onChange={handleClick}
 						/>
 						서초
 					</label>
+					<button onClick={onSubmit}>불러오기</button>
 				</div>
-				<div>
+				{/* <div>
 					<label>{Page}</label>
 					<button
 						onClick={() => {
@@ -83,22 +85,24 @@ const SearchBar = forwardRef((props, ref) => {
 					>
 						다음 페이지
 					</button>
-				</div>
-
-				<button onClick={onSubmit}>불러오기</button>
+				</div> */}
 			</form>
 		</div>
 	);
 
 	const Student = () => (
-		<div>
+		<div className="control-section">
 			<form>
 				<input
 					type="text"
 					name="로그인"
 					value={Login}
+					placeholder="인트라 아이디"
 					onChange={(e) => {
 						setLogin(e.target.value);
+					}}
+					style={{
+						textAlign: "center"
 					}}
 				/>
 				<button onClick={onSubmit}>불러오기</button>
@@ -107,16 +111,20 @@ const SearchBar = forwardRef((props, ref) => {
 	);
 
 	const Card = () => (
-		<div>
+		<div className="control-section">
 			<form>
 				<input
 					type="text"
 					name="text"
 					value={CardId}
+					placeholder="카드번호"
 					onChange={(e) => {
 						setCardId(e.target.value);
 					}}
-				></input>
+					style={{
+						textAlign: "center"
+					}}
+				/>
 				<button onClick={onSubmit}>불러오기</button>
 			</form>
 		</div>
