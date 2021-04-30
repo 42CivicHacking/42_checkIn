@@ -66,9 +66,13 @@ export class UserService {
     await this.logService.createLog(user, card, 'checkOut');
   }
 
-  async forceCheckOut(adminId: number, userId: number) {
+  async checkIsAdmin(adminId: number) {
     const admin = await this.userRepository.findOne(adminId);
     if (!admin.getIsAdmin()) throw new ForbiddenException();
+  }
+
+  async forceCheckOut(adminId: number, userId: number) {
+    this.checkIsAdmin(adminId);
     const card = await this.userRepository.getCard(userId);
     await this.cardRepository.returnCard(card);
     const user = await this.userRepository.clearCard(userId);

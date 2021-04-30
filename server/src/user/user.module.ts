@@ -11,11 +11,11 @@ import { UserService } from './user.service';
   imports: [
     AuthModule,
     TypeOrmModule.forFeature([UserRepository]),
-    CardModule,
+    forwardRef(() => CardModule),
     forwardRef(() => LogModule),
   ],
   controllers: [UserController],
   providers: [UserService],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, UserService],
 })
 export class UserModule {}

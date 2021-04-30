@@ -1,5 +1,14 @@
-import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CardService } from './card.service';
 
 @ApiTags('Card')
@@ -11,14 +20,16 @@ export class CardController {
     return await this.cardServcie.getAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('create/:type')
   async createCard(
+    @Req() req: any,
     @Query('start') start: number,
     @Query('end') end: number,
     @Param('type') type: number,
   ) {
     console.log(start, end);
-    return await this.cardServcie.createCard(start, end, type);
+    return await this.cardServcie.createCard(req.user._id, start, end, type);
   }
 
   @Get('valid/:id')
