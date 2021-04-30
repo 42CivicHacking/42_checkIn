@@ -153,7 +153,7 @@ function CheckInPage() {
 							<h3>Card Number</h3>
 							<div id="card">
 								<input
-									type="text"
+									type="number"
 									name="text"
 									value={cardNum}
 									onChange={handleCardNum}
