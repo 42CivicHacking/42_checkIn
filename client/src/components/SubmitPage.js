@@ -45,6 +45,8 @@ function CheckInPage() {
 			await axios.post(`/api/user/checkOut`);
 			window.location.href = "/end";
 		} catch (err) {
+			alert("이미 처리된 작업입니다.");
+			window.location.href = "/";
 			console.log(err);
 		}
 	};
