@@ -49,66 +49,35 @@ function AdminPage() {
 	};
 
 	return (
-		<div
-			style={{
+		<div style={{
 				justifyContent: "center",
 				alignItems: "center",
 				display: "flex",
 				flexDirection: "column",
-			}}
-		>
-			<div className="selectorRapper">
-				<div
-					style={{
+			}}>
+			<div className="selectorWrapper">
+				<div style={{
 						display: "flex",
-						width: "50%",
+						// width: "50%",
 						justifyContent: "center",
-					}}
-				>
-					<button
-						onClick={handleClusterButton}
-						style={{
-							width: "20%",
-							height: "3rem",
-							backgroundColor: "whitesmoke",
-							borderRadius: "0.5rem",
-							border: "1px solid white",
-							margin: "1rem",
-						}}
-					>
+					}}>
+					<button className="filterBtn"
+						onClick={handleClusterButton}>
 						클러스터 로그
 					</button>
-					<button
-						onClick={handleStudentButton}
-						style={{
-							width: "20%",
-							height: "3rem",
-							backgroundColor: "whitesmoke",
-							borderRadius: "0.5rem",
-							border: "1px solid white",
-							margin: "1rem",
-						}}
-					>
+					<button className="filterBtn"
+						onClick={handleStudentButton}>
 						학생 로그
 					</button>
-					<button
-						onClick={handleCardButton}
-						style={{
-							width: "20%",
-							height: "3rem",
-							backgroundColor: "whitesmoke",
-							borderRadius: "0.5rem",
-							border: "1px solid white",
-							margin: "1rem",
-						}}
-					>
+					<button className="filterBtn"
+						onClick={handleCardButton}>
 						카드 로그
 					</button>
 				</div>
 				<div
 					style={{
 						display: "flex",
-						border: "1px solid whitesmoke",
+						// border: "1px solid whitesmoke",
 						width: "50%",
 						padding: "1rem",
 						height: "5rem",
@@ -117,11 +86,11 @@ function AdminPage() {
 					<SearchBar type={LogType} setLogs={setLogs} ref={ref} />
 				</div>
 			</div>
-			<div>
-				<div className="logRapper">
+			<div style={{overflowX: "scroll", minWidth: "50%", margin: "auto"}}>
+				<div className="logWrapper">
 					<div className="logBox3">시간</div>
-					<div className="logBox2">출/입</div>
-					<div className="logBox2">로그인</div>
+					<div className="logBox1">출/입</div>
+					<div className="logBox1">로그인</div>
 					<div className="logBox1">카드 번호</div>
 					<div className="logBox1">개포/서초</div>
 					<div className="logBox3">강제 퇴실 처리</div>
@@ -131,7 +100,7 @@ function AdminPage() {
 					Logs.map((log, index) => {
 						const date = new Date(log.createdAt);
 						return (
-							<div key={index} className="logRapper">
+							<div key={index} className="logWrapper">
 								<div className="logBox3">
 									{moment(date).format("MM월 DD일 HH:mm")}
 								</div>

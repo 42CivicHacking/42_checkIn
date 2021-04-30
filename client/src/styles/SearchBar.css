@@ -1,0 +1,23 @@
+.control-section {
+	margin: auto;
+}
+
+button {
+	/* padding: 1rem; */
+	margin: 1rem;
+	/* background-color: rgba(255, 255, 255, 0);
+	color: white;
+	border: 1px solid white; */
+}
+
+input {
+	background-color: rgba(255, 255, 255, 0);
+	border: none;
+	border-bottom: 1px solid white;
+	/* user-select: none; */
+	color: white;
+}
+
+input:focus {
+	outline: none;
+}
