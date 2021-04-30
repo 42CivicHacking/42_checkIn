@@ -27,7 +27,7 @@ export class UserService {
   async login(user: User): Promise<string> {
     //처음 사용하는 유저의 경우 db에 등록
     if (
-      !(await this.userRepository.findOne({
+      !(user = await this.userRepository.findOne({
         where: { userId: user.getUserId() },
       }))
     ) {
