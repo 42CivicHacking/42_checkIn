@@ -6,19 +6,19 @@ const logger = dailyfile({
 });
 
 export class MyLogger implements LoggerService {
-  log(message: string, trace: string) {
-    logger.log(message, trace);
+  log(trace: string) {
+    logger.log(trace);
   }
-  error(message: string, trace: string) {
-    logger.error(message, trace);
+  error(trace: string) {
+    logger.error(trace);
   }
-  warn(message: string, trace: string) {
-    logger.warn(message, trace);
+  warn(trace: string) {
+    logger.warn(trace);
   }
-  bebug(message: string, trace: string) {
-    logger.debug(message, trace);
+  bebug(trace: string) {
+    logger.debug(trace);
   }
-  info(message: string, trace: string) {
-    logger.info(message, trace);
+  info(trace: string) {
+    logger.info(trace);
   }
 }

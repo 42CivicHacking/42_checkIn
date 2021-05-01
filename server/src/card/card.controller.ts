@@ -9,18 +9,22 @@ import {
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { MyLogger } from 'src/logger/logger.service';
 import { CardService } from './card.service';
 
 @ApiTags('Card')
 @Controller('api/card')
 export class CardController {
-  constructor(private readonly cardServcie: CardService) {}
+  constructor(
+    private readonly cardServcie: CardService,
+    private readonly logger: MyLogger,
+  ) {}
   @Get('all')
   async getAll() {
     try {
       return await this.cardServcie.getAll();
     } catch (e) {
-      console.error(e);
+      this.logger.error(e);
       throw e;
     }
   }
@@ -36,7 +40,7 @@ export class CardController {
     try {
       return await this.cardServcie.createCard(req.user._id, start, end, type);
     } catch (e) {
-      console.info(e);
+      this.logger.info(e);
       throw e;
     }
   }
@@ -46,7 +50,7 @@ export class CardController {
     try {
       return await this.cardServcie.validCheck(cardId);
     } catch (e) {
-      console.error(e);
+      this.logger.error(e);
       throw e;
     }
   }
@@ -56,7 +60,7 @@ export class CardController {
     try {
       return await this.cardServcie.getUsingInfo();
     } catch (e) {
-      console.error(e);
+      this.logger.error(e);
       throw e;
     }
   }

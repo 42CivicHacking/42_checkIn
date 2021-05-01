@@ -1,18 +1,22 @@
 import { Controller, Get, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { MyLogger } from 'src/logger/logger.service';
 import { LogService } from './log.service';
 
 @ApiTags('Log')
 @Controller('api/log')
 export class LogController {
-  constructor(private readonly logService: LogService) {}
+  constructor(
+    private readonly logService: LogService,
+    private readonly logger: MyLogger,
+  ) {}
 
   @Get('user/:login')
   async getUserLog(@Param('login') login: string) {
     try {
       return this.logService.getUserLog(login);
     } catch (e) {
-      console.error(e);
+      this.logger.error(e);
       throw e;
     }
   }
@@ -22,7 +26,7 @@ export class LogController {
     try {
       return this.logService.getCardLog(id);
     } catch (e) {
-      console.error(e);
+      this.logger.error(e);
       throw e;
     }
   }
@@ -32,7 +36,7 @@ export class LogController {
     try {
       return this.logService.getAll();
     } catch (e) {
-      console.error(e);
+      this.logger.error(e);
       throw e;
     }
   }
@@ -42,7 +46,7 @@ export class LogController {
     try {
       return this.logService.getCluster(0, page);
     } catch (e) {
-      console.error(e);
+      this.logger.error(e);
       throw e;
     }
   }
@@ -52,7 +56,7 @@ export class LogController {
     try {
       return this.logService.getCluster(1, page);
     } catch (e) {
-      console.error(e);
+      this.logger.error(e);
       throw e;
     }
   }

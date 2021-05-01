@@ -21,45 +21,30 @@ export class CardService {
     end: number,
     type: number,
   ): Promise<void> {
-    try {
-      await this.userService.checkIsAdmin(adminId);
-      for (let i = start; i < end; i++) {
-        const card = new Card(type);
-        await this.cardRepository.save(card);
-      }
-    } catch (e) {
-      console.info(e);
-      throw e;
+    await this.userService.checkIsAdmin(adminId);
+    for (let i = start; i < end; i++) {
+      const card = new Card(type);
+      await this.cardRepository.save(card);
     }
   }
 
   async validCheck(cardId: number) {
-    try {
-      const card = await this.cardRepository.findOne(cardId);
-      if (card) return { using: card.getStatus() };
-      return { using: true };
-    } catch (e) {
-      console.error(e);
-      throw e;
-    }
+    const card = await this.cardRepository.findOne(cardId);
+    if (card) return { using: card.getStatus() };
+    return { using: true };
   }
 
   async getUsingInfo(): Promise<any> {
-    try {
-      const gaepo = (
-        await this.cardRepository.find({
-          where: { using: true, type: 0 },
-        })
-      ).length;
-      const seocho = (
-        await this.cardRepository.find({
-          where: { using: true, type: 1 },
-        })
-      ).length;
-      return { gaepo: gaepo, seocho: seocho };
-    } catch (e) {
-      console.error(e);
-      throw e;
-    }
+    const gaepo = (
+      await this.cardRepository.find({
+        where: { using: true, type: 0 },
+      })
+    ).length;
+    const seocho = (
+      await this.cardRepository.find({
+        where: { using: true, type: 1 },
+      })
+    ).length;
+    return { gaepo: gaepo, seocho: seocho };
   }
 }

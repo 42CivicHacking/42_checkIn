@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Logger,
   Param,
   Post,
   Req,
@@ -12,11 +13,15 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UserService } from './user.service';
 import { FtAuthGuard } from 'src/auth/ft-auth.guard';
 import { ApiTags } from '@nestjs/swagger';
+import { MyLogger } from 'src/logger/logger.service';
 
 @ApiTags('User')
 @Controller('api/user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly logger: MyLogger,
+  ) {}
 
   @UseGuards(FtAuthGuard)
   @Get('login')
@@ -31,7 +36,7 @@ export class UserController {
         res.cookie('w_auth', token);
         res.status(302).redirect('/submit');
       } catch (e) {
-        console.info(e);
+        this.logger.info(e);
         throw e;
       }
     }
@@ -43,7 +48,7 @@ export class UserController {
     try {
       return this.userService.status(req.user._id);
     } catch (e) {
-      console.info(e);
+      this.logger.info(e);
       throw e;
     }
   }
@@ -54,7 +59,7 @@ export class UserController {
     try {
       return this.userService.checkIn(req.user._id, cardId);
     } catch (e) {
-      console.info(e);
+      this.logger.info(e);
       throw e;
     }
   }
@@ -65,7 +70,7 @@ export class UserController {
     try {
       return this.userService.checkOut(req.user._id);
     } catch (e) {
-      console.info(e);
+      this.logger.info(e);
       throw e;
     }
   }
@@ -76,7 +81,8 @@ export class UserController {
     try {
       return this.userService.forceCheckOut(req.user._id, userId);
     } catch (e) {
-      console.info(e);
+      this.logger.info(e);
+      throw e;
     }
   }
 }
