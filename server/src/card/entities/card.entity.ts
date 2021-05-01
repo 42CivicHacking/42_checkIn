@@ -36,6 +36,9 @@ export class Card {
   public getId() {
     return this.cardId;
   }
+  public getType() {
+    return this.type;
+  }
 
   public useCard() {
     this.using = true;

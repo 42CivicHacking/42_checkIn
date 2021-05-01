@@ -51,12 +51,6 @@ export class UserService {
   }
 
   async checkIn(id: number, cardId: number) {
-    const usingCard = (
-      await this.cardRepository.find({
-        where: { using: true },
-      })
-    ).length;
-    if (usingCard >= 150) throw new BadRequestException();
     const card = await this.cardRepository.useCard(cardId);
     const user = await this.userRepository.setCard(id, card);
     await this.logService.createLog(user, card, 'checkIn');
