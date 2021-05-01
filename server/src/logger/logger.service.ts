@@ -17,19 +17,19 @@ const logger_error = dailyfile({
 
 @Injectable()
 export class MyLogger implements LoggerService {
-  log(trace: string) {
+  log(...trace: any[]) {
     logger_log.log(trace);
   }
-  error(trace: string) {
+  error(...trace: any[]) {
     logger_error.error(trace);
   }
-  warn(trace: string) {
+  warn(...trace: any[]) {
     logger_log.warn(trace);
   }
-  bebug(trace: string) {
+  bebug(...trace: any[]) {
     logger_log.debug(trace);
   }
-  info(trace: string) {
+  info(...trace: any[]) {
     logger_info.info(trace);
   }
 }

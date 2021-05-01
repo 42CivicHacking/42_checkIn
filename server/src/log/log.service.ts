@@ -14,6 +14,8 @@ export class LogService {
 
   async getUserLog(login: string): Promise<Log[]> {
     try {
+      this.logger.log('getUserLog start');
+      this.logger.log('userName : ', login);
       return await this.logRepository.find({
         relations: ['user', 'card'],
         where: (qb) => {
@@ -29,6 +31,8 @@ export class LogService {
 
   async getCardLog(id: number): Promise<Log[]> {
     try {
+      this.logger.log('getCardLog start');
+      this.logger.log('cardId : ', id);
       return await this.logRepository.find({
         where: { card: { cardId: id } },
         order: { createdAt: 'DESC' },
@@ -42,6 +46,7 @@ export class LogService {
 
   async getAll(): Promise<Log[]> {
     try {
+      this.logger.log('[ spreadsheet parser working... ] get all log');
       return await this.logRepository.find({
         order: { createdAt: 'DESC' },
         relations: ['user', 'card'],
@@ -54,6 +59,8 @@ export class LogService {
 
   async createLog(user: User, card: Card, type: string): Promise<void> {
     try {
+      this.logger.log('createLog start');
+      this.logger.log('_id, cardId, type : ', user.getId(), card.getId(), type);
       const log = new Log(user, card, type);
       await this.logRepository.save(log);
     } catch (e) {
@@ -64,6 +71,8 @@ export class LogService {
 
   async getCluster(type: number, page: number): Promise<Log[]> {
     try {
+      this.logger.log('getClusterLog start');
+      this.logger.log('clusterType, page : ', type, page);
       return await this.logRepository.find({
         relations: ['user', 'card'],
         where: (qb) => {
