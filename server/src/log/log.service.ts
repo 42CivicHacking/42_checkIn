@@ -9,44 +9,69 @@ export class LogService {
   constructor(private readonly logRepository: LogRepository) {}
 
   async getUserLog(login: string): Promise<Log[]> {
-    return await this.logRepository.find({
-      relations: ['user', 'card'],
-      where: (qb) => {
-        qb.where('Log__user.userName = :name', { name: login });
-      },
-      order: { createdAt: 'DESC' },
-    });
+    try {
+      return await this.logRepository.find({
+        relations: ['user', 'card'],
+        where: (qb) => {
+          qb.where('Log__user.userName = :name', { name: login });
+        },
+        order: { createdAt: 'DESC' },
+      });
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   async getCardLog(id: number): Promise<Log[]> {
-    return await this.logRepository.find({
-      where: { card: { cardId: id } },
-      order: { createdAt: 'DESC' },
-      relations: ['user', 'card'],
-    });
+    try {
+      return await this.logRepository.find({
+        where: { card: { cardId: id } },
+        order: { createdAt: 'DESC' },
+        relations: ['user', 'card'],
+      });
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   async getAll(): Promise<Log[]> {
-    return await this.logRepository.find({
-      order: { createdAt: 'DESC' },
-      relations: ['user', 'card'],
-    });
+    try {
+      return await this.logRepository.find({
+        order: { createdAt: 'DESC' },
+        relations: ['user', 'card'],
+      });
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   async createLog(user: User, card: Card, type: string): Promise<void> {
-    const log = new Log(user, card, type);
-    await this.logRepository.save(log);
+    try {
+      const log = new Log(user, card, type);
+      await this.logRepository.save(log);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   async getCluster(type: number, page: number): Promise<Log[]> {
-    return await this.logRepository.find({
-      relations: ['user', 'card'],
-      where: (qb) => {
-        qb.where('Log__card.type = :type', { type: type });
-      },
-      order: { createdAt: 'DESC' },
-      skip: 50 * page,
-      take: 50,
-    });
+    try {
+      return await this.logRepository.find({
+        relations: ['user', 'card'],
+        where: (qb) => {
+          qb.where('Log__card.type = :type', { type: type });
+        },
+        order: { createdAt: 'DESC' },
+        skip: 50 * page,
+        take: 50,
+      });
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable, Logger, LoggerService } from '@nestjs/common';
 import { dailyfile } from 'tracer';
 const logger = dailyfile({
-  root: '.',
+  root: './logs',
   allLogsFileName: '42CheckIn',
 });
 
@@ -17,5 +17,8 @@ export class MyLogger implements LoggerService {
   }
   bebug(message: string, trace: string) {
     logger.debug(message, trace);
+  }
+  info(message: string, trace: string) {
+    logger.info(message, trace);
   }
 }

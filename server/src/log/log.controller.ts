@@ -9,26 +9,51 @@ export class LogController {
 
   @Get('user/:login')
   async getUserLog(@Param('login') login: string) {
-    return this.logService.getUserLog(login);
+    try {
+      return this.logService.getUserLog(login);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   @Get('card/:id')
   async getCardLog(@Param('id') id: number) {
-    return this.logService.getCardLog(id);
+    try {
+      return this.logService.getCardLog(id);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   @Get('all')
   async getAll() {
-    return this.logService.getAll();
+    try {
+      return this.logService.getAll();
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   @Get('gaepo/:page')
   async getGaepoLog(@Param('page') page: number) {
-    return this.logService.getCluster(0, page);
+    try {
+      return this.logService.getCluster(0, page);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   @Get('seocho/:page')
   async getSeochoLog(@Param('page') page: number) {
-    return this.logService.getCluster(1, page);
+    try {
+      return this.logService.getCluster(1, page);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 }

@@ -26,33 +26,57 @@ export class UserController {
   @Get('login/callback')
   async callback(@Req() req: any, @Res({ passthrough: true }) res: Response) {
     if (req.user) {
-      const token = await this.userService.login(req.user);
-      res.cookie('w_auth', token);
-      res.status(302).redirect('/submit');
+      try {
+        const token = await this.userService.login(req.user);
+        res.cookie('w_auth', token);
+        res.status(302).redirect('/submit');
+      } catch (e) {
+        console.info(e);
+        throw e;
+      }
     }
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('status')
   async status(@Req() req: any) {
-    return this.userService.status(req.user._id);
+    try {
+      return this.userService.status(req.user._id);
+    } catch (e) {
+      console.info(e);
+      throw e;
+    }
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('checkIn/:cardId')
   async checkIn(@Req() req: any, @Param('cardId') cardId: number) {
-    return this.userService.checkIn(req.user._id, cardId);
+    try {
+      return this.userService.checkIn(req.user._id, cardId);
+    } catch (e) {
+      console.info(e);
+      throw e;
+    }
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('checkOut')
   async checkOut(@Req() req: any) {
-    return this.userService.checkOut(req.user._id);
+    try {
+      return this.userService.checkOut(req.user._id);
+    } catch (e) {
+      console.info(e);
+      throw e;
+    }
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('forceCheckOut/:userId')
   async forceCheckOut(@Req() req: any, @Param('userId') userId: number) {
-    return this.userService.forceCheckOut(req.user._id, userId);
+    try {
+      return this.userService.forceCheckOut(req.user._id, userId);
+    } catch (e) {
+      console.info(e);
+    }
   }
 }

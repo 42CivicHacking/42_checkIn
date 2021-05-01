@@ -17,7 +17,12 @@ export class CardController {
   constructor(private readonly cardServcie: CardService) {}
   @Get('all')
   async getAll() {
-    return await this.cardServcie.getAll();
+    try {
+      return await this.cardServcie.getAll();
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   @UseGuards(JwtAuthGuard)
@@ -28,17 +33,31 @@ export class CardController {
     @Query('end') end: number,
     @Param('type') type: number,
   ) {
-    console.log(start, end);
-    return await this.cardServcie.createCard(req.user._id, start, end, type);
+    try {
+      return await this.cardServcie.createCard(req.user._id, start, end, type);
+    } catch (e) {
+      console.info(e);
+      throw e;
+    }
   }
 
   @Get('valid/:id')
   async validCheck(@Param('id') cardId: number) {
-    return await this.cardServcie.validCheck(cardId);
+    try {
+      return await this.cardServcie.validCheck(cardId);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   @Get('using')
   async getUsingInfo() {
-    return await this.cardServcie.getUsingInfo();
+    try {
+      return await this.cardServcie.getUsingInfo();
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 }

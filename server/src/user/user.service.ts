@@ -26,53 +26,88 @@ export class UserService {
 
   async login(user: User): Promise<string> {
     //처음 사용하는 유저의 경우 db에 등록
-    if (
-      !(user = await this.userRepository.findOne({
-        where: { userId: user.getUserId() },
-      }))
-    ) {
-      await this.userRepository.save(user);
+    try {
+      if (
+        !(user = await this.userRepository.findOne({
+          where: { userId: user.getUserId() },
+        }))
+      ) {
+        await this.userRepository.save(user);
+      }
+      // UseGuards에서 넘어온 user로 JWT token 생성
+      return await this.authService.generateToken(user);
+    } catch (e) {
+      console.info(e);
+      throw e;
     }
-    // UseGuards에서 넘어온 user로 JWT token 생성
-    return await this.authService.generateToken(user);
   }
 
   async status(id: number): Promise<Object> {
-    let returnVal = { login: '', card: 0, gaepo: 0, seocho: 0, isAdmin: false };
-    const user = await this.userRepository.findOne(id, { relations: ['card'] });
-    if (!user) throw new NotFoundException();
-    returnVal.login = user.getName();
-    returnVal.card = user.getCard() ? user.getCard().getId() : null;
-    returnVal.isAdmin = user.getIsAdmin();
-    const using = await this.cardServcie.getUsingInfo();
-    returnVal.gaepo = using.gaepo;
-    returnVal.seocho = using.seocho;
-    return returnVal;
+    try {
+      let returnVal = {
+        login: '',
+        card: 0,
+        gaepo: 0,
+        seocho: 0,
+        isAdmin: false,
+      };
+      const user = await this.userRepository.findWithCard(id);
+      const using = await this.cardServcie.getUsingInfo();
+      returnVal.login = user.getName();
+      returnVal.card = user.getCard() ? user.getCard().getId() : null;
+      returnVal.isAdmin = user.getIsAdmin();
+      returnVal.gaepo = using.gaepo;
+      returnVal.seocho = using.seocho;
+      return returnVal;
+    } catch (e) {
+      console.info(e);
+      throw e;
+    }
   }
 
   async checkIn(id: number, cardId: number) {
-    const card = await this.cardRepository.useCard(cardId);
-    const user = await this.userRepository.setCard(id, card);
-    await this.logService.createLog(user, card, 'checkIn');
+    try {
+      const card = await this.cardRepository.useCard(cardId);
+      const user = await this.userRepository.setCard(id, card);
+      await this.logService.createLog(user, card, 'checkIn');
+    } catch (e) {
+      console.info(e);
+      throw e;
+    }
   }
 
   async checkOut(id: number) {
-    const card = await this.userRepository.getCard(id);
-    await this.cardRepository.returnCard(card);
-    const user = await this.userRepository.clearCard(id);
-    await this.logService.createLog(user, card, 'checkOut');
+    try {
+      const card = await this.userRepository.getCard(id);
+      await this.cardRepository.returnCard(card);
+      const user = await this.userRepository.clearCard(id);
+      await this.logService.createLog(user, card, 'checkOut');
+    } catch (e) {
+      console.info(e);
+      throw e;
+    }
   }
 
   async checkIsAdmin(adminId: number) {
-    const admin = await this.userRepository.findOne(adminId);
-    if (!admin.getIsAdmin()) throw new ForbiddenException();
+    try {
+      const admin = await this.userRepository.findOne(adminId);
+      if (!admin.getIsAdmin()) throw new ForbiddenException();
+    } catch (e) {
+      console.info(e);
+      throw e;
+    }
   }
 
   async forceCheckOut(adminId: number, userId: number) {
-    this.checkIsAdmin(adminId);
-    const card = await this.userRepository.getCard(userId);
-    await this.cardRepository.returnCard(card);
-    const user = await this.userRepository.clearCard(userId);
-    await this.logService.createLog(user, card, 'forceCheckOut');
+    try {
+      this.checkIsAdmin(adminId);
+      const card = await this.userRepository.getCard(userId);
+      await this.cardRepository.returnCard(card);
+      const user = await this.userRepository.clearCard(userId);
+      await this.logService.createLog(user, card, 'forceCheckOut');
+    } catch (e) {
+      console.info(e);
+      throw e;
+    }
   }
 }
