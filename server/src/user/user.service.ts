@@ -9,6 +9,7 @@ import { AuthService } from 'src/auth/auth.service';
 import { CardRepository } from 'src/card/card.repository';
 import { CardService } from 'src/card/card.service';
 import { LogService } from 'src/log/log.service';
+import { MyLogger } from 'src/logger/logger.service';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
 
@@ -21,6 +22,7 @@ export class UserService {
     @Inject(forwardRef(() => CardService))
     private readonly cardServcie: CardService,
     private readonly logService: LogService,
+    private readonly logger: MyLogger,
   ) {}
 
   async login(user: User): Promise<string> {
@@ -55,16 +57,26 @@ export class UserService {
   }
 
   async checkIn(id: number, cardId: number) {
-    const card = await this.cardRepository.useCard(cardId);
-    const user = await this.userRepository.setCard(id, card);
-    await this.logService.createLog(user, card, 'checkIn');
+    try {
+      const card = await this.cardRepository.useCard(cardId);
+      const user = await this.userRepository.setCard(id, card);
+      await this.logService.createLog(user, card, 'checkIn');
+    } catch (e) {
+      this.logger.info(e);
+      throw e;
+    }
   }
 
   async checkOut(id: number) {
-    const card = await this.userRepository.getCard(id);
-    await this.cardRepository.returnCard(card);
-    const user = await this.userRepository.clearCard(id);
-    await this.logService.createLog(user, card, 'checkOut');
+    try {
+      const card = await this.userRepository.getCard(id);
+      await this.cardRepository.returnCard(card);
+      const user = await this.userRepository.clearCard(id);
+      await this.logService.createLog(user, card, 'checkOut');
+    } catch (e) {
+      this.logger.info(e);
+      throw e;
+    }
   }
 
   async checkIsAdmin(adminId: number) {
@@ -73,10 +85,15 @@ export class UserService {
   }
 
   async forceCheckOut(adminId: number, userId: number) {
-    this.checkIsAdmin(adminId);
-    const card = await this.userRepository.getCard(userId);
-    await this.cardRepository.returnCard(card);
-    const user = await this.userRepository.clearCard(userId);
-    await this.logService.createLog(user, card, 'forceCheckOut');
+    try {
+      this.checkIsAdmin(adminId);
+      const card = await this.userRepository.getCard(userId);
+      await this.cardRepository.returnCard(card);
+      const user = await this.userRepository.clearCard(userId);
+      await this.logService.createLog(user, card, 'forceCheckOut');
+    } catch (e) {
+      this.logger.info(e);
+      throw e;
+    }
   }
 }

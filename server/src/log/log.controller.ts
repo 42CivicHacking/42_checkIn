@@ -13,51 +13,26 @@ export class LogController {
 
   @Get('user/:login')
   async getUserLog(@Param('login') login: string) {
-    try {
-      return this.logService.getUserLog(login);
-    } catch (e) {
-      this.logger.error(e);
-      throw e;
-    }
+    return this.logService.getUserLog(login);
   }
 
   @Get('card/:id')
   async getCardLog(@Param('id') id: number) {
-    try {
-      return this.logService.getCardLog(id);
-    } catch (e) {
-      this.logger.error(e);
-      throw e;
-    }
+    return this.logService.getCardLog(id);
   }
 
   @Get('all')
   async getAll() {
-    try {
-      return this.logService.getAll();
-    } catch (e) {
-      this.logger.error(e);
-      throw e;
-    }
+    return this.logService.getAll();
   }
 
   @Get('gaepo/:page')
   async getGaepoLog(@Param('page') page: number) {
-    try {
-      return this.logService.getCluster(0, page);
-    } catch (e) {
-      this.logger.error(e);
-      throw e;
-    }
+    return this.logService.getCluster(0, page);
   }
 
   @Get('seocho/:page')
   async getSeochoLog(@Param('page') page: number) {
-    try {
-      return this.logService.getCluster(1, page);
-    } catch (e) {
-      this.logger.error(e);
-      throw e;
-    }
+    return this.logService.getCluster(1, page);
   }
 }

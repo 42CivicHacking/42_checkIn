@@ -2,6 +2,7 @@ import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -37,4 +38,7 @@ export class Log {
 
   @UpdateDateColumn()
   private updatedAt: Date;
+
+  @DeleteDateColumn()
+  private deletedAt: Date;
 }

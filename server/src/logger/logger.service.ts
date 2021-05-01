@@ -1,24 +1,35 @@
 import { Injectable, Logger, LoggerService } from '@nestjs/common';
 import { dailyfile } from 'tracer';
-const logger = dailyfile({
+const logger_info = dailyfile({
   root: './logs',
-  allLogsFileName: '42CheckIn',
+  allLogsFileName: 'info.42CheckIn',
 });
 
+const logger_log = dailyfile({
+  root: './logs',
+  allLogsFileName: 'log.42CheckIn',
+});
+
+const logger_error = dailyfile({
+  root: './logs',
+  allLogsFileName: 'error.42CheckIn',
+});
+
+@Injectable()
 export class MyLogger implements LoggerService {
   log(trace: string) {
-    logger.log(trace);
+    logger_log.log(trace);
   }
   error(trace: string) {
-    logger.error(trace);
+    logger_error.error(trace);
   }
   warn(trace: string) {
-    logger.warn(trace);
+    logger_log.warn(trace);
   }
   bebug(trace: string) {
-    logger.debug(trace);
+    logger_log.debug(trace);
   }
   info(trace: string) {
-    logger.info(trace);
+    logger_info.info(trace);
   }
 }
