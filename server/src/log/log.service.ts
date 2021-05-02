@@ -95,7 +95,9 @@ export class LogService {
       return await this.logRepository.find({
         relations: ['user', 'card'],
         where: (qb) => {
-          qb.where('Log__user.card != null');
+          qb.where('Log__card.type = :type', {
+            type: type,
+          }).andWhere('Log__user.cardId != :null', { null: null });
         },
         order: { createdAt: 'ASC' },
       });
