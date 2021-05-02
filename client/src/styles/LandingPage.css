@@ -3,15 +3,17 @@
 	justify-content: center;
 	align-items: center;
 	width: 100vw;
-	height: 100vh;
+	height: calc(var(--vh, 1vh) * 100);
 	text-align: center;
 }
 
 #login-btn {
+	font-family: "Futura", "Sans serif";
+	border-radius: 3px;
 	border: none;
 	color: black;
-	font-size: 2em;
+	background-color: whitesmoke;
+	font-size: 1rem;
 	width: 50%;
 	padding: 10px;
-	border: 1px solid white;
 }
