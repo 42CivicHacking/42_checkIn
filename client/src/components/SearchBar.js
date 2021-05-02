@@ -43,7 +43,13 @@ const SearchBar = forwardRef((props, ref) => {
 					break;
 			}
 			const data = response.data
-				.filter((item, index) => response.data.indexOf(item) == index)
+				.filter((item, index) => {
+					return (
+						response.data.findIndex((item2, i) => {
+							return item.user._id === item2.user._id;
+						}) === index
+					);
+				})
 				.reverse();
 			props.setLogs(data);
 		} catch (err) {
