@@ -79,8 +79,8 @@ export class LogService {
           qb.where('Log__card.type = :type', { type: type });
         },
         order: { createdAt: 'DESC' },
-        skip: 50 * page,
-        take: 50,
+        // skip: 50 * page,
+        // take: 50,
       });
     } catch (e) {
       this.logger.error(e);
