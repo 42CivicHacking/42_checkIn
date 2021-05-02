@@ -21,7 +21,7 @@ export class FtStrategy extends PassportStrategy(Strategy) {
     try {
       this.logger.log('oauth validation start');
       const user = new User(profile.id, profile.username);
-      this.logger.log('authroized info : ', profile.id, profile.user);
+      this.logger.log('authroized info : ', profile.id, profile.username);
       if (profile._json.cursus_users.length < 2)
         throw new NotAcceptableException();
       return user;
