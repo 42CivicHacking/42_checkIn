@@ -35,4 +35,9 @@ export class LogController {
   async getSeochoLog(@Param('page') page: number) {
     return this.logService.getCluster(1, page);
   }
+
+  @Get('CheckIn/:type')
+  async getCheckInUsers(@Param('type') type: number) {
+    return this.logService.getCheckIn(type);
+  }
 }

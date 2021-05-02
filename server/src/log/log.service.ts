@@ -87,4 +87,21 @@ export class LogService {
       throw e;
     }
   }
+
+  async getCheckIn(type: number): Promise<Log[]> {
+    try {
+      this.logger.log('getCheckIn Start');
+      this.logger.log('type : ', type);
+      return await this.logRepository.find({
+        relations: ['user', 'card'],
+        where: (qb) => {
+          qb.where('Log__user.card != null');
+        },
+        order: { createdAt: 'ASC' },
+      });
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
 }
