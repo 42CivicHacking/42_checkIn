@@ -97,11 +97,9 @@ export class LogService {
         where: (qb) => {
           qb.where('Log__card.type = :type', {
             type: type,
-          })
-            .andWhere('Log__user.cardId IS NOT NULL')
-            .distinct('Log__user._id');
+          }).andWhere('Log__user.cardId IS NOT NULL');
         },
-        order: { createdAt: 'ASC' },
+        order: { createdAt: 'DESC' },
       });
     } catch (e) {
       this.logger.error(e);
