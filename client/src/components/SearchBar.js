@@ -37,7 +37,7 @@ const SearchBar = forwardRef((props, ref) => {
 					break;
 				case 3:
 					response = await axios.get(
-						`https://cluster.42seoul.io/api/log/checkIn/${ClusterType}`
+						`/api/log/checkIn/${ClusterType}`
 					);
 				default:
 					break;
