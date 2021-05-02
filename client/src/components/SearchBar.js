@@ -42,12 +42,10 @@ const SearchBar = forwardRef((props, ref) => {
 				default:
 					break;
 			}
-			props.setLogs(response.data);
-			props.setLogs(
-				props.Logs.filter(
-					(item, index) => props.Logs.indexOf(item) == index
-				).reverse()
-			);
+			const data = response.data
+				.filter((item, index) => response.data.indexOf(item) == index)
+				.reverse();
+			props.setLogs(data);
 		} catch (err) {
 			console.log(err);
 		}

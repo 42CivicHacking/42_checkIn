@@ -96,12 +96,7 @@ function AdminPage() {
 						height: "5rem",
 					}}
 				>
-					<SearchBar
-						type={LogType}
-						setLogs={setLogs}
-						Logs={Logs}
-						ref={ref}
-					/>
+					<SearchBar type={LogType} setLogs={setLogs} ref={ref} />
 				</div>
 			</div>
 			<div style={{ overflowX: "scroll", margin: "auto" }}>
