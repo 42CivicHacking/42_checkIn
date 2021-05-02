@@ -1,42 +1,40 @@
+#page-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+	text-align: center;
+}
+
 #checkinout {
 	font-family: "Futura", "Sans serif";
-	width: 80%;
-	margin: 0 auto;
-	padding-top: 15%;
+	width: 80vw;
 	max-width: 512px;
 	user-select: none;
+	text-align: center;
 }
 
 #title {
-	text-align: center;
-}
-
-#userId {
-	text-align: center;
+	margin: 0;
 }
 
 .input-wrapper {
-	margin: 30px auto;
-	border-radius: 3px;
+	margin: 1.5rem auto;
 }
 
-h3 {
-	text-align: center;
-	margin: 5px auto;
+.checkbox-wrapper {
+	width: 80%;
+	padding: 3px;
 }
 
 .submitBtn {
 	width: 50%;
-	border-radius: 3px;
-	text-align: center;
-	margin: 0 auto 10vh auto;
+	/* margin: 0 auto 10vh auto; */
 	padding: 10px;
 	border: 1px solid white;
-}
-
-.checkbox-wrapper {
-	width: 79%;
-	margin: 0 auto;
+	background: none;
+	font-size: 1rem;
 }
 
 .ready {
@@ -68,8 +66,4 @@ input::placeholder {
 
 label {
 	cursor: pointer;
-}
-
-h4 {
-	text-align: center;
 }

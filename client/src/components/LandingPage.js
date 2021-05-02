@@ -29,11 +29,11 @@ function LandingPage() {
 		return result;
 	};
 	return (
-		<>
-			<div className="btn" onClick={handleLogin}>
+		<div id="page-wrapper">
+			<button id="login-btn" onClick={handleLogin}>
 				42 Log In
-			</div>
-		</>
+			</button>
+		</div>
 	);
 }
 

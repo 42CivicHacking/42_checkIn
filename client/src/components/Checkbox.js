@@ -13,8 +13,9 @@ function Checkbox (props) {
 	}
 	return (
 		<div>
-		<label htmlFor={name}>
-			<input id={name} className="checkbox" type="checkbox" checked={checkStatus[name]} onChange={handleChange} />{text}
+		<label htmlFor={name} className="checkbox-text">
+			<input id={name} className="checkbox" type="checkbox" checked={checkStatus[name]} onChange={handleChange} />
+			{text}
 		</label>
 		</div>
 	)
