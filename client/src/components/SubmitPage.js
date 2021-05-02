@@ -99,23 +99,36 @@ function CheckInPage() {
 		}
 	};
 
+
+
 	useEffect(() => {
+		const checkSubmitCondition = () => {
+			if (
+				cardNum !== "" &&
+				JSON.stringify(checkStatus) === JSON.stringify([true, true, true])
+			)
+				setReadySubmit(true);
+			if (
+				cardNum === "" ||
+				JSON.stringify(checkStatus) !== JSON.stringify([true, true, true])
+			)
+				setReadySubmit(false);
+		}
+
 		const token = getCookieValue("w_auth");
-		if (token !== "") getUserData();
-		else window.location.href = "/";
-		if (
-			isEnter === false &&
-			cardNum !== "" &&
-			JSON.stringify(checkStatus) === JSON.stringify([true, true, true])
-		)
-			setReadySubmit(true);
-		if (
-			cardNum === "" ||
-			cardNum === "---" ||
-			JSON.stringify(checkStatus) !== JSON.stringify([true, true, true])
-		)
-			setReadySubmit(false);
-	}, [userId, cardNum, checkStatus, isEnter, readySubmit]);
+		if (token !== "")
+			getUserData();
+		else
+			window.location.href = "/";
+
+		if (JSON.stringify(checkStatus) !== JSON.stringify([true, true, true]))
+			setCheckAll(false);
+		else
+			setCheckAll(true);
+
+		if (isEnter === false)
+			checkSubmitCondition();
+	}, [cardNum, checkStatus, isEnter]);
 
 	return (
 		<div id="page-wrapper">
