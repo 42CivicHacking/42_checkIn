@@ -2,9 +2,10 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	width: 100vw;
-	height: calc(var(--vh, 1vh) * 100);
 	text-align: center;
+	width: 100vw;
+	height: 100vh;
+	touch-action: pan-y;
 }
 
 #login-btn {
