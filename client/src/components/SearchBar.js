@@ -12,6 +12,7 @@ const SearchBar = forwardRef((props, ref) => {
 	const [CardId, setCardId] = useState(0);
 
 	const handleClick = (e) => {
+		props.setLogs([]);
 		setClusterType(e.target.value);
 		setPage(0);
 	};
@@ -34,6 +35,10 @@ const SearchBar = forwardRef((props, ref) => {
 				case 2:
 					response = await axios.get(`/api/log/card/${CardId}}`);
 					break;
+				case 3:
+					response = await axios.get(
+						`/api/log/checkIn/${ClusterType}`
+					);
 				default:
 					break;
 			}
@@ -137,6 +142,8 @@ const SearchBar = forwardRef((props, ref) => {
 			return Student();
 		case 2:
 			return Card();
+		case 3:
+			return Cluster();
 		default:
 			return Cluster();
 	}

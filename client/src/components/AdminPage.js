@@ -9,7 +9,7 @@ function AdminPage() {
 	const [Logs, setLogs] = useState([]);
 	const ref = useRef();
 
-	const checkAdmin = async() => {
+	const checkAdmin = async () => {
 		try {
 			const response = await axios.get(`/api/user/status`);
 			if (!(response.data && response.data.isAdmin))
@@ -18,7 +18,7 @@ function AdminPage() {
 			console.log(err);
 			window.location.href = "/";
 		}
-	}
+	};
 
 	useEffect(() => {
 		checkAdmin();
@@ -39,6 +39,11 @@ function AdminPage() {
 		setLogType(2);
 	};
 
+	const handleCheckInButton = () => {
+		setLogs([]);
+		setLogType(3);
+	};
+
 	const checkOutOnClick = async (e) => {
 		try {
 			const userId = e.target.getAttribute("data");
@@ -53,31 +58,32 @@ function AdminPage() {
 	};
 
 	return (
-		<div style={{
+		<div
+			style={{
 				justifyContent: "center",
 				alignItems: "center",
 				display: "flex",
-				flexDirection: "column"
-			}}>
+				flexDirection: "column",
+			}}
+		>
 			<div className="selectorWrapper">
-				<div style={{
+				<div
+					style={{
 						display: "flex",
 						// width: "50%",
 						justifyContent: "center",
-					}}>
-					<button className="filterBtn"
-						onClick={handleClusterButton}>
+					}}
+				>
+					<button className="filterBtn" onClick={handleClusterButton}>
 						클러스터 로그
 					</button>
-					<button className="filterBtn"
-						onClick={handleStudentButton}>
+					<button className="filterBtn" onClick={handleStudentButton}>
 						학생 로그
 					</button>
-					<button className="filterBtn"
-						onClick={handleCardButton}>
+					<button className="filterBtn" onClick={handleCardButton}>
 						카드 로그
 					</button>
-					<button className="filterBtn">
+					<button className="filterBtn" onClick={handleCheckInButton}>
 						미반납 카뎃
 					</button>
 				</div>
@@ -93,7 +99,7 @@ function AdminPage() {
 					<SearchBar type={LogType} setLogs={setLogs} ref={ref} />
 				</div>
 			</div>
-			<div style={{overflowX: "scroll", margin: "auto"}}>
+			<div style={{ overflowX: "scroll", margin: "auto" }}>
 				<div className="logWrapper">
 					<div className="logBox3">시간</div>
 					<div className="logBox1">출/입</div>
