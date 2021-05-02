@@ -45,7 +45,7 @@ function CheckInPage() {
 
 	const handleCheckOut = async () => {
 		try {
-			await axios.post(`/api/user/checkOut`);
+			await axios.post("/api/user/checkOut");
 			window.location.href = "/end";
 		} catch (err) {
 			alert("이미 처리된 작업입니다.");
@@ -125,9 +125,9 @@ function CheckInPage() {
 				<h4> 서초 인원 : {Seocho} / 150</h4>
 				<h3 id="userId">Intra ID: {userId}</h3>
 				{isEnter ? (
-					<div className="submitBtn ready" onClick={handleCheckOut}>
+					<button className="submitBtn ready" onClick={handleCheckOut}>
 						Check Out
-					</div>
+					</button>
 				) : (
 					<div>
 						<div className="input-wrapper" style={{textAlign: "left"}}>

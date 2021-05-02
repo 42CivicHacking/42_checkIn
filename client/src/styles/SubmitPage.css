@@ -3,8 +3,9 @@
 	justify-content: center;
 	align-items: center;
 	width: 100vw;
-	height: 100vh;
-	text-align: center;
+	/* height: 100vh; */
+	height: calc(var(--vh, 1vh) * 100);
+
 }
 
 #checkinout {
@@ -12,7 +13,6 @@
 	width: 80vw;
 	max-width: 512px;
 	user-select: none;
-	text-align: center;
 }
 
 #title {
@@ -29,17 +29,21 @@
 }
 
 .submitBtn {
+	text-align: center;
+	font-family: "Futura", "Sans serif";
+	border-radius: 3px;
 	width: 50%;
-	/* margin: 0 auto 10vh auto; */
+	color: whitesmoke;
 	padding: 10px;
-	border: 1px solid white;
 	background: none;
 	font-size: 1rem;
+	border: 1px solid whitesmoke;
 }
 
 .ready {
 	color: black;
-	background-color: white;
+	background-color: whitesmoke;
+	border: none;
 }
 
 #card {
