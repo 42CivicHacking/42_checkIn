@@ -33,7 +33,7 @@ const SearchBar = forwardRef((props, ref) => {
 					response = await axios.get(`/api/log/user/${Login}`);
 					break;
 				case 2:
-					response = await axios.get(`/api/log/card/${CardId}}`);
+					response = await axios.get(`/api/log/card/${CardId}`);
 					break;
 				case 3:
 					response = await axios.get(
@@ -42,15 +42,20 @@ const SearchBar = forwardRef((props, ref) => {
 				default:
 					break;
 			}
-			const data = response.data
-				.filter((item, index) => {
-					return (
-						response.data.findIndex((item2, i) => {
-							return item.user._id === item2.user._id;
-						}) === index
-					);
-				})
-				.reverse();
+			let data;
+			data = response.data;
+			if (props.type === 3) {
+				data = response.data
+					.filter((item, index) => {
+						return (
+							response.data.findIndex((item2, i) => {
+								return item.user._id === item2.user._id;
+							}) === index
+						);
+					})
+					.reverse();
+			}
+
 			props.setLogs(data);
 		} catch (err) {
 			console.log(err);
