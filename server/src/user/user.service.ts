@@ -27,18 +27,19 @@ export class UserService {
 
   async login(user: User): Promise<string> {
     try {
+      const existingUser = await this.userRepository.findOne({
+        where: { userId: user.getUserId() },
+      });
       //처음 사용하는 유저의 경우 db에 등록
-      if (
-        !(user = await this.userRepository.findOne({
-          where: { userId: user.getUserId() },
-        }))
-      ) {
+      if (!existingUser) {
         await this.userRepository.save(user);
         this.logger.log('new user save : ', user);
       }
-      this.logger.log('Login user : ', user);
+      this.logger.log('Login user : ', existingUser);
       // UseGuards에서 넘어온 user로 JWT token 생성
-      return await this.authService.generateToken(user);
+      return await this.authService.generateToken(
+        existingUser ? existingUser : user,
+      );
     } catch (e) {
       this.logger.info(e);
       throw e;
