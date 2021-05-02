@@ -5,12 +5,12 @@ import { Card } from './entities/card.entity';
 
 @EntityRepository(Card)
 export class CardRepository extends Repository<Card> {
-  constructor(private readonly logger: MyLogger) {
-    super();
-  }
+  // constructor(private readonly logger: MyLogger) {
+  //   super();
+  // }
   async useCard(id: number): Promise<Card> {
-    this.logger.log('using Card Start');
-    this.logger.log('cardId : ', id);
+    // this.logger.log('using Card Start');
+    // this.logger.log('cardId : ', id);
     const card = await this.findOne(id);
     if (!card) throw new NotFoundException();
     if (card.getStatus()) throw new BadRequestException();
@@ -26,8 +26,8 @@ export class CardRepository extends Repository<Card> {
   }
 
   async returnCard(card: Card): Promise<void> {
-    this.logger.log('returning Card Start');
-    this.logger.log('cardId : ', card.getId());
+    // this.logger.log('returning Card Start');
+    // this.logger.log('cardId : ', card.getId());
     if (!card.getStatus()) throw new BadRequestException();
     card.returnCard();
     await this.save(card);

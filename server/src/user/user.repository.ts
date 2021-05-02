@@ -6,9 +6,9 @@ import { User } from './entities/user.entity';
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  constructor(private readonly logger: MyLogger) {
-    super();
-  }
+  // constructor(private readonly logger: MyLogger) {
+  //   super();
+  // }
 
   async findWithCard(id: number): Promise<User> {
     const user = await this.findOne(id, { relations: ['card'] });
@@ -25,8 +25,8 @@ export class UserRepository extends Repository<User> {
   }
 
   async setCard(id: number, card: Card): Promise<User> {
-    this.logger.log('setting Card Start');
-    this.logger.log('_id, cardId : ', id, card.getId());
+    // this.logger.log('setting Card Start');
+    // this.logger.log('_id, cardId : ', id, card.getId());
     const user = await this.findWithCard(id);
     if (user.getCard()) throw new BadRequestException();
     user.cardSet(card);
@@ -35,8 +35,8 @@ export class UserRepository extends Repository<User> {
   }
 
   async clearCard(id: number): Promise<User> {
-    this.logger.log('clearing Card Start');
-    this.logger.log('_id : ', id);
+    // this.logger.log('clearing Card Start');
+    // this.logger.log('_id : ', id);
     const user = await this.findWithCard(id);
     const card = user.getCard();
     if (!card) throw new BadRequestException();
