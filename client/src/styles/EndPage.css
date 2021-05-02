@@ -1,5 +1,11 @@
-#endText {
+#text-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
+}
+
+#ending-text {
 	font-family: "Futura", "Sans serif";
-	text-align: center;
-	margin-top: 40vh;
 }

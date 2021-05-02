@@ -3,12 +3,12 @@ import "../styles/EndPage.css";
 
 function EndPage() {
 	useEffect(() => {
-		setTimeout(() => (window.location.href = "/submit"), 3000);
+		setTimeout(() => (window.location.href = "/submit"), 1000);
 	});
 	return (
-		<>
-			<h1 id="endText">Complete!</h1>
-		</>
+		<div id="text-wrapper">
+			<h1 id="ending-text">Complete!</h1>
+		</div>
 	);
 }
 

@@ -9,16 +9,20 @@ function AdminPage() {
 	const [Logs, setLogs] = useState([]);
 	const ref = useRef();
 
-	// useEffect(async () => {
-	// 	try {
-	// 		const response = await axios.get(`/api/user/status`);
-	// 		if (!(response.data && response.data.isAdmin))
-	// 			window.location.href = "/submit";
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 		window.location.href = "/";
-	// 	}
-	// }, []);
+	const checkAdmin = async() => {
+		try {
+			const response = await axios.get(`/api/user/status`);
+			if (!(response.data && response.data.isAdmin))
+				window.location.href = "/submit";
+		} catch (err) {
+			console.log(err);
+			window.location.href = "/";
+		}
+	}
+
+	useEffect(() => {
+		checkAdmin();
+	}, []);
 
 	const handleClusterButton = () => {
 		setLogs([]);
@@ -53,7 +57,7 @@ function AdminPage() {
 				justifyContent: "center",
 				alignItems: "center",
 				display: "flex",
-				flexDirection: "column",
+				flexDirection: "column"
 			}}>
 			<div className="selectorWrapper">
 				<div style={{
@@ -73,6 +77,9 @@ function AdminPage() {
 						onClick={handleCardButton}>
 						카드 로그
 					</button>
+					<button className="filterBtn">
+						미반납 카뎃
+					</button>
 				</div>
 				<div
 					style={{
@@ -86,14 +93,14 @@ function AdminPage() {
 					<SearchBar type={LogType} setLogs={setLogs} ref={ref} />
 				</div>
 			</div>
-			<div style={{overflowX: "scroll", minWidth: "50%", margin: "auto"}}>
+			<div style={{overflowX: "scroll", margin: "auto"}}>
 				<div className="logWrapper">
 					<div className="logBox3">시간</div>
 					<div className="logBox1">출/입</div>
 					<div className="logBox1">로그인</div>
 					<div className="logBox1">카드 번호</div>
-					<div className="logBox1">개포/서초</div>
-					<div className="logBox3">강제 퇴실 처리</div>
+					<div className="logBox1">클러스터</div>
+					<div className="logBox1">강제 퇴실</div>
 				</div>
 				<hr />
 				{Logs &&
@@ -104,8 +111,8 @@ function AdminPage() {
 								<div className="logBox3">
 									{moment(date).format("MM월 DD일 HH:mm")}
 								</div>
-								<div className="logBox2">{log.type}</div>
-								<div className="logBox2">
+								<div className="logBox1">{log.type}</div>
+								<div className="logBox1">
 									{log.user.userName}
 								</div>
 								<div className="logBox1">{log.card.cardId}</div>
@@ -113,7 +120,7 @@ function AdminPage() {
 									{log.card.type === 0 ? "개포" : "서초"}
 								</div>
 								<div
-									className="logBox3"
+									className="logBox1"
 									data={log.user._id}
 									onClick={checkOutOnClick}
 								>

@@ -1,13 +1,17 @@
-.btn {
-	font-family: "Futura", "Sans serif";
-	width: 50%;
-	max-width: 512px;
-	border-radius: 3px;
+#page-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	height: 100vh;
 	text-align: center;
-	margin: 0 auto;
-	padding: 10px;
+}
+
+#login-btn {
+	border: none;
 	color: black;
-	font-size: 1.5em;
-	background-color: white;
-	margin-top: 40vh;
+	font-size: 2em;
+	width: 50%;
+	padding: 10px;
+	border: 1px solid white;
 }

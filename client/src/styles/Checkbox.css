@@ -1,3 +1,7 @@
 .checkbox {
 	margin: 10px auto;
 }
+
+.checkbox-text {
+	font-size: 0.8rem;
+}

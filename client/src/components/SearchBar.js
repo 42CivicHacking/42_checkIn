@@ -52,7 +52,7 @@ const SearchBar = forwardRef((props, ref) => {
 							type="radio"
 							name="cluster"
 							value={0}
-							checked={ClusterType === 0}
+							checked={ClusterType == 0}
 							onChange={handleClick}
 						/>
 						개포
@@ -62,7 +62,7 @@ const SearchBar = forwardRef((props, ref) => {
 							type="radio"
 							name="cluster"
 							value={1}
-							checked={ClusterType === 1}
+							checked={ClusterType == 1}
 							onChange={handleClick}
 						/>
 						서초

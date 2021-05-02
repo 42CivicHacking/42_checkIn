@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Checkbox from "./Checkbox";
+import Checkbox from "../components/Checkbox";
 import "../styles/SubmitPage.css";
 
 function CheckInPage() {
@@ -118,7 +118,7 @@ function CheckInPage() {
 	}, [userId, cardNum, checkStatus, isEnter, readySubmit]);
 
 	return (
-		<>
+		<div id="page-wrapper">
 			<div id="checkinout">
 				<h1 id="title">{isEnter ? "42 CheckOut" : "42 CheckIn"}</h1>
 				<h4> 개포 인원 : {Gaepo} / 150 </h4>
@@ -130,8 +130,8 @@ function CheckInPage() {
 					</div>
 				) : (
 					<div>
-						<div className="input-wrapper">
-							<label htmlFor="allCheck">
+						<div className="input-wrapper" style={{textAlign: "left"}}>
+							<label htmlFor="allCheck" style={{fontSize: "1em"}}>
 								<input
 									id="allCheck"
 									type="checkbox"
@@ -140,6 +140,7 @@ function CheckInPage() {
 								/>
 								모두 동의
 							</label>
+							<div style={{display: "flex", justifyContent: "center"}}>
 							<div className="checkbox-wrapper">
 								{checkLists.map((checkList, id) => (
 									<Checkbox
@@ -151,6 +152,7 @@ function CheckInPage() {
 									/>
 								))}
 							</div>
+							</div>
 						</div>
 						<div className="input-wrapper">
 							<h3>Card Number</h3>
@@ -161,21 +163,22 @@ function CheckInPage() {
 									value={cardNum}
 									onChange={handleCardNum}
 									placeholder="카드 번호를 입력해주세요"
+									style={{textAlign: "center"}}
 								></input>
 							</div>
 						</div>
-						<div
+						<button
 							className={`submitBtn ${
 								readySubmit ? " ready" : ""
 							}`}
 							onClick={handleCheckIn}
 						>
 							Check In
-						</div>
+						</button>
 					</div>
 				)}
 			</div>
-		</>
+		</div>
 	);
 }
 export default CheckInPage;
