@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { forwardRef, useImperativeHandle, useState } from "react";
-import '../styles/SearchBar.css';
+import "../styles/SearchBar.css";
 
 const SearchBar = forwardRef((props, ref) => {
 	useImperativeHandle(ref, () => ({
@@ -23,7 +23,7 @@ const SearchBar = forwardRef((props, ref) => {
 			switch (props.type) {
 				case 0:
 					response = await axios.get(
-						`http://cluster.42seoul.io/api/log/${
+						`/api/log/${
 							ClusterType === 0 ? "gaepo" : "seocho"
 						}/${Page}`
 					);
@@ -102,7 +102,7 @@ const SearchBar = forwardRef((props, ref) => {
 						setLogin(e.target.value);
 					}}
 					style={{
-						textAlign: "center"
+						textAlign: "center",
 					}}
 				/>
 				<button onClick={onSubmit}>불러오기</button>
@@ -122,7 +122,7 @@ const SearchBar = forwardRef((props, ref) => {
 						setCardId(e.target.value);
 					}}
 					style={{
-						textAlign: "center"
+						textAlign: "center",
 					}}
 				/>
 				<button onClick={onSubmit}>불러오기</button>
