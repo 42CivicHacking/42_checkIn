@@ -3,6 +3,7 @@ import LandingPage from "./components/LandingPage";
 import SubmitPage from "./components/SubmitPage";
 import EndPage from "./components/EndPage";
 import AdminPage from "./components/AdminPage";
+import NotFoundPage from "./pages/NotFoundPage";
 import "./App.css";
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
 			<Route path="/submit" component={SubmitPage} />
 			<Route path="/end" component={EndPage} />
 			<Route path="/admin" component={AdminPage} />
-			{/* <Route path="*" component={404} /> */}
+			<Route path="*" component={NotFoundPage} />
 		</BrowserRouter>
 	);
 }
