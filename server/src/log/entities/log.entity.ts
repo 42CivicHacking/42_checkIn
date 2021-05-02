@@ -2,10 +2,12 @@ import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { Card } from '../../card/entities/card.entity';
 
@@ -33,4 +35,10 @@ export class Log {
 
   @CreateDateColumn()
   private createdAt: Date;
+
+  @UpdateDateColumn()
+  private updatedAt: Date;
+
+  @DeleteDateColumn()
+  private deletedAt: Date;
 }

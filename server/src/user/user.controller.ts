@@ -11,8 +11,10 @@ import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UserService } from './user.service';
 import { FtAuthGuard } from 'src/auth/ft-auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
-@Controller('api/user/')
+@ApiTags('User')
+@Controller('api/user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -33,24 +35,24 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('status')
   async status(@Req() req: any) {
-    return this.userService.status(req.user.userId);
+    return this.userService.status(req.user._id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('checkIn/:cardId')
   async checkIn(@Req() req: any, @Param('cardId') cardId: number) {
-    return this.userService.checkIn(req.user.userId, cardId);
+    return this.userService.checkIn(req.user._id, cardId);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('checkOut')
   async checkOut(@Req() req: any) {
-    return this.userService.checkOut(req.user.userId);
+    return this.userService.checkOut(req.user._id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Post('forceCheckOut/:userId')
   async forceCheckOut(@Req() req: any, @Param('userId') userId: number) {
-    return this.userService.forceCheckOut(req.user.userId, userId);
+    return this.userService.forceCheckOut(req.user._id, userId);
   }
 }

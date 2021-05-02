@@ -1,6 +1,7 @@
 import { HttpService, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { MyLogger } from 'src/logger/logger.service';
 import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
@@ -9,6 +10,7 @@ export class AuthService {
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
     private readonly httpService: HttpService,
+    private readonly logger: MyLogger,
   ) {}
 
   /* passport 로 대체됨 */
@@ -41,7 +43,15 @@ export class AuthService {
   // }
 
   async generateToken(user: User): Promise<string> {
-    const payload = { username: user.getName(), sub: user.getId() };
-    return this.jwtService.sign(payload);
+    try {
+      this.logger.log('generating token...');
+      const payload = { username: user.getName(), sub: user.getId() };
+      const token = this.jwtService.sign(payload);
+      this.logger.log('new token generated : ', token);
+      return token;
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
   }
 }

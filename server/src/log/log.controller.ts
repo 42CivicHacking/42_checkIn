@@ -1,9 +1,15 @@
 import { Controller, Get, Param } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { MyLogger } from 'src/logger/logger.service';
 import { LogService } from './log.service';
 
-@Controller('api/log/')
+@ApiTags('Log')
+@Controller('api/log')
 export class LogController {
-  constructor(private readonly logService: LogService) {}
+  constructor(
+    private readonly logService: LogService,
+    private readonly logger: MyLogger,
+  ) {}
 
   @Get('user/:login')
   async getUserLog(@Param('login') login: string) {

@@ -32,9 +32,12 @@ function CheckInPage() {
 					}
 				} else {
 					setCardNum("");
-					alert("유효한 카드 번호가 아닙니다");
+					alert("이미 사용 중이거나 유효한 카드 번호가 아닙니다");
 				}
 			} catch (err) {
+				alert(
+					"체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요."
+				);
 				console.log(err);
 			}
 		}
@@ -45,6 +48,8 @@ function CheckInPage() {
 			await axios.post("/api/user/checkOut");
 			window.location.href = "/end";
 		} catch (err) {
+			alert("이미 처리된 작업입니다.");
+			window.location.href = "/";
 			console.log(err);
 		}
 	};

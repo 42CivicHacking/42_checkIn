@@ -121,7 +121,7 @@ function AdminPage() {
 								</div>
 								<div
 									className="logBox1"
-									data={log.user.userId}
+									data={log.user._id}
 									onClick={checkOutOnClick}
 								>
 									{log.card.cardId === log.user.cardId
