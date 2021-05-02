@@ -99,7 +99,7 @@ export class LogService {
             type: type,
           })
             .andWhere('Log__user.cardId IS NOT NULL')
-            .distinctOn(['Log__user._id']);
+            .distinct('Log__user._id');
         },
         order: { createdAt: 'ASC' },
       });
