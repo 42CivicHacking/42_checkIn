@@ -59,8 +59,8 @@ const SearchBar = forwardRef((props, ref) => {
 					})
 					.reverse();
 			}
-
 			props.setLogs(data);
+			console.log(data);
 		} catch (err) {
 			console.log(err);
 		}

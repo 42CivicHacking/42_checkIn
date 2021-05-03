@@ -112,7 +112,7 @@ export class LogService {
       this.logger.log('getAllCardLog Start');
       this.logger.log('type : ', type);
       return await this.logRepository.find({
-        relations: ['user', 'card'],
+        // relations: ['user', 'card'],
         where: (qb) => {
           qb.where('Log__card.type = :type', {
             type: type,
