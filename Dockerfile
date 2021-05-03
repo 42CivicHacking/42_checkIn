@@ -13,7 +13,10 @@ WORKDIR /deploy/42_checkIn/server
 RUN npm install
 RUN npm install -g @nestjs/cli
 RUN npm install -g pm2
-RUN pm2 set pm2-slack:slack_url https://hooks.slack.com/services/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 && pm2 set pm2-slack:servername 42CheckIn
-RUN pm2 set pm2-slack:start true && pm2 set pm2-slack:stop true && pm2 set pm2-slack:restart true
+RUN pm2 set pm2-slack:slack_url https://hooks.slack.com/services/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
+RUN pm2 set pm2-slack:servername 42CheckIn
+RUN pm2 set pm2-slack:start true
+RUN pm2 set pm2-slack:stop true
+RUN pm2 set pm2-slack:restart true
 
 CMD ["pm2-runtime", "start", "./dist/src/main.js"]
