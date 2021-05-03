@@ -118,9 +118,7 @@ export class LogService {
             type: type,
           }).andWhere('Log__user.cardId = Log__card.cardId');
         },
-        order: (qb) => {
-          qb.orderBy('card.cardId', 'DESC');
-        },
+        order: { cardId: 'ASC' },
       });
     } catch (e) {
       this.logger.error(e);

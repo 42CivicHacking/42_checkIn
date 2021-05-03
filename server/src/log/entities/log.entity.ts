@@ -7,6 +7,7 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  RelationId,
   UpdateDateColumn,
 } from 'typeorm';
 import { Card } from '../../card/entities/card.entity';
@@ -25,6 +26,9 @@ export class Log {
   @ManyToOne(() => User)
   @JoinColumn()
   private user: User;
+
+  @RelationId((log: Log) => log.card)
+  private cardId: number;
 
   @ManyToOne(() => Card)
   @JoinColumn()
