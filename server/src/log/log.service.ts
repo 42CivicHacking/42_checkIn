@@ -112,13 +112,14 @@ export class LogService {
       this.logger.log('getAllCardLog Start');
       this.logger.log('type : ', type);
       return await this.logRepository.find({
-        // relations: ['user', 'card'],
+        relations: ['user', 'card'],
         where: (qb) => {
           qb.where('Log__card.type = :type', {
             type: type,
-          }).andWhere('Log__user.cardId = Log__card.cardId');
+          })
+            .andWhere('Log__user.cardId = Log__card.cardId')
+            .orderBy('Log__card.cardId', 'ASC');
         },
-        // order: { cardId: 'ASC' },
       });
     } catch (e) {
       this.logger.error(e);
