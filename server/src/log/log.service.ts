@@ -119,7 +119,7 @@ export class LogService {
           }).andWhere('Log__user.cardId = Log__card.cardId');
         },
         order: (qb) => {
-          qb.orderBy('Log__card.cardId', 'DESC');
+          qb.orderBy('card.cardId', 'DESC');
         },
       });
     } catch (e) {
