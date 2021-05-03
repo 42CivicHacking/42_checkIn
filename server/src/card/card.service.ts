@@ -75,4 +75,15 @@ export class CardService {
       throw e;
     }
   }
+
+  async getUsingCard(): Promise<Card[]> {
+    try {
+      this.logger.log('getUsingCard Start');
+      const card = await this.cardRepository.find({ where: { using: true } });
+      return card;
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
 }
