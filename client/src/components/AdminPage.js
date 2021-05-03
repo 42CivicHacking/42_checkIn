@@ -95,7 +95,7 @@ function AdminPage() {
 						className="filterBtn"
 						onClick={handleAllCaradButton}
 					>
-						미반납 카뎃
+						모든 카드 정보 보기
 					</button>
 				</div>
 				<div
