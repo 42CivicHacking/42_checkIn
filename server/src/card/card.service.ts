@@ -86,4 +86,15 @@ export class CardService {
       throw e;
     }
   }
+
+  async releaseCard(id: number): Promise<void> {
+    try {
+      this.logger.log('releaseCard Start');
+      const card = await this.cardRepository.findOne(id);
+      this.cardRepository.returnCard(card);
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
 }
