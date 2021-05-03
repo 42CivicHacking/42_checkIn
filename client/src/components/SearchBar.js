@@ -212,14 +212,15 @@ const SearchBar = forwardRef((props, ref) => {
 					})
 					.reverse();
 			}
-			if (props.type === 4 && ClusterType === 0) {
+			if (props.type === 4 && ClusterType == 0) {
+				let newdata = [];
 				gaepoCard.map((item, index) => {
 					const tmp = data.find((ele) => {
 						if (ele.card.cardId === item) return true;
 					});
-					gaepoCard[index] = { id: item, ...tmp };
+					newdata.push({ id: item, ...tmp });
 				});
-				data = gaepoCard;
+				data = newdata;
 			}
 			props.setLogs(data);
 			console.log(data);
