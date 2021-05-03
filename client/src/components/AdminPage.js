@@ -129,7 +129,7 @@ function AdminPage() {
 						return (
 							<div key={index} className="logWrapper">
 								{log.id ? (
-									<div calssName="logBox3">{log.id}</div>
+									<div className="logBox3">{log.id}</div>
 								) : null}
 								{date ? (
 									<div className="logBox3">
