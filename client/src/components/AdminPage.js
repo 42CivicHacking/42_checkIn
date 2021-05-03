@@ -44,6 +44,11 @@ function AdminPage() {
 		setLogType(3);
 	};
 
+	const handleAllCaradButton = () => {
+		setLogs([]);
+		setLogType(4);
+	};
+
 	const checkOutOnClick = async (e) => {
 		try {
 			const userId = e.target.getAttribute("data");
@@ -84,6 +89,12 @@ function AdminPage() {
 						카드 로그
 					</button>
 					<button className="filterBtn" onClick={handleCheckInButton}>
+						미반납 카뎃
+					</button>
+					<button
+						className="filterBtn"
+						onClick={handleAllCaradButton}
+					>
 						미반납 카뎃
 					</button>
 				</div>

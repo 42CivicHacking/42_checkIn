@@ -40,4 +40,9 @@ export class LogController {
   async getCheckInUsers(@Param('type') type: number) {
     return this.logService.getCheckIn(type);
   }
+
+  @Get('allCard/:type')
+  async getAllCardLog(@Param('type') type: number) {
+    return this.logService.getAllCard(type);
+  }
 }

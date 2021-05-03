@@ -39,12 +39,16 @@ const SearchBar = forwardRef((props, ref) => {
 					response = await axios.get(
 						`/api/log/checkIn/${ClusterType}`
 					);
+				case 4:
+					response = await axios.get(
+						`/api/log/allCard/${ClusterType}`
+					);
 				default:
 					break;
 			}
 			let data;
 			data = response.data;
-			if (props.type === 3) {
+			if (props.type === 3 || props.type === 4) {
 				data = response.data
 					.filter((item, index) => {
 						return (

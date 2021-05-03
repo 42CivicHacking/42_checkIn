@@ -97,9 +97,30 @@ export class LogService {
         where: (qb) => {
           qb.where('Log__card.type = :type', {
             type: type,
-          }).andWhere('Log__user.cardId IS NOT NULL');
+          }).andWhere('Log__user.cardId = Log__card.cardId');
         },
         order: { createdAt: 'DESC' },
+      });
+    } catch (e) {
+      this.logger.error(e);
+      throw e;
+    }
+  }
+
+  async getAllCard(type: number): Promise<Log[]> {
+    try {
+      this.logger.log('getAllCardLog Start');
+      this.logger.log('type : ', type);
+      return await this.logRepository.find({
+        relations: ['user', 'card'],
+        where: (qb) => {
+          qb.where('Log__card.type = :type', {
+            type: type,
+          }).andWhere('Log__user.cardId = Log__card.cardId');
+        },
+        order: (qb) => {
+          qb.orderBy('Log__card.cardId', 'DESC');
+        },
       });
     } catch (e) {
       this.logger.error(e);
