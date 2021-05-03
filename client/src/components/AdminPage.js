@@ -125,6 +125,9 @@ function AdminPage() {
 						const date = new Date(log.createdAt);
 						return (
 							<div key={index} className="logWrapper">
+								{log.id ? (
+									<div calssName="logBox1">log.id</div>
+								) : null}
 								<div className="logBox3">
 									{moment(date).format("MM월 DD일 HH:mm")}
 								</div>
