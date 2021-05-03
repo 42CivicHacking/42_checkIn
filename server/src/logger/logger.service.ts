@@ -3,16 +3,19 @@ import { dailyfile } from 'tracer';
 const logger_info = dailyfile({
   root: './logs',
   allLogsFileName: 'info.42CheckIn',
+  stackIndex: 1,
 });
 
 const logger_log = dailyfile({
   root: './logs',
   allLogsFileName: 'log.42CheckIn',
+  stackIndex: 1,
 });
 
 const logger_error = dailyfile({
   root: './logs',
   allLogsFileName: 'error.42CheckIn',
+  stackIndex: 1,
 });
 
 @Injectable()
