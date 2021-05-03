@@ -112,6 +112,9 @@ function AdminPage() {
 			</div>
 			<div style={{ overflowX: "scroll", margin: "auto" }}>
 				<div className="logWrapper">
+					{LogType === 4 ? (
+						<div className="logBox1">카드 번호</div>
+					) : null}
 					<div className="logBox3">시간</div>
 					<div className="logBox1">출/입</div>
 					<div className="logBox1">로그인</div>
@@ -128,26 +131,40 @@ function AdminPage() {
 								{log.id ? (
 									<div calssName="logBox1">log.id</div>
 								) : null}
-								<div className="logBox3">
-									{moment(date).format("MM월 DD일 HH:mm")}
-								</div>
-								<div className="logBox1">{log.type}</div>
-								<div className="logBox1">
-									{log.user.userName}
-								</div>
-								<div className="logBox1">{log.card.cardId}</div>
-								<div className="logBox1">
-									{log.card.type === 0 ? "개포" : "서초"}
-								</div>
-								<div
-									className="logBox1"
-									data={log.user._id}
-									onClick={checkOutOnClick}
-								>
-									{log.card.cardId === log.user.cardId
-										? "퇴실처리하기"
-										: null}
-								</div>
+								{date ? (
+									<div className="logBox3">
+										{moment(date).format("MM월 DD일 HH:mm")}
+									</div>
+								) : null}
+								{log.type ? (
+									<div className="logBox1">{log.type}</div>
+								) : null}
+								{log.user ? (
+									<div className="logBox1">
+										{log.user.userName}
+									</div>
+								) : null}
+								{log.card ? (
+									<div className="logBox1">
+										{log.card.cardId}
+									</div>
+								) : null}
+								{log.card ? (
+									<div className="logBox1">
+										{log.card.type === 0 ? "개포" : "서초"}
+									</div>
+								) : null}
+								{log.user ? (
+									<div
+										className="logBox1"
+										data={log.user._id}
+										onClick={checkOutOnClick}
+									>
+										{log.card.cardId === log.user.cardId
+											? "퇴실처리하기"
+											: null}
+									</div>
+								) : null}
 							</div>
 						);
 					})}
