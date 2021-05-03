@@ -118,7 +118,7 @@ export class LogService {
             type: type,
           })
             .andWhere('Log__user.cardId = Log__card.cardId')
-            .orderBy('Log__card.cardId', 'ASC');
+            .orderBy('Log__card.cardId', 'DESC');
         },
       });
     } catch (e) {
