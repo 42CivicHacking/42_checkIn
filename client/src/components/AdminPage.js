@@ -113,7 +113,7 @@ function AdminPage() {
 			<div style={{ overflowX: "scroll", margin: "auto" }}>
 				<div className="logWrapper">
 					{LogType === 4 ? (
-						<div className="logBox1">카드 번호</div>
+						<div className="logBox3">카드 번호</div>
 					) : null}
 					<div className="logBox3">시간</div>
 					<div className="logBox1">출/입</div>
@@ -129,7 +129,7 @@ function AdminPage() {
 						return (
 							<div key={index} className="logWrapper">
 								{log.id ? (
-									<div calssName="logBox1">{log.id}</div>
+									<div calssName="logBox3">{log.id}</div>
 								) : null}
 								{date ? (
 									<div className="logBox3">
