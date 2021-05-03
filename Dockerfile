@@ -6,7 +6,10 @@ VOLUME /deploy/42_checkIn
 
 # COPY ./start.sh /usr/local/bin
 
-RUN ln -s /usr/local/bin/start.sh /start.sh
+# RUN ln -s /usr/local/bin/start.sh /start.sh
+
+WORKDIR /deploy/42_checkIn/server
+
 RUN npm install
 RUN npm install -g @nestjs/cli
 RUN npm install -g pm2
