@@ -21,7 +21,7 @@ const logger_error = dailyfile({
 @Injectable()
 export class MyLogger implements LoggerService {
   log(...trace: any[]) {
-    logger_log.log(trace);
+    logger_log.trace(trace);
   }
   error(...trace: any[]) {
     logger_error.error(trace);
