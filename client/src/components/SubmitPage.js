@@ -91,7 +91,11 @@ function CheckInPage() {
 			const response = await axios.get("/api/user/status");
 			const { login, card } = response.data;
 			setUserId(login);
-			if (card !== null) setIsEnter(true);
+			if (card !== null)
+			{
+				setIsEnter(true);
+				setCardNum(card.cardId);
+			}
 			else setIsEnter(false);
 			setGaepo(response.data.gaepo);
 			setSeocho(response.data.seocho);
@@ -102,11 +106,7 @@ function CheckInPage() {
 		}
 	};
 
-
-
 	useEffect(() => {
-		setIsEnter(true)
-		setCardNum(412)
 		const checkSubmitCondition = () => {
 			if (
 				cardNum !== "" &&
@@ -123,8 +123,8 @@ function CheckInPage() {
 		const token = getCookieValue("w_auth");
 		if (token !== "")
 			getUserData();
-		// else
-		// 	window.location.href = "/";
+		else
+			window.location.href = "/";
 
 		if (JSON.stringify(checkStatus) !== JSON.stringify([true, true, true]))
 			setCheckAll(false);
