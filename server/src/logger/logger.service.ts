@@ -10,6 +10,7 @@ const logger_log = dailyfile({
   root: './logs',
   allLogsFileName: 'log.42CheckIn',
   stackIndex: 1,
+  level: 'trace',
 });
 
 const logger_error = dailyfile({
