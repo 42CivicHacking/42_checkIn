@@ -44,13 +44,16 @@ function CheckInPage() {
 	};
 
 	const handleCheckOut = async () => {
-		try {
-			await axios.post("/api/user/checkOut");
-			window.location.href = "/end";
-		} catch (err) {
-			alert("이미 처리된 작업입니다.");
-			window.location.href = "/";
-			console.log(err);
+		if (window.confirm("퇴실 하시겠습니까?"))
+		{
+			try {
+				await axios.post("/api/user/checkOut");
+				window.location.href = "/end";
+			} catch (err) {
+				alert("이미 처리된 작업입니다.");
+				window.location.href = "/";
+				console.log(err);
+			}
 		}
 	};
 
@@ -102,6 +105,8 @@ function CheckInPage() {
 
 
 	useEffect(() => {
+		setIsEnter(true)
+		setCardNum(412)
 		const checkSubmitCondition = () => {
 			if (
 				cardNum !== "" &&
@@ -118,8 +123,8 @@ function CheckInPage() {
 		const token = getCookieValue("w_auth");
 		if (token !== "")
 			getUserData();
-		else
-			window.location.href = "/";
+		// else
+		// 	window.location.href = "/";
 
 		if (JSON.stringify(checkStatus) !== JSON.stringify([true, true, true]))
 			setCheckAll(false);
@@ -136,11 +141,14 @@ function CheckInPage() {
 				<h1 id="title">{isEnter ? "42 CheckOut" : "42 CheckIn"}</h1>
 				<h4> 개포 인원 : {Gaepo} / 150 </h4>
 				<h4> 서초 인원 : {Seocho} / 150</h4>
-				<h3 id="userId">Intra ID: {userId}</h3>
+				<h3> Intra ID : {userId}</h3>
 				{isEnter ? (
-					<button className="submitBtn ready" onClick={handleCheckOut}>
-						Check Out
-					</button>
+					<div>
+						<h3>Card Number : {cardNum}</h3>
+						<button className="submitBtn ready" onClick={handleCheckOut}>
+							Check Out
+						</button>
+					</div>
 				) : (
 					<div>
 						<div className="input-wrapper" style={{textAlign: "left"}}>
