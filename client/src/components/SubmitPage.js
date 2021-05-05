@@ -44,8 +44,7 @@ function CheckInPage() {
 	};
 
 	const handleCheckOut = async () => {
-		if (window.confirm("퇴실 하시겠습니까?"))
-		{
+		if (window.confirm("퇴실 하시겠습니까?")) {
 			try {
 				await axios.post("/api/user/checkOut");
 				window.location.href = "/end";
@@ -91,12 +90,10 @@ function CheckInPage() {
 			const response = await axios.get("/api/user/status");
 			const { login, card } = response.data;
 			setUserId(login);
-			if (card !== null)
-			{
+			if (card !== null) {
 				setIsEnter(true);
-				setCardNum(card.cardId);
-			}
-			else setIsEnter(false);
+				setCardNum(card);
+			} else setIsEnter(false);
 			setGaepo(response.data.gaepo);
 			setSeocho(response.data.seocho);
 		} catch (err) {
@@ -110,29 +107,27 @@ function CheckInPage() {
 		const checkSubmitCondition = () => {
 			if (
 				cardNum !== "" &&
-				JSON.stringify(checkStatus) === JSON.stringify([true, true, true])
+				JSON.stringify(checkStatus) ===
+					JSON.stringify([true, true, true])
 			)
 				setReadySubmit(true);
 			if (
 				cardNum === "" ||
-				JSON.stringify(checkStatus) !== JSON.stringify([true, true, true])
+				JSON.stringify(checkStatus) !==
+					JSON.stringify([true, true, true])
 			)
 				setReadySubmit(false);
-		}
+		};
 
 		const token = getCookieValue("w_auth");
-		if (token !== "")
-			getUserData();
-		else
-			window.location.href = "/";
+		if (token !== "") getUserData();
+		else window.location.href = "/";
 
 		if (JSON.stringify(checkStatus) !== JSON.stringify([true, true, true]))
 			setCheckAll(false);
-		else
-			setCheckAll(true);
+		else setCheckAll(true);
 
-		if (isEnter === false)
-			checkSubmitCondition();
+		if (isEnter === false) checkSubmitCondition();
 	}, [cardNum, checkStatus, isEnter]);
 
 	return (
@@ -145,14 +140,23 @@ function CheckInPage() {
 				{isEnter ? (
 					<div>
 						<h3>Card Number : {cardNum}</h3>
-						<button className="submitBtn ready" onClick={handleCheckOut}>
+						<button
+							className="submitBtn ready"
+							onClick={handleCheckOut}
+						>
 							Check Out
 						</button>
 					</div>
 				) : (
 					<div>
-						<div className="input-wrapper" style={{textAlign: "left"}}>
-							<label htmlFor="allCheck" style={{fontSize: "1em"}}>
+						<div
+							className="input-wrapper"
+							style={{ textAlign: "left" }}
+						>
+							<label
+								htmlFor="allCheck"
+								style={{ fontSize: "1em" }}
+							>
 								<input
 									id="allCheck"
 									type="checkbox"
@@ -161,18 +165,23 @@ function CheckInPage() {
 								/>
 								모두 동의
 							</label>
-							<div style={{display: "flex", justifyContent: "center"}}>
-							<div className="checkbox-wrapper">
-								{checkLists.map((checkList, id) => (
-									<Checkbox
-										key={id}
-										name={id}
-										text={checkList}
-										checkStatus={checkStatus}
-										setCheckStatus={setCheckStatus}
-									/>
-								))}
-							</div>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+								}}
+							>
+								<div className="checkbox-wrapper">
+									{checkLists.map((checkList, id) => (
+										<Checkbox
+											key={id}
+											name={id}
+											text={checkList}
+											checkStatus={checkStatus}
+											setCheckStatus={setCheckStatus}
+										/>
+									))}
+								</div>
 							</div>
 						</div>
 						<div className="input-wrapper">
@@ -184,7 +193,7 @@ function CheckInPage() {
 									value={cardNum}
 									onChange={handleCardNum}
 									placeholder="카드 번호를 입력해주세요"
-									style={{textAlign: "center"}}
+									style={{ textAlign: "center" }}
 								></input>
 							</div>
 						</div>
