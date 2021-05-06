@@ -1,6 +1,7 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseInterceptors } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { MyLogger } from 'src/logger/logger.service';
+import { LoggingInterceptor } from 'src/logging.interceptor';
 import { LogService } from './log.service';
 
 @ApiTags('Log')

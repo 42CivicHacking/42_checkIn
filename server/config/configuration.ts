@@ -14,4 +14,7 @@ export default () => ({
   jwt: {
     secret: process.env.JWT_SECRET,
   },
+  log: {
+    debug: process.env.LOG_DEBUG == 'true' ? true : false,
+  },
 });

@@ -44,10 +44,10 @@ export class AuthService {
 
   async generateToken(user: User): Promise<string> {
     try {
-      this.logger.log('generating token...');
+      this.logger.debug('generating token...');
       const payload = { username: user.getName(), sub: user.getId() };
       const token = this.jwtService.sign(payload);
-      this.logger.log('new token generated : ', token);
+      this.logger.debug('new token generated : ', token);
       return token;
     } catch (e) {
       this.logger.error(e);

@@ -15,7 +15,7 @@ export class CardService {
 
   async getAll(): Promise<Card[]> {
     try {
-      this.logger.log('getAllCard start');
+      this.logger.debug('getAllCard start');
       return await this.cardRepository.find({ where: { using: false } });
     } catch (e) {
       this.logger.error(e);
@@ -30,8 +30,8 @@ export class CardService {
     type: number,
   ): Promise<void> {
     try {
-      this.logger.log('createCard Start');
-      this.logger.log('_id, start, end, type', adminId, start, end, type);
+      this.logger.debug('createCard Start');
+      this.logger.debug('_id, start, end, type', adminId, start, end, type);
       await this.userService.checkIsAdmin(adminId);
       for (let i = start; i < end; i++) {
         const card = new Card(type);
@@ -45,8 +45,8 @@ export class CardService {
 
   async validCheck(cardId: number) {
     try {
-      this.logger.log('ValidCheck Start');
-      this.logger.log('cardId : ', cardId);
+      this.logger.debug('ValidCheck Start');
+      this.logger.debug('cardId : ', cardId);
       const card = await this.cardRepository.findOne(cardId);
       if (card) return { using: card.getStatus() };
       return { using: true };
@@ -58,7 +58,7 @@ export class CardService {
 
   async getUsingInfo(): Promise<any> {
     try {
-      this.logger.log('getUsingInfo start');
+      this.logger.debug('getUsingInfo start');
       const gaepo = (
         await this.cardRepository.find({
           where: { using: true, type: 0 },
@@ -78,7 +78,7 @@ export class CardService {
 
   async getUsingCard(): Promise<Card[]> {
     try {
-      this.logger.log('getUsingCard Start');
+      this.logger.debug('getUsingCard Start');
       const card = await this.cardRepository.find({ where: { using: true } });
       return card;
     } catch (e) {
@@ -89,7 +89,7 @@ export class CardService {
 
   async releaseCard(id: number): Promise<void> {
     try {
-      this.logger.log('releaseCard Start');
+      this.logger.debug('releaseCard Start');
       const card = await this.cardRepository.findOne(id);
       this.cardRepository.returnCard(card);
     } catch (e) {
