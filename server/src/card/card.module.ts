@@ -1,4 +1,4 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { forwardRef, HttpModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'src/auth/auth.module';
 import { LoggerModule } from 'src/logger/logger.module';
@@ -13,6 +13,7 @@ import { CardService } from './card.service';
     AuthModule,
     forwardRef(() => UserModule),
     LoggerModule,
+    HttpModule,
   ],
   controllers: [CardController],
   providers: [CardService],

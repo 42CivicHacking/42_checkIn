@@ -17,4 +17,14 @@ export default () => ({
   log: {
     debug: process.env.LOG_DEBUG == 'true' ? true : false,
   },
+  discord: {
+    gaepo: {
+      id: process.env.DISCORD_GAEPO_ID,
+      pw: process.env.DISCORD_GAEPO_PW,
+    },
+    seocho: {
+      id: process.env.DISCORD_SEOCHO_ID,
+      pw: process.env.DISCORD_SEOCHO_PW,
+    },
+  },
 });
