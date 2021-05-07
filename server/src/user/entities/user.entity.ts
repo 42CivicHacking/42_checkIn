@@ -1,5 +1,6 @@
 import { Card } from 'src/card/entities/card.entity';
 import { Log } from 'src/log/entities/log.entity';
+import { Waiting } from 'src/waiting/entities/waiting.entity';
 import {
   Column,
   CreateDateColumn,
@@ -49,6 +50,9 @@ export class User {
   @DeleteDateColumn()
   private deletedAt: Date;
 
+  @OneToOne(() => Waiting, (waiting) => waiting.getUser())
+  private waiting: Waiting;
+
   public getId() {
     return this._id;
   }
@@ -66,5 +70,8 @@ export class User {
   }
   public getIsAdmin() {
     return this.isAdmin;
+  }
+  public getWaiting() {
+    return this.waiting;
   }
 }

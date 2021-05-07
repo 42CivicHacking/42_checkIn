@@ -16,6 +16,9 @@ import { LoggerModule } from './logger/logger.module';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { TokenThrottlerGuard } from './token.guard';
+import { WaitingController } from './waiting/waiting.controller';
+import { WaitingService } from './waiting/waiting.service';
+import { WaitingModule } from './waiting/waiting.module';
 
 @Module({
   imports: [
@@ -51,12 +54,14 @@ import { TokenThrottlerGuard } from './token.guard';
       ttl: 60,
       limit: 20,
     }),
+    WaitingModule,
   ],
-  controllers: [AppController, HealthController],
+  controllers: [AppController, HealthController, WaitingController],
   providers: [
     AppService,
     Logger,
     { provide: APP_GUARD, useClass: TokenThrottlerGuard },
+    WaitingService,
   ],
 })
 export class AppModule {}
