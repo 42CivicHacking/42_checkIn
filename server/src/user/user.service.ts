@@ -91,7 +91,7 @@ export class UserService {
           where: { using: true, type: card.getType() },
         })
       ).length;
-      if (usingCard >= 145) {
+      if (usingCard >= 140) {
         if (card.getType() === 0) {
           const dis_id = this.configService.get('discord.gaepo.id');
           const dis_pw = this.configService.get('discord.gaepo.pw');
