@@ -123,7 +123,7 @@ export class LogService {
             type: type,
           })
             .andWhere('Log__user.cardId = Log__card.cardId')
-            .andWhere('Log__type = :type', { type: 'checkIn' })
+            .andWhere('type = :type', { type: 'checkIn' })
             .orderBy('Log__card.cardId', 'DESC');
         },
       });
