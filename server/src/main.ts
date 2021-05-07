@@ -11,7 +11,7 @@ async function bootstrap() {
 
   app.use(cookieParser());
   app.enableCors({
-    origin: true,
+    origin: 'https://cluster.42seoul.io',
     credentials: true,
   });
   app.useGlobalInterceptors(

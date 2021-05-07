@@ -15,6 +15,7 @@ import { HealthModule } from './health/health.module';
 import { LoggerModule } from './logger/logger.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './logging.interceptor';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -46,6 +47,10 @@ import { LoggingInterceptor } from './logging.interceptor';
     LogModule,
     HealthModule,
     LoggerModule,
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 20,
+    }),
   ],
   controllers: [AppController, HealthController],
   providers: [AppService, Logger],
