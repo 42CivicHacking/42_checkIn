@@ -49,7 +49,7 @@ import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
     LoggerModule,
     ThrottlerModule.forRoot({
       ttl: 60,
-      limit: 20,
+      limit: 100,
     }),
   ],
   controllers: [AppController, HealthController],
