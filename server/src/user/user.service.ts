@@ -135,8 +135,40 @@ export class UserService {
       this.logger.debug('checkOut start');
       this.logger.debug('user _id', id);
       const card = await this.userRepository.getCard(id);
+      const type = card.getType();
       await this.cardRepository.returnCard(card);
       const user = await this.userRepository.clearCard(id);
+      const usingCard = (
+        await this.cardRepository.find({
+          where: { using: true, type: type },
+        })
+      ).length;
+      if (usingCard >= 145) {
+        const form = new FormData();
+        form.append('content', `${150 - usingCard}명 남았습니다`);
+        if (type === 0) {
+          const dis_id = this.configService.get('discord.gaepo.id');
+          const dis_pw = this.configService.get('discord.gaepo.pw');
+          await this.httpService
+            .post(
+              `https://discord.com/api/webhooks/${dis_id}/${dis_pw}`,
+              form,
+              { headers: { ...form.getHeaders() } },
+            )
+            .toPromise();
+        }
+        if (type === 1) {
+          const dis_id = this.configService.get('discord.seocho.id');
+          const dis_pw = this.configService.get('discord.seocho.pw');
+          await this.httpService
+            .post(
+              `https://discord.com/api/webhooks/${dis_id}/${dis_pw}`,
+              form,
+              { headers: { ...form.getHeaders() } },
+            )
+            .toPromise();
+        }
+      }
       await this.logService.createLog(user, card, 'checkOut');
     } catch (e) {
       this.logger.info(e);
