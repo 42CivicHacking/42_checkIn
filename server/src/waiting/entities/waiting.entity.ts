@@ -15,9 +15,9 @@ export class Waiting {
   @PrimaryGeneratedColumn()
   private waitingId: number;
 
-  @JoinColumn({ name: 'userId' })
-  @OneToOne(() => User, (user) => user.getWaiting())
-  private user: User;
+  //   @JoinColumn({ name: 'userId' })
+  //   @OneToOne(() => User, (user) => user.getWaiting())
+  //   private user: User;
 
   @Column()
   private type: number;
@@ -34,9 +34,9 @@ export class Waiting {
   @UpdateDateColumn()
   private updatedAt: Date;
 
-  @DeleteDateColumn()
-  private deletedAt: Date;
-  public getUser() {
-    return this.user;
-  }
+  //   @DeleteDateColumn()
+  //   private deletedAt: Date;
+  //   public getUser() {
+  //     return this.user;
+  //   }
 }

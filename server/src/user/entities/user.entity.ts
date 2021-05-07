@@ -50,8 +50,8 @@ export class User {
   @DeleteDateColumn()
   private deletedAt: Date;
 
-  @OneToOne(() => Waiting, (waiting) => waiting.getUser())
-  private waiting: Waiting;
+  // @OneToOne(() => Waiting, (waiting) => waiting.getUser())
+  // private waiting: Waiting;
 
   public getId() {
     return this._id;
@@ -71,7 +71,7 @@ export class User {
   public getIsAdmin() {
     return this.isAdmin;
   }
-  public getWaiting() {
-    return this.waiting;
-  }
+  // public getWaiting() {
+  //   return this.waiting;
+  // }
 }
