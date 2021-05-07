@@ -16,6 +16,7 @@ import { LogService } from 'src/log/log.service';
 import { MyLogger } from 'src/logger/logger.service';
 import { User } from './entities/user.entity';
 import { UserRepository } from './user.repository';
+import * as FormData from 'form-data';
 
 @Injectable()
 export class UserService {
@@ -92,14 +93,15 @@ export class UserService {
         })
       ).length;
       if (usingCard >= 100) {
-        // const form = new FormData();
-        // form.append('content', `${150 - usingCard}명 남았습니다`);
+        const form = new FormData();
+        form.append('content', `${150 - usingCard}명 남았습니다`);
         if (card.getType() === 0) {
           const dis_id = this.configService.get('discord.gaepo.id');
           const dis_pw = this.configService.get('discord.gaepo.pw');
           this.httpService.post(
             `https://discord.com/api/webhooks/${dis_id}/${dis_pw}`,
-            // form,
+            form,
+            { headers: { ...form.getHeaders() } },
           );
         }
         if (card.getType() === 1) {
@@ -107,7 +109,8 @@ export class UserService {
           const dis_pw = this.configService.get('discord.seocho.pw');
           this.httpService.post(
             `https://discord.com/api/webhooks/${dis_id}/${dis_pw}`,
-            // form,
+            form,
+            { headers: { ...form.getHeaders() } },
           );
         }
       }
