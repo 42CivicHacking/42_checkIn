@@ -1,10 +1,14 @@
 import {
+  BadRequestException,
   ForbiddenException,
   forwardRef,
+  HttpService,
   Inject,
   Injectable,
   Logger,
+  NotFoundException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { AuthService } from 'src/auth/auth.service';
 import { CardRepository } from 'src/card/card.repository';
 import { CardService } from 'src/card/card.service';
@@ -23,6 +27,8 @@ export class UserService {
     private readonly cardServcie: CardService,
     private readonly logService: LogService,
     private readonly logger: MyLogger,
+    private readonly configService: ConfigService,
+    private readonly httpService: HttpService,
   ) {}
 
   async login(user: User): Promise<string> {
@@ -76,7 +82,41 @@ export class UserService {
     try {
       this.logger.debug('checkIn start');
       this.logger.debug('user _id, cardNum', id, cardId);
-      const card = await this.cardRepository.useCard(cardId);
+      //useCard
+      const card = await this.cardRepository.findOne(cardId);
+      if (!card) throw new NotFoundException();
+      if (card.getStatus()) throw new BadRequestException();
+      const usingCard = (
+        await this.cardRepository.find({
+          where: { using: true, type: card.getType() },
+        })
+      ).length;
+      if (usingCard >= 145) {
+        if (card.getType() === 0) {
+          const dis_id = this.configService.get('discord.gaepo.id');
+          const dis_pw = this.configService.get('discord.gaepo.pw');
+          this.httpService.post(
+            `https://discord.com/api/webhooks/${dis_id}/${dis_pw}`,
+            {
+              content: `${150 - usingCard}명 남았습니다`,
+            },
+          );
+        }
+        if (card.getType() === 1) {
+          const dis_id = this.configService.get('discord.seocho.id');
+          const dis_pw = this.configService.get('discord.seocho.pw');
+          this.httpService.post(
+            `https://discord.com/api/webhooks/${dis_id}/${dis_pw}`,
+            {
+              content: `${150 - usingCard}명 남았습니다`,
+            },
+          );
+        }
+      }
+      if (usingCard >= 150) throw new BadRequestException();
+      card.useCard();
+      await this.cardRepository.save(card);
+      //end
       const user = await this.userRepository.setCard(id, card);
       await this.logService.createLog(user, card, 'checkIn');
     } catch (e) {

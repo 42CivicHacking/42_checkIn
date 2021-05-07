@@ -13,7 +13,6 @@ import { CardService } from './card.service';
     AuthModule,
     forwardRef(() => UserModule),
     LoggerModule,
-    HttpModule,
   ],
   controllers: [CardController],
   providers: [CardService],
