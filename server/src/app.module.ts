@@ -13,9 +13,9 @@ import { TerminusModule } from '@nestjs/terminus';
 import { HealthController } from './health/health.controller';
 import { HealthModule } from './health/health.module';
 import { LoggerModule } from './logger/logger.module';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { LoggingInterceptor } from './logging.interceptor';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -53,6 +53,10 @@ import { ThrottlerModule } from '@nestjs/throttler';
     }),
   ],
   controllers: [AppController, HealthController],
-  providers: [AppService, Logger],
+  providers: [
+    AppService,
+    Logger,
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+  ],
 })
 export class AppModule {}
