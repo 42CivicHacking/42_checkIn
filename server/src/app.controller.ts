@@ -10,10 +10,4 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-
-  @Get('token/:id')
-  getToken(@Param('id') id: number, @Res({ passthrough: true }) res: Response) {
-    const token = this.appService.getToken(id);
-    res.cookie('w_auth', token);
-  }
 }
