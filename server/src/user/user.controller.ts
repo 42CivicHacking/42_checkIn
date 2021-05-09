@@ -40,7 +40,7 @@ export class UserController {
     return this.userService.status(req.user._id);
   }
 
-  @UseInterceptors(IpInterceptor)
+  // @UseInterceptors(IpInterceptor)
   @UseGuards(JwtAuthGuard)
   @Post('checkIn/:cardId')
   async checkIn(@Req() req: any, @Param('cardId') cardId: number) {
