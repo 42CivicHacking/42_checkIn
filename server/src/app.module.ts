@@ -1,4 +1,4 @@
-import { Logger, Module } from '@nestjs/common';
+import { HttpModule, Logger, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
@@ -17,7 +17,6 @@ import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { TokenThrottlerGuard } from './token.guard';
 import { WaitingController } from './waiting/waiting.controller';
-import { WaitingService } from './waiting/waiting.service';
 import { WaitingModule } from './waiting/waiting.module';
 
 @Module({
@@ -55,13 +54,13 @@ import { WaitingModule } from './waiting/waiting.module';
       limit: 20,
     }),
     WaitingModule,
+    HttpModule,
   ],
   controllers: [AppController, HealthController, WaitingController],
   providers: [
     AppService,
     Logger,
     { provide: APP_GUARD, useClass: TokenThrottlerGuard },
-    WaitingService,
   ],
 })
 export class AppModule {}
