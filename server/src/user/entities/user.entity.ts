@@ -17,9 +17,10 @@ import {
 
 @Entity()
 export class User {
-  constructor(id: number, name: string) {
+  constructor(id: number, name: string, email: string) {
     this.userId = id;
     this.userName = name;
+    this.email = email;
   }
 
   @PrimaryGeneratedColumn()
@@ -41,6 +42,9 @@ export class User {
   @Column({ default: false })
   private isAdmin: boolean;
 
+  @Column({ default: null })
+  private email: string;
+
   @CreateDateColumn()
   private createdAt: Date;
 
@@ -49,9 +53,6 @@ export class User {
 
   @DeleteDateColumn()
   private deletedAt: Date;
-
-  // @OneToOne(() => Waiting, (waiting) => waiting.getUser())
-  // private waiting: Waiting;
 
   public getId() {
     return this._id;
@@ -71,7 +72,10 @@ export class User {
   public getIsAdmin() {
     return this.isAdmin;
   }
-  // public getWaiting() {
-  //   return this.waiting;
-  // }
+  public setEmail(email: string) {
+    this.email = email;
+  }
+  public getEmail() {
+    return this.email;
+  }
 }

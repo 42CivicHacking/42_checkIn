@@ -10,6 +10,7 @@ export default () => ({
   client: {
     id: process.env.CLIENT_ID,
     secret: process.env.CLIENT_SECRET,
+    callback: process.env.CLIENT_CALLBACK,
   },
   jwt: {
     secret: process.env.JWT_SECRET,

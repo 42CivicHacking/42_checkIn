@@ -2,30 +2,38 @@ import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
-  DeleteDateColumn,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
+  RelationId,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
 export class Waiting {
+  constructor(user: User, type: number) {
+    this.user = user;
+    this.type = type;
+  }
+
   @PrimaryGeneratedColumn()
   private waitingId: number;
 
-  //   @JoinColumn({ name: 'userId' })
-  //   @OneToOne(() => User, (user) => user.getWaiting())
-  //   private user: User;
+  @JoinColumn()
+  @ManyToOne(() => User)
+  private user: User;
+
+  @RelationId((waiting: Waiting) => waiting.user)
+  private userId: number;
 
   @Column()
   private type: number;
 
-  @Column()
+  @Column({ default: null })
   private deleteType: string;
 
-  @Column()
+  @Column({ default: null })
   private timeOut: Date;
 
   @CreateDateColumn()
@@ -34,9 +42,29 @@ export class Waiting {
   @UpdateDateColumn()
   private updatedAt: Date;
 
-  //   @DeleteDateColumn()
-  //   private deletedAt: Date;
-  //   public getUser() {
-  //     return this.user;
-  //   }
+  @Column({ default: null })
+  private deletedAt: Date;
+
+  public setDeleted(type: string) {
+    this.deletedAt = new Date();
+    this.deleteType = type;
+  }
+  public setTimeOut() {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 10);
+    this.timeOut = now;
+  }
+
+  public getTimeOut() {
+    return this.timeOut;
+  }
+  public getId() {
+    return this.waitingId;
+  }
+  public getUserId() {
+    return this.userId;
+  }
+  public getType() {
+    return this.type;
+  }
 }
