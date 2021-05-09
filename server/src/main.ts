@@ -5,11 +5,13 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { MyLogger } from './logger/logger.service';
 import { LoggingInterceptor } from './logging.interceptor';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as requestIp from 'request-ip';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(cookieParser());
+  app.use(requestIp.mw());
   app.enableCors({
     origin: 'https://cluster.42seoul.io',
     credentials: true,

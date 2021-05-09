@@ -6,12 +6,14 @@ import {
   Req,
   Res,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { UserService } from './user.service';
 import { FtAuthGuard } from 'src/auth/ft-auth.guard';
 import { ApiTags } from '@nestjs/swagger';
+import { IpInterceptor } from 'src/ip.interceptor';
 
 @ApiTags('User')
 @Controller('api/user')
@@ -38,6 +40,7 @@ export class UserController {
     return this.userService.status(req.user._id);
   }
 
+  @UseInterceptors(IpInterceptor)
   @UseGuards(JwtAuthGuard)
   @Post('checkIn/:cardId')
   async checkIn(@Req() req: any, @Param('cardId') cardId: number) {
