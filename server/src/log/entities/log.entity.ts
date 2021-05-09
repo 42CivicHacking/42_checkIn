@@ -17,7 +17,7 @@ export class Log {
   constructor(user: User, card: Card, type: string) {
     this.user = user;
     this.card = card;
-    this.type = type;
+    this.logType = type;
   }
 
   @PrimaryGeneratedColumn()
@@ -35,7 +35,7 @@ export class Log {
   private card: Card;
 
   @Column()
-  private type: string;
+  private logType: string;
 
   @CreateDateColumn()
   private createdAt: Date;

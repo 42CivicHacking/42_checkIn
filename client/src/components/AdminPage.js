@@ -136,8 +136,8 @@ function AdminPage() {
 										{moment(date).format("MM월 DD일 HH:mm")}
 									</div>
 								) : null}
-								{log.type ? (
-									<div className="logBox1">{log.type}</div>
+								{log.logType ? (
+									<div className="logBox1">{log.logType}</div>
 								) : null}
 								{log.user ? (
 									<div className="logBox1">
