@@ -5,14 +5,17 @@ import {
   Post,
   Req,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { IpInterceptor } from 'src/ip.interceptor';
 import { WaitingService } from './waiting.service';
 
 @Controller('api/waiting')
 export class WaitingController {
   constructor(private readonly waitingService: WaitingService) {}
 
+  @UseInterceptors(IpInterceptor)
   @UseGuards(JwtAuthGuard)
   @Post('create/:type')
   async createWaiting(
