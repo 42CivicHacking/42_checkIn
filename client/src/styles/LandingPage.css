@@ -1,20 +1,21 @@
 #landing-wrapper {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
-	width: 100vw;
-	height: 100vh;
-	touch-action: pan-y;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  touch-action: pan-y;
+  max-height: -webkit-fill-available;
 }
 
 #login-btn {
-	font-family: "Futura", "Sans serif";
-	border-radius: 3px;
-	border: none;
-	color: black;
-	background-color: whitesmoke;
-	font-size: 1rem;
-	width: 50%;
-	padding: 10px;
+  font-family: 'Futura', 'Sans serif';
+  border-radius: 3px;
+  border: none;
+  color: black;
+  background-color: whitesmoke;
+  font-size: 1rem;
+  width: 50%;
+  padding: 10px;
 }
