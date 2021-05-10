@@ -3,9 +3,9 @@ import axios from 'axios';
 import Checkbox from '../components/Checkbox';
 import UserInput from '../components/UserInput';
 import Button from '../components/Button';
-import '../styles/SubmitPage.css';
 import Timer from './Timer';
 import Modal from './Modal';
+import '../styles/SubmitPage.css';
 
 function CheckInPage() {
   const checkLists = [
@@ -65,8 +65,11 @@ function CheckInPage() {
           alert('이미 사용 중이거나 유효한 카드 번호가 아닙니다');
         }
       } catch (err) {
-        if (err.response.status === 400) alert('42 Guest 이용');
-        else
+        // if (err.response.status === 400) {
+        if (err.response.status === 404) {
+          const modal = document.getElementById('myModal');
+          modal.style.display = 'flex';
+        } else
           alert('체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.');
       }
     }
@@ -118,7 +121,7 @@ function CheckInPage() {
         // if (err.response.status === 400) {
         if (err.response.status === 404) {
           const modal = document.getElementById('myModal');
-          modal.style.display = 'block';
+          modal.style.display = 'flex';
         } else console.log(err);
       }
     }
@@ -169,7 +172,6 @@ function CheckInPage() {
           seocho: cluster.seocho,
           s_waiting: cluster.seochoWaiting
         });
-        console.log('getuser');
         if (cluster.gaepo === 150 && cluster.seocho !== 150) setWaitingCluster('gaepo');
         else if (cluster.gaepo !== 150 && cluster.seocho === 150) setWaitingCluster('seocho');
       } catch (err) {

@@ -1,25 +1,23 @@
-/* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
   position: fixed;
   z-index: 1; /* Sit on top */
-  /* left: 0;
-  top: 0; */
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  left: 0;
+  top: 0;
+  width: 100vw; /* Full width */
+  height: 100vh; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  background-color: rgba(0, 0, 0, 0.7);
   font-family: 'Futura', 'Sans serif';
+  justify-content: center;
+  align-items: center;
+  max-height: -webkit-fill-available;
 }
 
-/* Modal Content/Box */
 .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
-  /* padding: 20px; */
-  border: 1px solid #888;
-  width: 50%; /* Could be more or less, depending on screen size */
+  background-color: whitesmoke;
+  border-radius: 3px;
+  width: 80%;
 }
 
 .close {
@@ -27,13 +25,14 @@
   font-weight: bold;
   text-align: center;
   width: 100%;
-  border-top: 1px solid #888;
   font-family: 'Futura', 'Sans serif';
   padding: 10px;
   background: none;
   font-size: 1rem;
-  border: 1px solid red;
-  /* margin-bottom: 7px; */
+  border: none;
+  border-top: 1px solid #888;
+  bottom: 0;
+  left: 0;
 }
 .close:hover,
 .close:focus {
@@ -42,6 +41,7 @@
   cursor: pointer;
 }
 .text {
+  margin: 10px;
   color: black;
   text-align: center;
   word-break: keep-all;
@@ -51,13 +51,14 @@
   text-align: center;
   font-family: 'Futura', 'Sans serif';
   border-radius: 3px;
-  /* width: 50%; */
-  /* color: whitesmoke; */
-  padding: 10px;
   background: none;
   font-size: 1rem;
-  border: 1px solid red;
-  /* border: 1px solid whitesmoke; */
-  /* margin-bottom: 7px; */
-  /* margin: 7px; */
+  border: 1px solid #888;
+  align-items: center;
+}
+
+.pw-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
