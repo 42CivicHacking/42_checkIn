@@ -1,64 +1,43 @@
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed;
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100vw; /* Full width */
-  height: 100vh; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgba(0, 0, 0, 0.7);
+  width: 100vw;
+  height: 100vh;
+  max-height: -webkit-fill-available;
   font-family: 'Futura', 'Sans serif';
+  display: none;
   justify-content: center;
   align-items: center;
-  max-height: -webkit-fill-available;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: black;
 }
 
 .modal-content {
-  background-color: whitesmoke;
-  border-radius: 3px;
   width: 80%;
+  border-radius: 3px;
+  background-color: whitesmoke;
 }
 
 .close {
-  color: black;
-  font-weight: bold;
-  text-align: center;
   width: 100%;
-  font-family: 'Futura', 'Sans serif';
   padding: 10px;
-  background: none;
+  font-family: 'Futura', 'Sans serif';
   font-size: 1rem;
+  background: none;
   border: none;
   border-top: 1px solid #888;
-  bottom: 0;
-  left: 0;
+  text-align: center;
 }
 .close:hover,
 .close:focus {
-  color: black;
   text-decoration: none;
   cursor: pointer;
 }
 .text {
   margin: 10px;
-  color: black;
   text-align: center;
   word-break: keep-all;
-}
-
-.copy-btn {
-  text-align: center;
-  font-family: 'Futura', 'Sans serif';
-  border-radius: 3px;
-  background: none;
-  font-size: 1rem;
-  border: 1px solid #888;
-  align-items: center;
-}
-
-.pw-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

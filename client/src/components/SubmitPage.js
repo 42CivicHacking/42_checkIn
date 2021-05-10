@@ -346,12 +346,7 @@ function CheckInPage() {
           </div>
         )}
       </div>
-      <Modal
-        onClick={() => {
-          const modal = document.getElementById('myModal');
-          modal.style.display = 'none';
-        }}
-      />
+      <Modal />
     </div>
   );
 }
