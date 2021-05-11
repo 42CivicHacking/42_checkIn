@@ -5,19 +5,11 @@ import UserInput from '../components/UserInput';
 import Button from '../components/Button';
 import Timer from './Timer';
 import Modal from './Modal';
+import { getCookieValue } from '../utils/utils';
+import { checkLists, waitingNoti } from '../utils/notice';
 import '../styles/SubmitPage.css';
 
 function CheckInPage() {
-  const checkLists = [
-    ' 발열 체크시 37.5도 이하인 것을 확인했습니다.',
-    ' 이 임시 출입카드를 분실 시 분실 비용이 발생하는 것을 확인했습니다.',
-    ' 마스크를 반드시 상시 착용하고 방역수칙을 준수할 것을 약속하며, 모든 설문을 이상없이 작성했음을 확인합니다.'
-  ];
-
-  const waitingNoti = [
-    ' 입장 안내 알림을 받은 후로 10분 이내에 체크인을 완료하지 않을 시에 대기가 자동 취소됨을 확인합니다.'
-  ];
-
   const [userInfo, setUserInfo] = useState({
     userId: '',
     cardNum: '',
@@ -127,21 +119,6 @@ function CheckInPage() {
     }
   };
 
-  const getCookieValue = key => {
-    let cookieKey = key + '=';
-    let result = '';
-    const cookieArr = document.cookie.split(';');
-
-    for (let i = 0; i < cookieArr.length; i++) {
-      if (cookieArr[i][0] === ' ') cookieArr[i] = cookieArr[i].substring(1);
-      if (cookieArr[i].indexOf(cookieKey) === 0) {
-        result = cookieArr[i].slice(cookieKey.length, cookieArr[i].length);
-        return result;
-      }
-    }
-    return result;
-  };
-
   useEffect(() => {
     const checkSubmitCondition = () => {
       if (cardNum !== '' && JSON.stringify(checkStatus) === JSON.stringify([true, true, true]))
@@ -159,7 +136,6 @@ function CheckInPage() {
         const response = await axios.get('/api/user/status');
         const { user, cluster } = response.data;
         setUserInfo({
-          ...userInfo,
           userId: user.login,
           cardNum: user.card,
           status: user.card !== null ? 'in' : 'out',
@@ -305,10 +281,10 @@ function CheckInPage() {
               </label>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <div className='checkbox-wrapper'>
-                  {checkLists.map((checkList, id) => (
+                  {checkLists.map((checkList, idx) => (
                     <Checkbox
-                      key={id}
-                      name={id}
+                      key={idx}
+                      idx={idx}
                       text={checkList}
                       checkStatus={checkStatus}
                       setCheckStatus={setCheckStatus}
