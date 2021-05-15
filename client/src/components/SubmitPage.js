@@ -57,8 +57,7 @@ function CheckInPage() {
           alert('이미 사용 중이거나 유효한 카드 번호가 아닙니다');
         }
       } catch (err) {
-        // if (err.response.status === 400) {
-        if (err.response.status === 404) {
+        if (err.response.status === 400) {
           const modal = document.getElementById('myModal');
           modal.style.display = 'flex';
         } else
@@ -110,8 +109,7 @@ function CheckInPage() {
         }
       } catch (err) {
         console.log(err);
-        // if (err.response.status === 400) {
-        if (err.response.status === 404) {
+        if (err.response.status === 400) {
           const modal = document.getElementById('myModal');
           modal.style.display = 'flex';
         } else console.log(err);
@@ -158,8 +156,7 @@ function CheckInPage() {
 
     const token = getCookieValue('w_auth');
     if (token !== '') getUserData();
-    // else
-    // 	window.location.href = "/"; 💡
+    else window.location.href = '/';
 
     if (JSON.stringify(checkStatus) !== JSON.stringify([true, true, true])) setCheckAll(false);
     else setCheckAll(true);
