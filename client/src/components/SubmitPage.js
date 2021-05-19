@@ -12,13 +12,13 @@ import "../styles/SubmitPage.css";
 function CheckInPage() {
 	const [userInfo, setUserInfo] = useState({
 		userId: "",
-		// cardNum: "",
+		cardNum: null,
 		waitingNum: null,
 		status: "out",
 		timeOut: null,
 	});
 
-	const [cardNum, setCardNum] = useState(null);
+	// const [cardNum, setCardNum] = useState(null);
 	const [clusterInfo, setClusterInfo] = useState({
 		gaepo: 0,
 		g_waiting: 0,
@@ -36,8 +36,8 @@ function CheckInPage() {
 
 	// const [waitStatus, setWaitStatus] = useState('cannot'); // waiting status: cannot, ready, waiting
 
-	const { userId, waitingNum, status, timeOut } = userInfo;
-	// const { userId, cardNum, waitingNum, status, timeOut } = userInfo;
+	// const { userId, waitingNum, status, timeOut } = userInfo;
+	const { userId, cardNum, waitingNum, status, timeOut } = userInfo;
 	const { gaepo, g_waiting, seocho, s_waiting } = clusterInfo;
 
 	const handleCheckIn = async () => {
@@ -54,11 +54,10 @@ function CheckInPage() {
 						console.log(err);
 					}
 				} else {
-					// setUserInfo({
-					// 	...userInfo,
-					// 	cardNum: "",
-					// });
-					setCardNum(null);
+					setUserInfo({
+						...userInfo,
+						cardNum: null,
+					});
 					alert("이미 사용 중이거나 유효한 카드 번호가 아닙니다");
 				}
 			} catch (err) {
@@ -123,43 +122,24 @@ function CheckInPage() {
 	//     }
 	//   }
 	// };
-
 	useEffect(() => {
-		// const checkSubmitCondition = () => {
-		// 	if (
-		// 		cardNum !== "" &&
-		// 		JSON.stringify(checkStatus) ===
-		// 			JSON.stringify([true, true, true])
-		// 	)
-		// 		setReadySubmit(true);
-		// 	else setReadySubmit(false);
-		// };
-
-		// const checkWaitCondition = () => {
-		//   if (waitingCheckStatus === true) setReadyWait(true);
-		//   else setReadyWait(false);
-		// };
-
 		const getUserData = async () => {
 			try {
 				const response = await axios.get("/api/user/status");
 				const { user, cluster } = response.data;
 				setUserInfo({
 					userId: user.login,
-					// cardNum: user.card,
+					cardNum: user.card,
 					status: user.card !== null ? "in" : "out",
 					waitingNum: user.waitingNum,
 					timeOut: user.timeOut,
 				});
-				setCardNum(user.card);
 				setClusterInfo({
 					gaepo: cluster.gaepo,
 					g_waiting: cluster.gaepoWaiting,
 					seocho: cluster.seocho,
 					s_waiting: cluster.seochoWaiting,
 				});
-				// if (cluster.gaepo === 150 && cluster.seocho !== 150) setWaitingCluster('gaepo');
-				// else if (cluster.gaepo !== 150 && cluster.seocho === 150) setWaitingCluster('seocho');
 			} catch (err) {
 				document.cookie =
 					"w_auth=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
@@ -170,20 +150,25 @@ function CheckInPage() {
 		const token = getCookieValue("w_auth");
 		if (token !== "") getUserData();
 		else window.location.href = "/";
+	}, []);
 
-		if (JSON.stringify(checkStatus) !== JSON.stringify([true, true, true]))
-			setCheckAll(false);
-		else setCheckAll(true);
-
-		// if (status === "out") checkSubmitCondition();
+	useEffect(() => {
+		const checkSubmitCondition = () => {
+			if (
+				cardNum !== null &&
+				JSON.stringify(checkStatus) ===
+					JSON.stringify([true, true, true])
+			)
+				setReadySubmit(true);
+			else setReadySubmit(false);
+		};
+		if (status === "out") checkSubmitCondition();
 		if (
 			cardNum !== "" &&
 			JSON.stringify(checkStatus) === JSON.stringify([true, true, true])
 		)
 			setReadySubmit(true);
 		else setReadySubmit(false);
-		// if (waitStatus === 'ready') checkWaitCondition();
-		// }, [cardNum, checkStatus, status, userInfo, waitStatus, waitingCheckStatus]);
 	}, [cardNum, checkStatus, status]);
 
 	return (
@@ -254,11 +239,10 @@ function CheckInPage() {
 							placeholder="카드 번호를 입력해주세요"
 							value={cardNum}
 							handleChange={(e) => {
-								// setUserInfo({
-								// 	...userInfo,
-								// 	cardNum: e.target.value,
-								// });
-								setCardNum(e.target.value);
+								setUserInfo({
+									...userInfo,
+									cardNum: e.target.value,
+								});
 							}}
 						/>
 						<Button
