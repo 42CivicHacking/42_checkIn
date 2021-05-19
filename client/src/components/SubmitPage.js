@@ -162,15 +162,14 @@ function CheckInPage() {
 				console.log(err);
 				document.cookie =
 					"w_auth=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-				// window.location.href = "/";
+				window.location.href = "/";
 			}
 		};
 
 		const token = getCookieValue("w_auth");
 		if (token !== "") getUserData();
 		else {
-			console.log("token null");
-			// window.location.href = "/";
+			window.location.href = "/";
 		}
 
 		if (JSON.stringify(checkStatus) !== JSON.stringify([true, true, true]))
