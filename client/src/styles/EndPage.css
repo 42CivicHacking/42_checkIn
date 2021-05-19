@@ -1,12 +1,13 @@
 #text-wrapper {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100vw;
-	height: 100vh;
-	touch-action: pan-y;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  touch-action: pan-y;
+  max-height: -webkit-fill-available;
 }
 
 #ending-text {
-	font-family: "Futura", "Sans serif";
+  font-family: 'Futura', 'Sans serif';
 }

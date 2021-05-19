@@ -1,73 +1,74 @@
 #page-wrapper {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100vw;
-	height: 100vh;
-	touch-action: pan-y;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  touch-action: pan-y;
 }
 
 #checkinout {
-	font-family: "Futura", "Sans serif";
-	width: 80vw;
-	max-width: 512px;
-	user-select: none;
-	text-align: center;
+  font-family: 'Futura', 'Sans serif';
+  width: 80vw;
+  max-width: 512px;
+  user-select: none;
+  text-align: center;
 }
 
 #title {
-	margin: 0;
+  margin: 0;
 }
 
 .input-wrapper {
-	margin: 1.5rem auto;
+  margin: 1.5rem auto;
 }
 
 .checkbox-wrapper {
-	width: 80%;
-	padding: 3px;
+  width: 80%;
+  padding: 3px;
 }
 
 .submitBtn {
-	text-align: center;
-	font-family: "Futura", "Sans serif";
-	border-radius: 3px;
-	width: 50%;
-	color: whitesmoke;
-	padding: 10px;
-	background: none;
-	font-size: 1rem;
-	border: 1px solid whitesmoke;
+  text-align: center;
+  font-family: 'Futura', 'Sans serif';
+  border-radius: 3px;
+  width: 50%;
+  color: whitesmoke;
+  padding: 10px;
+  background: none;
+  font-size: 1rem;
+  border: 1px solid whitesmoke;
+  margin-bottom: 7px;
 }
 
 .ready {
-	color: black;
-	background-color: whitesmoke;
-	border: none;
+  color: black;
+  background-color: whitesmoke;
+  border: none;
 }
 
 #card {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 input::-webkit-input-placeholder {
-	text-align: center;
+  text-align: center;
 }
 input::-moz-placeholder {
-	text-align: center;
+  text-align: center;
 }
 input:-ms-input-placeholder {
-	text-align: center;
+  text-align: center;
 }
 input:-moz-placeholder {
-	text-align: center;
+  text-align: center;
 }
 input::placeholder {
-	text-align: center;
+  text-align: center;
 }
 
 label {
-	cursor: pointer;
+  cursor: pointer;
 }
