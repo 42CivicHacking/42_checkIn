@@ -172,7 +172,7 @@ function CheckInPage() {
 		if (status === "out") checkSubmitCondition();
 		// if (waitStatus === 'ready') checkWaitCondition();
 		// }, [cardNum, checkStatus, status, userInfo, waitStatus, waitingCheckStatus]);
-	}, []);
+	}, [cardNum, checkStatus, status]);
 
 	return (
 		<div id="page-wrapper">
