@@ -51,7 +51,7 @@ export class Waiting {
   }
   public setTimeOut() {
     const now = new Date();
-    now.setMinutes(now.getMinutes() + 10);
+    now.setMinutes(now.getMinutes() + 1);
     this.timeOut = now;
   }
 

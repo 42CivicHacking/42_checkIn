@@ -28,4 +28,7 @@ export default () => ({
       pw: process.env.DISCORD_SEOCHO_PW,
     },
   },
+  mailer: {
+    mail: process.env.MAIL,
+  },
 });

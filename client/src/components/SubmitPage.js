@@ -1,22 +1,22 @@
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import Checkbox from '../components/Checkbox';
-import UserInput from '../components/UserInput';
-import Button from '../components/Button';
-import Timer from './Timer';
-import Modal from './Modal';
-import { getCookieValue } from '../utils/utils';
-import { checkLists, waitingNoti } from '../utils/notice';
-import '../styles/SubmitPage.css';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Checkbox from "../components/Checkbox";
+import UserInput from "../components/UserInput";
+import Button from "../components/Button";
+import Timer from "./Timer";
+import Modal from "./Modal";
+import { getCookieValue } from "../utils/utils";
+import { checkLists, waitingNoti } from "../utils/notice";
+import "../styles/SubmitPage.css";
 
 function CheckInPage() {
-  const [userInfo, setUserInfo] = useState({
-    userId: '',
-    cardNum: '',
-    waitingNum: null,
-    status: 'out',
-    timeOut: null
-  });
+	const [userInfo, setUserInfo] = useState({
+		userId: "",
+		cardNum: "",
+		waitingNum: null,
+		status: "out",
+		timeOut: null,
+	});
 
   const [clusterInfo, setClusterInfo] = useState({
     gaepo: 0,
@@ -25,9 +25,10 @@ function CheckInPage() {
     s_waiting: 0
   });
 
-  const [checkAll, setCheckAll] = useState(false);
-  const [checkStatus, setCheckStatus] = useState([false, false, false]);
-  const [readySubmit, setReadySubmit] = useState(false);
+
+	const [checkAll, setCheckAll] = useState(false);
+	const [checkStatus, setCheckStatus] = useState([false, false, false]);
+	const [readySubmit, setReadySubmit] = useState(false);
 
   // const [waitingCheckStatus, setWaitingCheckStatus] = useState(false);
   // const [waitingCluster, setWaitingCluster] = useState(null);
@@ -35,55 +36,58 @@ function CheckInPage() {
 
   // const [waitStatus, setWaitStatus] = useState('cannot'); // waiting status: cannot, ready, waiting
 
-  const { userId, cardNum, waitingNum, status, timeOut } = userInfo;
-  const { gaepo, g_waiting, seocho, s_waiting } = clusterInfo;
 
-  const handleCheckIn = async () => {
-    if (readySubmit) {
-      try {
-        const response = await axios.get(`/api/card/valid/${cardNum}`);
-        if (response.data['using'] === false) {
-          try {
-            await axios.post(`/api/user/checkIn/${cardNum}`);
-            window.location.href = '/end';
-          } catch (err) {
-            console.log(err);
-          }
-        } else {
-          setUserInfo({
-            ...userInfo,
-            cardNum: ''
-          });
-          alert('이미 사용 중이거나 유효한 카드 번호가 아닙니다');
-        }
-      } catch (err) {
-        if (err.response.status === 400) {
-          const modal = document.getElementById('myModal');
-          modal.style.display = 'flex';
-        } else
-          alert('체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요.');
-      }
-    }
-  };
+	const { userId, cardNum, waitingNum, status, timeOut } = userInfo;
+	const { gaepo, g_waiting, seocho, s_waiting } = clusterInfo;
 
-  const handleCheckOut = async () => {
-    if (window.confirm('퇴실 하시겠습니까?')) {
-      try {
-        await axios.post('/api/user/checkOut');
-        window.location.href = '/end';
-      } catch (err) {
-        alert('이미 처리된 작업입니다.');
-        window.location.href = '/';
-        console.log(err);
-      }
-    }
-  };
+	const handleCheckIn = async () => {
+		if (readySubmit) {
+			try {
+				const response = await axios.get(`/api/card/valid/${cardNum}`);
+				if (response.data["using"] === false) {
+					try {
+						await axios.post(`/api/user/checkIn/${cardNum}`);
+						window.location.href = "/end";
+					} catch (err) {
+						console.log(err);
+					}
+				} else {
+					setUserInfo({
+						...userInfo,
+						cardNum: "",
+					});
+					alert("이미 사용 중이거나 유효한 카드 번호가 아닙니다");
+				}
+			} catch (err) {
+				if (err.response.status === 400) {
+					const modal = document.getElementById("myModal");
+					modal.style.display = "flex";
+				} else
+					alert(
+						"체크인을 처리할 수 없습니다. 제한 인원 초과가 아닌 경우 관리자에게 문의해주세요."
+					);
+			}
+		}
+	};
 
-  const handleCheckAll = e => {
-    const isChecked = e.target.checked;
-    setCheckAll(isChecked);
-    setCheckStatus([isChecked, isChecked, isChecked]);
-  };
+	const handleCheckOut = async () => {
+		if (window.confirm("퇴실 하시겠습니까?")) {
+			try {
+				await axios.post("/api/user/checkOut");
+				window.location.href = "/end";
+			} catch (err) {
+				alert("이미 처리된 작업입니다.");
+				window.location.href = "/";
+				console.log(err);
+			}
+		}
+	};
+
+	const handleCheckAll = (e) => {
+		const isChecked = e.target.checked;
+		setCheckAll(isChecked);
+		setCheckStatus([isChecked, isChecked, isChecked]);
+	};
 
   // const handleWait = async () => {
   //   if (readyWait) {
@@ -117,12 +121,17 @@ function CheckInPage() {
   //   }
   // };
 
-  useEffect(() => {
-    const checkSubmitCondition = () => {
-      if (cardNum !== '' && JSON.stringify(checkStatus) === JSON.stringify([true, true, true]))
-        setReadySubmit(true);
-      else setReadySubmit(false);
-    };
+
+	useEffect(() => {
+		const checkSubmitCondition = () => {
+			if (
+				cardNum !== "" &&
+				JSON.stringify(checkStatus) ===
+					JSON.stringify([true, true, true])
+			)
+				setReadySubmit(true);
+			else setReadySubmit(false);
+		};
 
     // const checkWaitCondition = () => {
     //   if (waitingCheckStatus === true) setReadyWait(true);
@@ -158,8 +167,10 @@ function CheckInPage() {
     if (token !== '') getUserData();
     // else window.location.href = '/';
 
-    if (JSON.stringify(checkStatus) !== JSON.stringify([true, true, true])) setCheckAll(false);
-    else setCheckAll(true);
+
+		if (JSON.stringify(checkStatus) !== JSON.stringify([true, true, true]))
+			setCheckAll(false);
+		else setCheckAll(true);
 
     if (status === 'out') checkSubmitCondition();
     // if (waitStatus === 'ready') checkWaitCondition();

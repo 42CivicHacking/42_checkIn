@@ -26,6 +26,11 @@ export class WaitingController {
     return this.waitingService.create(req.user._id, type);
   }
 
+  @Post('wait')
+  async makeWait(@Req() req: any) {
+    return this.waitingService.wait(0, 0);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Delete('cancel')
   async cancelWaiting(@Req() req: any) {
