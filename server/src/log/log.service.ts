@@ -12,7 +12,7 @@ export class LogService {
     private readonly logger: MyLogger,
   ) {}
 
-  async getUserLog(login: string): Promise<Log[]> {
+  async getUserLog(login: string, page: number): Promise<Log[]> {
     try {
       this.logger.debug('getUserLog start');
       this.logger.debug('userName : ', login);
@@ -22,6 +22,8 @@ export class LogService {
           qb.where('Log__user.userName = :name', { name: login });
         },
         order: { createdAt: 'DESC' },
+        skip: 50 * page,
+        take: 50,
       });
     } catch (e) {
       this.logger.error(e);
@@ -29,7 +31,7 @@ export class LogService {
     }
   }
 
-  async getCardLog(id: number): Promise<Log[]> {
+  async getCardLog(id: number, page: number): Promise<Log[]> {
     try {
       this.logger.debug('getCardLog start');
       this.logger.debug('cardId : ', id);
@@ -37,6 +39,8 @@ export class LogService {
         where: { card: { cardId: id } },
         order: { createdAt: 'DESC' },
         relations: ['user', 'card'],
+        skip: 50 * page,
+        take: 50,
       });
     } catch (e) {
       this.logger.error(e);
@@ -84,8 +88,8 @@ export class LogService {
           qb.where('Log__card.type = :type', { type: type });
         },
         order: { createdAt: 'DESC' },
-        // skip: 50 * page,
-        // take: 50,
+        skip: 50 * page,
+        take: 50,
       });
     } catch (e) {
       this.logger.error(e);
