@@ -18,6 +18,9 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { TokenThrottlerGuard } from './token.guard';
 import { WaitingController } from './waiting/waiting.controller';
 import { WaitingModule } from './waiting/waiting.module';
+import { MailerModule } from '@nestjs-modules/mailer';
+import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -55,6 +58,24 @@ import { WaitingModule } from './waiting/waiting.module';
     }),
     WaitingModule,
     HttpModule,
+    MailerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        transport: configService.get('mailer.mail'),
+        defaults: {
+          from: '"42 출입 시스템" <42checkin@gmail.com>',
+        },
+        template: {
+          dir: __dirname + '/templates',
+          adapter: new EjsAdapter(),
+          options: {
+            strict: true,
+          },
+        },
+      }),
+    }),
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController, HealthController, WaitingController],
   providers: [

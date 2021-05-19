@@ -1,8 +1,10 @@
+import { MailerService } from '@nestjs-modules/mailer';
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { Timeout } from '@nestjs/schedule';
 import { CardRepository } from 'src/card/card.repository';
 import { UserRepository } from 'src/user/user.repository';
 import { Waiting } from './entities/waiting.entity';
@@ -14,6 +16,7 @@ export class WaitingService {
     private readonly waitingRepository: WaitingRepository,
     private readonly userRepository: UserRepository,
     private readonly cardRepository: CardRepository,
+    private readonly mailerService: MailerService,
   ) {}
 
   async create(id: number, type: number) {
@@ -27,6 +30,24 @@ export class WaitingService {
     this.waitingRepository.save(waiting);
   }
 
+  async mailer(userId: number, timeOut: Date) {
+    const user = await this.userRepository.findOne(userId);
+    const email = user.getEmail();
+    const date = timeOut.toLocaleTimeString();
+    await this.mailerService
+      .sendMail({
+        to: email, // list of receivers
+        from: '42checkin@gmail.com', // sender address
+        subject: '이제 입장하실 수 있습니다.', // Subject line
+        template: 'waitingMail', // HTML body content
+        context: {
+          timeOut: date,
+        },
+      })
+      .then(() => {})
+      .catch(() => {});
+  }
+
   async wait(order: number, type: number) {
     if (order < 0) throw new BadRequestException();
     const waiting = await this.waitingRepository.find({
@@ -35,15 +56,21 @@ export class WaitingService {
     });
     if (!waiting) return;
     if (waiting.length < order) return;
+
     waiting[order].setTimeOut();
-    const now = new Date();
-    setTimeout(
-      this.next,
-      waiting[order].getTimeOut().getTime() - now.getTime(),
-      waiting[order],
-    );
+    await this.mailer(waiting[order].getUserId(), waiting[order].getTimeOut());
+    await this.waitingRepository.save(waiting[order]);
+
+    this.next(waiting[order]);
+    // const now = new Date();
+    // setTimeout(
+    //   this.next,
+    //   waiting[order].getTimeOut().getTime() - now.getTime(),
+    //   waiting[order],
+    // );
   }
 
+  @Timeout(1000 * 60 * 1)
   async next(waiting: Waiting) {
     if (await this.delete(waiting.getId(), 'timeOut')) {
       const usingCard = (
@@ -55,10 +82,31 @@ export class WaitingService {
     }
   }
 
+  async getWaitingInfo() {
+    const gaepo = await this.waitingList(0);
+    const seocho = await this.waitingList(1);
+    return { gaepo: gaepo.length, seocho: seocho.length };
+  }
+
   async waitingList(type: number) {
     return await this.waitingRepository.find({
       where: { type: type, deleteType: null },
     });
+  }
+
+  async waitNum(id: number, type: number) {
+    const waitingList = await this.waitingList(type);
+    const num = waitingList.findIndex((ele, index) => {
+      return ele.getUserId() === id;
+    });
+    return num + 1;
+  }
+
+  async isWaiting(id: number) {
+    const waiting = await this.waitingRepository.find({
+      where: { user: { _id: id }, deleteType: null },
+    });
+    return waiting[0];
   }
 
   async delete(id: number, type: string) {
