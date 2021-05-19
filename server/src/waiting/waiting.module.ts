@@ -14,7 +14,7 @@ import { MailerModule } from '@nestjs-modules/mailer';
     TypeOrmModule.forFeature([WaitingRepository]),
     forwardRef(() => UserModule),
     CardModule,
-    MailerModule,
+    // MailerModule,
   ],
   providers: [WaitingService],
   controllers: [WaitingController],

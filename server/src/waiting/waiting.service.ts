@@ -16,8 +16,8 @@ export class WaitingService {
     private readonly waitingRepository: WaitingRepository,
     private readonly userRepository: UserRepository,
     private readonly cardRepository: CardRepository,
-    private readonly mailerService: MailerService,
-  ) {}
+  ) // private readonly mailerService: MailerService,
+  {}
 
   async create(id: number, type: number) {
     const user = await this.userRepository.findOne(id);
