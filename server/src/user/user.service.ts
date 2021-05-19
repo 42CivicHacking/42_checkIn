@@ -19,6 +19,8 @@ import { UserRepository } from './user.repository';
 import * as FormData from 'form-data';
 import { WaitingService } from 'src/waiting/waiting.service';
 import { WaitingRepository } from 'src/waiting/waiting.repository';
+import { StatusDTO } from './dto/status.dto';
+import { ClusterDTO } from './dto/cluster.dto';
 
 @Injectable()
 export class UserService {
@@ -63,21 +65,32 @@ export class UserService {
   async status(id: number): Promise<Object> {
     try {
       let returnVal = {
-        login: '',
-        card: 0,
-        gaepo: 0,
-        seocho: 0,
+        user: null,
+        cluster: null,
         isAdmin: false,
       };
       this.logger.debug('status start');
       this.logger.debug('user _id: ', id);
+
       const user = await this.userRepository.findWithCard(id);
+      const waiting = await this.waitingService.isWaiting(user.getId());
+      const waitingNum = waiting
+        ? await this.waitingService.waitNum(user.getId(), waiting.getType())
+        : null;
+
+      const userInfo = new StatusDTO(user, waitingNum, waiting);
       const using = await this.cardServcie.getUsingInfo();
-      returnVal.login = user.getName();
-      returnVal.card = user.getCard() ? user.getCard().getId() : null;
+      const waitingList = await this.waitingService.getWaitingInfo();
+      const cluster = new ClusterDTO(
+        using.gaepo,
+        using.seocho,
+        waitingList.gaepo,
+        waitingList.seocho,
+      );
+
+      returnVal.user = userInfo;
       returnVal.isAdmin = user.getIsAdmin();
-      returnVal.gaepo = using.gaepo;
-      returnVal.seocho = using.seocho;
+      returnVal.cluster = cluster;
       this.logger.debug('status returnVal : ', returnVal);
       return returnVal;
     } catch (e) {
