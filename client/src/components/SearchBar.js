@@ -23,13 +23,13 @@ const SearchBar = forwardRef((props, ref) => {
       let response;
       switch (props.type) {
         case 0:
-          response = await axios.get(`/api/log/${ClusterType === 0 ? 'gaepo' : 'seocho'}/${Page}`);
+          response = await axios.get(`/api/log/${ClusterType === 0 ? 'gaepo' : 'seocho'}?${Page}`);
           break;
         case 1:
-          response = await axios.get(`/api/log/user/${Login}`);
+          response = await axios.get(`/api/log/user/${Login}?${Page}`);
           break;
         case 2:
-          response = await axios.get(`/api/log/card/${CardId}}`);
+          response = await axios.get(`/api/log/card/${CardId}?${Page}`);
           break;
         default:
           break;
@@ -67,24 +67,6 @@ const SearchBar = forwardRef((props, ref) => {
           <button onClick={onSubmit}>불러오기</button>
         </div>
         <Paging Page={Page} setPage={setPage} />
-        {/* <div>
-          <button
-            onClick={() => {
-              setPage(Page === 0 ? 0 : Page - 1);
-            }}
-          >
-            이전 페이지
-          </button>
-          <label>{Page}</label>
-
-          <button
-            onClick={() => {
-              setPage(Page + 1);
-            }}
-          >
-            다음 페이지
-          </button>
-        </div> */}
       </form>
     </div>
   );
@@ -130,7 +112,6 @@ const SearchBar = forwardRef((props, ref) => {
       </form>
     </div>
   );
-
   switch (props.type) {
     case 0:
       return Cluster();

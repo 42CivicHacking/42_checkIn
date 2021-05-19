@@ -20,7 +20,7 @@ function AdminPage() {
   };
 
   useEffect(() => {
-    // checkAdmin();
+    checkAdmin();
   }, []);
 
   const handleClusterButton = () => {
