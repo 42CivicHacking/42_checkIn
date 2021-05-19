@@ -58,23 +58,23 @@ import { ScheduleModule } from '@nestjs/schedule';
     }),
     WaitingModule,
     HttpModule,
-    MailerModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        transport: configService.get('mailer.mail'),
-        defaults: {
-          from: '"42 출입 시스템" <42checkin@gmail.com>',
-        },
-        template: {
-          dir: __dirname + '/templates',
-          adapter: new EjsAdapter(),
-          options: {
-            strict: true,
-          },
-        },
-      }),
-    }),
+    // MailerModule.forRootAsync({
+    //   imports: [ConfigModule],
+    //   inject: [ConfigService],
+    //   useFactory: (configService: ConfigService) => ({
+    //     transport: configService.get('mailer.mail'),
+    //     defaults: {
+    //       from: '"42 출입 시스템" <42checkin@gmail.com>',
+    //     },
+    //     template: {
+    //       dir: __dirname + '/templates',
+    //       adapter: new EjsAdapter(),
+    //       options: {
+    //         strict: true,
+    //       },
+    //     },
+    //   }),
+    // }),
     ScheduleModule.forRoot(),
   ],
   controllers: [AppController, HealthController, WaitingController],
