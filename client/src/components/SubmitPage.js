@@ -163,7 +163,7 @@ function CheckInPage() {
 
 		const token = getCookieValue("w_auth");
 		if (token !== "") getUserData();
-		// else window.location.href = '/';
+		else window.location.href = "/";
 
 		if (JSON.stringify(checkStatus) !== JSON.stringify([true, true, true]))
 			setCheckAll(false);
