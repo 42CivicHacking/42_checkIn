@@ -7,7 +7,6 @@ const SearchBar = forwardRef((props, ref) => {
 	useImperativeHandle(ref, () => ({
 		onSubmit,
 	}));
-	console.log("render");
 	const [ClusterType, setClusterType] = useState(0);
 	//   const [Page, setPage] = useState(0);
 	const [Login, setLogin] = useState("");
@@ -97,19 +96,16 @@ const SearchBar = forwardRef((props, ref) => {
 			}
 			if (props.type === 4) {
 				let newdata = [];
-				console.log(data);
 				const card = ClusterType == 0 ? gaepoCard : seochoCard;
 				card.map((item, index) => {
 					const tmp = data.find((ele) => {
 						if (ele.card.cardId === item) return true;
 					});
-					console.log(tmp);
 					newdata.push({ id: item, ...tmp });
 				});
 				data = newdata;
 			}
 			props.setLogs(data);
-			console.log(data);
 		} catch (err) {
 			console.log(err);
 		}
