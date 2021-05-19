@@ -81,7 +81,7 @@ import { ScheduleModule } from '@nestjs/schedule';
   providers: [
     AppService,
     Logger,
-    { provide: APP_GUARD, useClass: TokenThrottlerGuard },
+    // { provide: APP_GUARD, useClass: TokenThrottlerGuard },
   ],
 })
 export class AppModule {}
