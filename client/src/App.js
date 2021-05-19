@@ -5,6 +5,7 @@ import EndPage from "./components/EndPage";
 import AdminPage from "./components/AdminPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import "./App.css";
+import Test from "./components/Test";
 
 function App() {
 	return (
@@ -14,6 +15,7 @@ function App() {
 				<Route path="/submit" component={SubmitPage} />
 				<Route path="/end" component={EndPage} />
 				<Route path="/admin" component={AdminPage} />
+				{/* <Route path="/test" component={Test} /> */}
 				<Route component={NotFoundPage} />
 			</Switch>
 		</BrowserRouter>
