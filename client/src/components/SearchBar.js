@@ -100,6 +100,7 @@ const SearchBar = forwardRef((props, ref) => {
 					const tmp = data.find((ele) => {
 						if (ele.card.cardId === item) return true;
 					});
+					console.log(tmp);
 					newdata.push({ id: item, ...tmp });
 				});
 				data = newdata;
