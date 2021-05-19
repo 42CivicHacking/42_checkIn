@@ -159,15 +159,19 @@ function CheckInPage() {
 				else if (cluster.gaepo !== 150 && cluster.seocho === 150)
 					setWaitingCluster("seocho");
 			} catch (err) {
+				console.log(err);
 				document.cookie =
 					"w_auth=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-				window.location.href = "/";
+				// window.location.href = "/";
 			}
 		};
 
 		const token = getCookieValue("w_auth");
 		if (token !== "") getUserData();
-		else window.location.href = "/";
+		else {
+			console.log("token null");
+			// window.location.href = "/";
+		}
 
 		if (JSON.stringify(checkStatus) !== JSON.stringify([true, true, true]))
 			setCheckAll(false);
