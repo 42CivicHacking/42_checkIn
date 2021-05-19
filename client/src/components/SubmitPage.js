@@ -42,6 +42,7 @@ function CheckInPage() {
 		if (readySubmit) {
 			try {
 				const response = await axios.get(`/api/card/valid/${cardNum}`);
+				console.log(cardNum);
 				console.log(response.data);
 				if (response.data["using"] === false) {
 					try {
