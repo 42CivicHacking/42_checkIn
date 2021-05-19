@@ -15,9 +15,8 @@ export class WaitingService {
   constructor(
     private readonly waitingRepository: WaitingRepository,
     private readonly userRepository: UserRepository,
-    private readonly cardRepository: CardRepository,
-  ) // private readonly mailerService: MailerService,
-  {}
+    private readonly cardRepository: CardRepository, // private readonly mailerService: MailerService,
+  ) {}
 
   async create(id: number, type: number) {
     const user = await this.userRepository.findOne(id);
@@ -34,18 +33,18 @@ export class WaitingService {
     const user = await this.userRepository.findOne(userId);
     const email = user.getEmail();
     const date = timeOut.toLocaleTimeString();
-    await this.mailerService
-      .sendMail({
-        to: email, // list of receivers
-        from: '42checkin@gmail.com', // sender address
-        subject: '이제 입장하실 수 있습니다.', // Subject line
-        template: 'waitingMail', // HTML body content
-        context: {
-          timeOut: date,
-        },
-      })
-      .then(() => {})
-      .catch(() => {});
+    // await this.mailerService
+    //   .sendMail({
+    //     to: email, // list of receivers
+    //     from: '42checkin@gmail.com', // sender address
+    //     subject: '이제 입장하실 수 있습니다.', // Subject line
+    //     template: 'waitingMail', // HTML body content
+    //     context: {
+    //       timeOut: date,
+    //     },
+    //   })
+    //   .then(() => {})
+    //   .catch(() => {});
   }
 
   async wait(order: number, type: number) {
