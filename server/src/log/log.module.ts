@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { LogRepository } from './log.repository';
 import { UserModule } from 'src/user/user.module';
 import { LoggerModule } from 'src/logger/logger.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { LoggingInterceptor } from 'src/logging.interceptor';
 
 @Module({
   imports: [

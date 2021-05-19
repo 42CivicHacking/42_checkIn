@@ -44,4 +44,14 @@ export class CardController {
   async getUsingInfo() {
     return await this.cardServcie.getUsingInfo();
   }
+
+  @Get('usingCard')
+  async getUsingCard() {
+    return await this.cardServcie.getUsingCard();
+  }
+
+  @Post('release/:id')
+  async releaseCard(@Param('id') id: number) {
+    return await this.cardServcie.releaseCard(id);
+  }
 }

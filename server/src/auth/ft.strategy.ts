@@ -14,14 +14,18 @@ export class FtStrategy extends PassportStrategy(Strategy) {
     super({
       clientID: configService.get('client.id'),
       clientSecret: configService.get('client.secret'),
-      callbackURL: 'https://cluster.42seoul.io/api/user/login/callback',
+      callbackURL: configService.get('client.callback'),
     });
   }
   async validate(token: string, rt: string, profile: any) {
     try {
-      this.logger.log('oauth validation start');
-      const user = new User(profile.id, profile.username);
-      this.logger.log('authroized info : ', profile.id, profile.username);
+      this.logger.debug('oauth validation start');
+      const user = new User(
+        profile.id,
+        profile.username,
+        profile.emails[0].value,
+      );
+      this.logger.debug('authroized info : ', profile.id, profile.username);
       if (profile._json.cursus_users.length < 2)
         throw new NotAcceptableException();
       return user;

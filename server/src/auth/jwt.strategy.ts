@@ -22,8 +22,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
   async validate(payload: any) {
-    this.logger.log('jwt extracting...');
-    this.logger.log('jwt extracted data : ', payload.sub, payload.username);
+    this.logger.debug('jwt extracting...');
+    this.logger.debug('jwt extracted data : ', payload.sub, payload.username);
     return { _id: payload.sub, name: payload.username };
   }
 }
