@@ -1,0 +1,16 @@
+.paging-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.pagingBtn {
+  text-align: center;
+  font-family: 'Futura', 'Sans serif';
+  border-radius: 3px;
+  color: whitesmoke;
+  padding: 10px;
+  background: none;
+  /* font-size: 1rem; */
+  border: 1px solid whitesmoke;
+  /* margin-bottom: 7px; */
+}

@@ -1,0 +1,43 @@
+.modal {
+  width: 100vw;
+  height: 100vh;
+  max-height: -webkit-fill-available;
+  font-family: 'Futura', 'Sans serif';
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: black;
+}
+
+.modal-content {
+  width: 80%;
+  border-radius: 3px;
+  background-color: whitesmoke;
+}
+
+.close {
+  width: 100%;
+  padding: 10px;
+  font-family: 'Futura', 'Sans serif';
+  font-size: 1rem;
+  background: none;
+  border: none;
+  border-top: 1px solid #888;
+  text-align: center;
+}
+.close:hover,
+.close:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+.text {
+  margin: 10px;
+  text-align: center;
+  word-break: keep-all;
+}

@@ -1,15 +1,16 @@
-import axios from "axios";
-import React, { forwardRef, useImperativeHandle, useState } from "react";
-import "../styles/SearchBar.css";
+import axios from 'axios';
+import React, { forwardRef, useImperativeHandle, useState } from 'react';
+import '../styles/SearchBar.css';
+import Paging from '../components/Paging';
 
 const SearchBar = forwardRef((props, ref) => {
-	useImperativeHandle(ref, () => ({
-		onSubmit,
-	}));
-	const [ClusterType, setClusterType] = useState(0);
-	const [Page, setPage] = useState(0);
-	const [Login, setLogin] = useState("");
-	const [CardId, setCardId] = useState(0);
+  useImperativeHandle(ref, () => ({
+    onSubmit
+  }));
+  const [ClusterType, setClusterType] = useState(0);
+  const [Page, setPage] = useState(0);
+  const [Login, setLogin] = useState('');
+  const [CardId, setCardId] = useState(0);
 
 	const gaepoCard = [
 		1,
@@ -183,14 +184,14 @@ const SearchBar = forwardRef((props, ref) => {
 					);
 					break;
 				case 1:
-					response = await axios.get(`/api/log/user/${Login}`);
+					response = await axios.get(`/api/log/user/${Login}?${Page}`);
 					break;
 				case 2:
-					response = await axios.get(`/api/log/card/${CardId}`);
+					response = await axios.get(`/api/log/card/${CardId}?${Page}`);
 					break;
 				case 3:
 					response = await axios.get(
-						`/api/log/checkIn/${ClusterType}`
+						`/api/log/checkIn/${ClusterType}?${Page}`
 					);
 				case 4:
 					response = await axios.get(
@@ -229,105 +230,90 @@ const SearchBar = forwardRef((props, ref) => {
 		}
 	};
 
-	const Cluster = () => (
-		<div className="control-section">
-			<form onSubmit={onSubmit}>
-				<div>
-					<label>
-						<input
-							type="radio"
-							name="cluster"
-							value={0}
-							checked={ClusterType == 0}
-							onChange={handleClick}
-						/>
-						개포
-					</label>
-					<label>
-						<input
-							type="radio"
-							name="cluster"
-							value={1}
-							checked={ClusterType == 1}
-							onChange={handleClick}
-						/>
-						서초
-					</label>
-					<button onClick={onSubmit}>불러오기</button>
-				</div>
-				{/* <div>
-					<label>{Page}</label>
-					<button
-						onClick={() => {
-							setPage(Page === 0 ? 0 : Page - 1);
-						}}
-					>
-						이전 페이지
-					</button>
-					<button
-						onClick={() => {
-							setPage(Page + 1);
-						}}
-					>
-						다음 페이지
-					</button>
-				</div> */}
-			</form>
-		</div>
-	);
+  const Cluster = () => (
+    <div className='control-section'>
+      <form onSubmit={onSubmit}>
+        <div>
+          <label>
+            <input
+              type='radio'
+              name='cluster'
+              value={0}
+              checked={ClusterType == 0}
+              onChange={handleClick}
+            />
+            개포
+          </label>
+          <label>
+            <input
+              type='radio'
+              name='cluster'
+              value={1}
+              checked={ClusterType == 1}
+              onChange={handleClick}
+            />
+            서초
+          </label>
+          <button onClick={onSubmit}>불러오기</button>
+        </div>
+        <Paging Page={Page} setPage={setPage} />
+      </form>
+    </div>
+  );
 
-	const Student = () => (
-		<div className="control-section">
-			<form>
-				<input
-					type="text"
-					name="로그인"
-					value={Login}
-					placeholder="인트라 아이디"
-					onChange={(e) => {
-						setLogin(e.target.value);
-					}}
-					style={{
-						textAlign: "center",
-					}}
-				/>
-				<button onClick={onSubmit}>불러오기</button>
-			</form>
-		</div>
-	);
+  const Student = () => (
+    <div className='control-section'>
+      <form>
+        <input
+          type='text'
+          name='로그인'
+          value={Login}
+          placeholder='인트라 아이디'
+          onChange={e => {
+            setLogin(e.target.value);
+          }}
+          style={{
+            textAlign: 'center'
+          }}
+        />
+        <button onClick={onSubmit}>불러오기</button>
+        <Paging Page={Page} setPage={setPage} />
+      </form>
+    </div>
+  );
 
-	const Card = () => (
-		<div className="control-section">
-			<form>
-				<input
-					type="text"
-					name="text"
-					value={CardId}
-					placeholder="카드번호"
-					onChange={(e) => {
-						setCardId(e.target.value);
-					}}
-					style={{
-						textAlign: "center",
-					}}
-				/>
-				<button onClick={onSubmit}>불러오기</button>
-			</form>
-		</div>
-	);
-
-	switch (props.type) {
-		case 0:
+  const Card = () => (
+    <div className='control-section'>
+      <form>
+        <input
+          type='text'
+          name='text'
+          value={CardId}
+          placeholder='카드번호'
+          onChange={e => {
+            setCardId(e.target.value);
+          }}
+          style={{
+            textAlign: 'center'
+          }}
+        />
+        <button onClick={onSubmit}>불러오기</button>
+        <Paging Page={Page} setPage={setPage} />
+      </form>
+    </div>
+  );
+  switch (props.type) {
+    case 0:
+      return Cluster();
+    case 1:
+      return Student();
+    case 2:
+      return Card();
+    case 3:
 			return Cluster();
-		case 1:
-			return Student();
-		case 2:
-			return Card();
-		case 3:
-			return Cluster();
-		default:
-			return Cluster();
-	}
+    default:
+      return Cluster();
+  }
 });
 
 export default SearchBar;

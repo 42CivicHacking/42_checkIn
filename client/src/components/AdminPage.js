@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import SearchBar from "./SearchBar";
-import * as moment from "moment";
-import axios from "axios";
-import "../styles/AdminPage.css";
+import React, { useEffect, useRef, useState } from 'react';
+import SearchBar from './SearchBar';
+import * as moment from 'moment';
+import axios from 'axios';
+import '../styles/AdminPage.css';
 
 function AdminPage() {
-	const [LogType, setLogType] = useState(0);
-	const [Logs, setLogs] = useState([]);
-	const ref = useRef();
+  const [LogType, setLogType] = useState(0);
+  const [Logs, setLogs] = useState([]);
+  const ref = useRef();
 
 	const checkAdmin = async () => {
 		try {
@@ -20,24 +20,25 @@ function AdminPage() {
 		}
 	};
 
-	useEffect(() => {
-		checkAdmin();
-	}, []);
+  useEffect(() => {
+    checkAdmin();
+  }, []);
 
-	const handleClusterButton = () => {
-		setLogs([]);
-		setLogType(0);
-	};
+  const handleClusterButton = () => {
+    setLogs([]);
+    setLogType(0);
+  };
 
-	const handleStudentButton = () => {
-		setLogs([]);
-		setLogType(1);
-	};
+  const handleStudentButton = () => {
+    setLogs([]);
+    setLogType(1);
+  };
 
-	const handleCardButton = () => {
-		setLogs([]);
-		setLogType(2);
-	};
+  const handleCardButton = () => {
+    setLogs([]);
+    setLogType(2);
+  };
+
 
 	const handleCheckInButton = () => {
 		setLogs([]);
