@@ -73,19 +73,22 @@ export class UserService {
       this.logger.debug('user _id: ', id);
 
       const user = await this.userRepository.findWithCard(id);
-      const waiting = await this.waitingService.isWaiting(user.getId());
-      const waitingNum = waiting
-        ? await this.waitingService.waitNum(user.getId(), waiting.getType())
-        : null;
+      // const waiting = await this.waitingService.isWaiting(user.getId());
+      // const waitingNum = waiting
+      // ? await this.waitingService.waitNum(user.getId(), waiting.getType())
+      // : null;
 
-      const userInfo = new StatusDTO(user, waitingNum, waiting);
+      // const userInfo = new StatusDTO(user, waitingNum, waiting);
+      const userInfo = new StatusDTO(user, null, null);
       const using = await this.cardServcie.getUsingInfo();
-      const waitingList = await this.waitingService.getWaitingInfo();
+      // const waitingList = await this.waitingService.getWaitingInfo();
       const cluster = new ClusterDTO(
         using.gaepo,
         using.seocho,
-        waitingList.gaepo,
-        waitingList.seocho,
+        null,
+        null,
+        // waitingList.gaepo,
+        // waitingList.seocho,
       );
 
       returnVal.user = userInfo;
