@@ -95,6 +95,7 @@ const SearchBar = forwardRef((props, ref) => {
 			}
 			if (props.type === 4) {
 				let newdata = [];
+				console.log(data);
 				const card = ClusterType == 0 ? gaepoCard : seochoCard;
 				card.map((item, index) => {
 					const tmp = data.find((ele) => {
