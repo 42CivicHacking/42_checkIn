@@ -183,8 +183,8 @@ function CheckInPage() {
 					{gaepo === 150 ? `(${g_waiting})` : ""}
 				</h4>
 				<h4>
-					서초 인원 : {seocho} / 150{" "}
-					{seocho === 150 ? `(${s_waiting})` : ""}
+					서초 인원 : {seocho} / 90{" "}
+					{seocho === 90 ? `(${s_waiting})` : ""}
 				</h4>
 				<h3> Intra ID : {userId}</h3>
 				{status === "in" ? (

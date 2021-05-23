@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Card } from 'src/card/entities/card.entity';
 import { MyLogger } from 'src/logger/logger.service';
 import { User } from 'src/user/entities/user.entity';
+import { Brackets } from 'typeorm';
 import { Log } from './entities/log.entity';
 import { LogRepository } from './log.repository';
 
@@ -126,6 +127,13 @@ export class LogService {
           qb.where('Log__card.type = :type', {
             type: type,
           })
+            // .andWhere(
+            //   new Brackets((qb) => {
+            //     qb.where(
+            //       'Log__user.cardId = Log__card.cardId',
+            //     ).andWhere('type = :type', { type: 'checkIn' });
+            //   }),
+            // )
             .andWhere('Log__user.cardId = Log__card.cardId')
             // .andWhere('type = :type', { type: 'checkIn' })
             .orderBy('Log__card.cardId', 'DESC');
