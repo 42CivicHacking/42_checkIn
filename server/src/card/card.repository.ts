@@ -13,7 +13,9 @@ export class CardRepository extends Repository<Card> {
         where: { using: true, type: card.getType() },
       })
     ).length;
-    if (usingCard >= 150) throw new BadRequestException();
+    if (usingCard >= 150 && card.getType() == 0)
+      throw new BadRequestException();
+    if (usingCard >= 90 && card.getType() == 1) throw new BadRequestException();
     card.useCard();
     await this.save(card);
     return card;

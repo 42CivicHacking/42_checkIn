@@ -144,7 +144,10 @@ export class UserService {
         })
       ).length;
       //150명 다 찼으면 체크인 불가
-      if (usingCard >= 150) throw new BadRequestException();
+      if (usingCard >= 150 && card.getType() == 0)
+        throw new BadRequestException();
+      if (usingCard >= 90 && card.getType() == 1)
+        throw new BadRequestException();
 
       //대기자 수와 현재 사용자 수 합쳐서 150명 넘으면 대기자만 체크인 가능
       const waitingNum = (await this.waitingService.waitingList(card.getType()))
