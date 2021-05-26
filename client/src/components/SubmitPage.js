@@ -173,7 +173,7 @@ function CheckInPage() {
       <div id="checkinout">
         <h1 id="title">{status === 'in' ? '42 CheckOut' : '42 CheckIn'}</h1>
         <h4>개포 인원 : {gaepo} / 150</h4>
-        <h4>서초 인원 : {seocho} / 150</h4>
+        <h4>서초 인원 : {seocho} / 90</h4>
         <h3> Intra ID : {userId}</h3>
         {status === 'in' ? (
           <>
