@@ -11,7 +11,7 @@ import '../styles/SubmitPage.css';
 function CheckInPage() {
   const [userInfo, setUserInfo] = useState({
     userId: '',
-    cardNum: null,
+    cardNum: '',
     waitingNum: null,
     status: 'out',
     timeOut: null,
@@ -45,7 +45,7 @@ function CheckInPage() {
         } else {
           setUserInfo({
             // ...userInfo,
-            cardNum: null,
+            cardNum: '',
           });
           alert('이미 사용 중이거나 유효한 카드 번호가 아닙니다');
         }
@@ -87,7 +87,7 @@ function CheckInPage() {
         const { user, cluster } = response.data;
         setUserInfo({
           userId: user.login,
-          cardNum: user.card,
+          cardNum: user.card !== null ? user.card : '',
           status: user.card !== null ? 'in' : 'out',
           waitingNum: user.waitingNum,
           timeOut: user.timeOut,
@@ -110,22 +110,20 @@ function CheckInPage() {
   }, []);
 
   useEffect(() => {
-    const checkSubmitCondition = () => {
-      if (
-        cardNum !== null &&
-        JSON.stringify(checkStatus) === JSON.stringify([true, true, true])
-      )
-        setReadySubmit(true);
-      else setReadySubmit(false);
-    };
-    if (status === 'out') checkSubmitCondition();
-    if (
-      cardNum !== '' &&
-      JSON.stringify(checkStatus) === JSON.stringify([true, true, true])
-    )
+    if (cardNum !== '' && checkAll) {
       setReadySubmit(true);
-    else setReadySubmit(false);
-  }, [cardNum, checkStatus, status]);
+    } else {
+      setReadySubmit(false);
+    }
+  }, [cardNum, checkAll]);
+
+  useEffect(() => {
+    if (JSON.stringify(checkStatus) === JSON.stringify([true, true, true])) {
+      setCheckAll(true);
+    } else {
+      setCheckAll(false);
+    }
+  }, [checkStatus]);
 
   return (
     <div id="page-wrapper">
