@@ -44,7 +44,7 @@ function CheckInPage() {
           }
         } else {
           setUserInfo({
-            // ...userInfo,
+            ...userInfo,
             cardNum: '',
           });
           alert('이미 사용 중이거나 유효한 카드 번호가 아닙니다');
@@ -179,7 +179,7 @@ function CheckInPage() {
               value={cardNum}
               handleChange={(e) => {
                 setUserInfo({
-                  // ...userInfo,
+                  ...userInfo,
                   cardNum: e.target.value,
                 });
               }}
